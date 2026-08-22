@@ -642,28 +642,169 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .radar-card .rc-row3{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted);flex-wrap:wrap}
 .rc-row3 .rc-source{color:#2563EB;font-size:11px}
 
+/* ===== Mobile Bottom Nav ===== */
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--sidebar-bg);z-index:999;padding:6px 0 env(safe-area-inset-bottom,6px);box-shadow:0 -2px 12px rgba(0,0,0,0.15)}
+.mobile-nav-inner{display:flex;overflow-x:auto;gap:2px;padding:0 4px;scrollbar-width:none;-ms-overflow-style:none}
+.mobile-nav-inner::-webkit-scrollbar{display:none}
+.mnav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 10px;border-radius:8px;cursor:pointer;border:none;background:none;color:rgba(255,255,255,0.6);font-size:10px;font-family:var(--font-sans);white-space:nowrap;flex-shrink:0;transition:all 0.15s;min-width:56px}
+.mnav-item .mnav-icon{font-size:16px;line-height:1}
+.mnav-item .mnav-label{font-size:9px;font-weight:400}
+.mnav-item.active{color:var(--white);background:rgba(255,255,255,0.12);font-weight:500}
+.mnav-item:hover{color:var(--white)}
+
+/* ===== Mobile Menu Toggle ===== */
+.mobile-menu-toggle{display:none;background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;padding:4px;line-height:1}
+
+/* ===== Scrollable content areas on mobile ===== */
+.mobile-scroll-x{overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px}
+.mobile-scroll-x::-webkit-scrollbar{display:none}
+
 @media(max-width:1280px){
   .topic-board{overflow-x:auto;gap:12px}
   .topic-col{min-width:320px}
 }
 @media(max-width:1024px){
   .source-grid{grid-template-columns:repeat(3,1fr)}
+  .stats-kpi{grid-template-columns:repeat(2,1fr)}
+  .pub-kpi{grid-template-columns:repeat(2,1fr)}
+  .stats-two-col{flex-direction:column}
+  .w-pipeline{overflow-x:auto;padding-bottom:4px}
+  .w-pipe-card{min-width:120px;flex:0 0 auto}
+  .w-pipe-arrow{flex:0 0 auto}
 }
 @media(max-width:768px){
-  .sidebar{width:56px}
-  .sidebar-brand h1,.sidebar-brand .brand-sub,.nav-item span,.sidebar-footer .user-info,.sidebar-footer .user-role{display:none}
-  .nav-item{justify-content:center;padding:10px}
-  .sidebar-footer{justify-content:center;padding:10px}
-  .main-header{padding:0 14px}
-  .content-area{padding:14px}
-  .kpi-bar{grid-template-columns:repeat(2,1fr)}
-  .source-grid{grid-template-columns:repeat(2,1fr)}
-  .focus-bar{flex-wrap:wrap;gap:8px}
+  .app{flex-direction:column;height:auto;min-height:100vh}
+  .sidebar{width:100%;flex-direction:row;height:auto;padding:8px 12px;position:sticky;top:0;z-index:100;align-items:center;gap:8px}
+  .sidebar-brand{display:flex;flex-direction:row;align-items:center;gap:8px;padding:0;border:none;flex-shrink:0}
+  .sidebar-brand h1{font-size:0.9rem}
+  .sidebar-brand .brand-sub{display:none}
+  .sidebar-nav{display:none}
+  .sidebar-footer{display:none}
+  .mobile-nav{display:block}
+  .mobile-menu-toggle{display:block}
+  .main{flex:1;padding-bottom:72px}
+  .main-header{padding:0 14px;height:auto;min-height:52px;flex-wrap:wrap;gap:6px}
+  .main-header .page-title{font-size:0.95rem}
+  .main-header .page-title span{display:none}
+  .header-actions{gap:6px;flex-wrap:wrap}
+  .header-btn{font-size:0.7rem;padding:4px 10px}
+  .header-status{font-size:0.65rem}
+  .content-area{padding:12px 12px 20px}
+  .kpi-bar{grid-template-columns:repeat(2,1fr);gap:10px}
+  .kpi-card{padding:12px 14px}
+  .kpi-card .kpi-value{font-size:1.3rem}
+  .kpi-card .kpi-label{font-size:0.72rem}
+  .source-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .source-card{padding:12px}
+  .source-card .sc-name{font-size:0.82rem}
+  .source-card .sc-update{font-size:0.7rem}
+  .focus-bar{flex-wrap:wrap;gap:8px;padding:10px 14px}
+  .focus-bar .focus-items{gap:8px}
+  .focus-bar .focus-item{font-size:0.72rem;padding:4px 10px}
+  .topic-board{grid-template-columns:1fr;gap:12px}
+  .topic-col{min-width:unset}
+  .section-header h2{font-size:0.95rem}
   .modal{width:95%;max-height:90vh}
+  .modal-body{padding:14px 16px}
+  .drawer{width:100vw;max-width:100vw}
+  .stats-kpi{grid-template-columns:1fr 1fr;gap:10px}
+  .stats-kpi .kpi-big{padding:14px}
+  .kpi-big .kpi-num{font-size:26px}
+  .stats-two-col{flex-direction:column}
+  .pub-kpi{grid-template-columns:1fr 1fr;gap:10px}
+  .pub-kpi .pk-card{padding:14px}
+  .pk-card .pk-num{font-size:28px}
+  .pub-toolbar{flex-wrap:wrap;gap:6px;padding:8px 12px}
+  .pub-search{width:120px}
+  .w-pipeline{overflow-x:auto;padding-bottom:4px;gap:4px}
+  .w-pipe-card{min-width:100px;flex:0 0 auto;padding:10px 12px;height:60px}
+  .w-pipe-card .pc-num{font-size:20px}
+  .w-pipe-arrow{font-size:12px}
+  .w-toolbar{flex-wrap:wrap;gap:6px;padding:8px 12px}
+  .topic-toolbar{flex-wrap:wrap;gap:6px;padding:8px 12px}
+  .radar-toolbar{flex-wrap:wrap;gap:6px;padding:8px 12px}
+  .stats-card{padding:14px}
+  .stats-card .sc-head h3{font-size:14px}
+  .rank-table td,.rank-table th{padding:6px 8px;font-size:11px}
+  .rank-table .td-title{max-width:140px}
+  .tool-card .tc-body{padding:12px 10px}
+  .tool-card .tc-icon{font-size:1.4rem}
+  .pipeline{gap:8px}
+  .pipe-label{font-size:11px;width:48px}
+  .file-path-list{font-size:0.65rem;padding:8px 10px}
+  .cmd-input-wrap{padding:0 10px}
+  .cmd-input-wrap input{font-size:0.75rem;padding:10px 0}
+  .cmd-bar-footer{padding:4px 10px}
+  .cmd-bar-footer .cmd-quick{font-size:0.6rem}
+  .import-format-grid{grid-template-columns:1fr 1fr}
+  .plan-timeline{gap:4px}
+  .plan-day{padding:4px 10px;font-size:11px}
+  .plan-card{padding:10px 12px}
+  .plan-card .pc-row1{font-size:13px}
+  .d-filter{flex-wrap:wrap;gap:4px}
+  .d-filter .d-search{width:100%}
+  .d-stats{overflow-x:auto}
+  .d-stats .ds-item{min-width:60px}
+  .d-card{padding:12px}
+  .dc-title{font-size:13px}
+  .import-dropzone{padding:24px 16px}
+  .import-rules{font-size:0.72rem}
 }
 @media(max-width:480px){
-  .kpi-bar{grid-template-columns:1fr}
-  .source-grid{grid-template-columns:1fr}
+  .sidebar-brand h1{font-size:0.8rem}
+  .sidebar-brand .brand-icon{gap:4px}
+  .kpi-bar{grid-template-columns:1fr 1fr;gap:8px}
+  .kpi-card{padding:10px 12px}
+  .kpi-card .kpi-value{font-size:1.1rem}
+  .source-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .source-card{padding:10px}
+  .section-header{flex-wrap:wrap;gap:6px}
+  .section-header h2{font-size:0.85rem}
+  .main-header .page-title{font-size:0.85rem}
+  .content-area{padding:8px 8px 16px}
+  .header-btn{font-size:0.65rem;padding:3px 8px}
+  .stats-kpi{grid-template-columns:1fr 1fr;gap:8px}
+  .stats-kpi .kpi-big{padding:12px}
+  .kpi-big .kpi-num{font-size:22px}
+  .pub-kpi{grid-template-columns:1fr 1fr;gap:8px}
+  .pub-kpi .pk-card{padding:12px}
+  .pk-card .pk-num{font-size:24px}
+  .rank-table .td-title{max-width:100px}
+  .pc-data{gap:12px;flex-wrap:wrap}
+  .pc-data .pc-d-item{font-size:11px}
+  .wc-steps{overflow-x:auto;padding-bottom:4px}
+  .wc-step{min-width:60px;font-size:10px;height:24px}
+  .wc-row4{font-size:11px;gap:6px}
+  .tc-row3{font-size:11px;gap:8px}
+  .topic-item-new{padding:14px}
+  .topic-item-new .tc-title{font-size:13px}
+  .pub-card{padding:14px}
+  .pc-title{font-size:13px}
+  .w-card{padding:14px}
+  .wc-title{font-size:13px}
+  .mnav-item{padding:3px 8px;min-width:48px}
+  .mnav-item .mnav-icon{font-size:14px}
+  .mnav-item .mnav-label{font-size:8px}
+  .modal{width:100%;border-radius:var(--radius) var(--radius) 0 0;max-height:92vh;margin-top:auto;align-self:flex-end}
+  .modal-overlay.active{align-items:flex-end}
+  .modal-header{padding:14px 16px}
+  .modal-body{padding:12px 14px}
+  .import-format-grid{grid-template-columns:1fr}
+  .d-card{padding:10px}
+  .dc-title{font-size:12px}
+  .dc-tags{gap:2px}
+  .dc-tg{font-size:10px;padding:1px 6px}
+  .d-filter{padding:6px 8px}
+  .d-filter select{font-size:10px}
+  .d-stats .ds-val{font-size:16px}
+  .d-stats .ds-lbl{font-size:10px}
+  .plan-day{font-size:10px;padding:3px 8px}
+  .plan-card .pc-row1{font-size:12px}
+  .plan-card .pc-row3{font-size:11px}
+  .tool-card .tc-body{padding:10px 8px}
+  .tool-card .tc-icon{font-size:1.2rem}
+  .tool-card .tc-name{font-size:12px}
+  .tool-card .tc-desc{font-size:10px}
 }
 
 /* ===== Import Dialog ===== */
@@ -766,6 +907,20 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
     <div class="user-info"><div class="user-name">杨老师</div><div class="user-role">15年央国企规划</div></div>
   </div>
 </aside>
+
+<!-- ===== Mobile Bottom Nav ===== -->
+<nav class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-inner">
+    <button class="mnav-item active" data-page="dashboard"><span class="mnav-icon">📊</span><span class="mnav-label">全览看板</span></button>
+    <button class="mnav-item" data-page="topic"><span class="mnav-icon">📝</span><span class="mnav-label">选题管理</span></button>
+    <button class="mnav-item" data-page="writing"><span class="mnav-icon">✍️</span><span class="mnav-label">写作中</span></button>
+    <button class="mnav-item" data-page="archive"><span class="mnav-icon">✅</span><span class="mnav-label">已发布</span></button>
+    <button class="mnav-item" data-page="stats"><span class="mnav-icon">📈</span><span class="mnav-label">数据统计</span></button>
+    <button class="mnav-item" data-page="radar"><span class="mnav-icon">📡</span><span class="mnav-label">信息雷达</span></button>
+    <button class="mnav-item" data-page="tools"><span class="mnav-icon">🔧</span><span class="mnav-label">创作工具</span></button>
+    <button class="mnav-item" data-page="terminated"><span class="mnav-icon">🗑️</span><span class="mnav-label">已终止</span></button>
+  </div>
+</nav>
 
 <!-- ===== Main ===== -->
 <div class="main">
@@ -3864,8 +4019,8 @@ function renderToolsPanel() {
 // NAVIGATION & PANEL SWITCHING
 // ===================================================================
 function switchPanel(panelId) {
-  const pageMap = { dashboard: '全览看板', topic: '选题管理', writing: '写作中', archive: '已发布', stats: '数据统计', radar: '信息雷达', tools: '创作工具' };
-  const subMap = { dashboard: '· 今日数据概览', topic: '· 待写选题清单', writing: '· 写作中文章', archive: '· 已发布归档', stats: '· 选题趋势与IMA', radar: '· 招聘信息雷达', tools: '· 常用工具快捷入口' };
+  const pageMap = { dashboard: '全览看板', topic: '选题管理', writing: '写作中', archive: '已发布', stats: '数据统计', radar: '信息雷达', tools: '创作工具', terminated: '已终止' };
+  const subMap = { dashboard: '· 今日数据概览', topic: '· 待写选题清单', writing: '· 写作中文章', archive: '· 已发布归档', stats: '· 选题趋势与IMA', radar: '· 招聘信息雷达', tools: '· 常用工具快捷入口', terminated: '· 已终止归档' };
   document.getElementById('pageTitleText').textContent = pageMap[panelId] || '全览看板';
   document.getElementById('pageSubtitle').textContent = subMap[panelId] || '';
   document.querySelectorAll('.page-panel').forEach(p => p.classList.remove('active'));
@@ -3873,6 +4028,9 @@ function switchPanel(panelId) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const navMap = { dashboard: 0, topic: 1, writing: 2, archive: 3, stats: 4, radar: 5, tools: 6 };
   document.querySelectorAll('.nav-item')[navMap[panelId] !== undefined ? navMap[panelId] : 0].classList.add('active');
+  // Sync mobile nav
+  document.querySelectorAll('.mnav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.mnav-item').forEach(n => { if(n.dataset.page === panelId) n.classList.add('active'); });
 
   // Render sub-panels
   if (panelId === 'topic') renderTopicListPanel();
@@ -4212,6 +4370,14 @@ document.querySelectorAll('.nav-item').forEach((item, i) => {
   item.addEventListener('click', function() {
     const pages = ['dashboard', 'topic', 'writing', 'archive', 'stats', 'radar', 'tools'];
     switchPanel(pages[i]);
+  });
+});
+
+// Mobile nav clicks
+document.querySelectorAll('.mnav-item').forEach(item => {
+  item.addEventListener('click', function() {
+    const page = this.dataset.page;
+    if (page) switchPanel(page);
   });
 });
 
