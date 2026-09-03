@@ -814,7 +814,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
     <div class="brand-sub">杨老师 · 创作工作台</div>
   </div>
   <nav class="sidebar-nav">
-    <button class="nav-item active" data-page="dashboard"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="1.5" width="6" height="6" rx="1"/><rect x="10.5" y="1.5" width="6" height="6" rx="1"/><rect x="1.5" y="10.5" width="6" height="6" rx="1"/><rect x="10.5" y="10.5" width="6" height="6" rx="1"/></svg><span>全览看板</span></button>
+    <button class="nav-item active" data-page="dashboard"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="1.5" width="6" height="6" rx="1"/><rect x="10.5" y="1.5" width="6" height="6" rx="1"/><rect x="1.5" y="10.5" width="6" height="6" rx="1"/><rect x="10.5" y="10.5" width="6" height="6" rx="1"/></svg><span>全揽看板</span></button>
     <button class="nav-item" data-page="topic"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10.5 3l4.5 4.5-9 9H3v-3l7.5-7.5z"/><path d="M8.5 5.5l4.5 4.5"/></svg><span>选题管理</span></button>
     <button class="nav-item" data-page="writing"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 1.5L16.5 5v5c0 3.5-3 6.8-7.5 8C4.5 16.8 1.5 13.5 1.5 10V5L9 1.5z"/><path d="M6.5 9.5l2 2 4-4" stroke-width="1.8"/></svg><span>写作中</span></button>
     <button class="nav-item" data-page="archive"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="1.5" width="15" height="15" rx="2"/><circle cx="6" cy="6" r="1.5"/><path d="M1.5 12l4-4 3 3 2-2 6 5"/></svg><span>已发布</span></button>
@@ -833,7 +833,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 <!-- ===== Main ===== -->
 <div class="main">
   <header class="main-header">
-    <div class="page-title"><span id="pageTitleText">全览看板</span><span id="pageSubtitle">· 今日概览</span></div>
+    <div class="page-title"><span id="pageTitleText">全揽看板</span><span id="pageSubtitle">· 今日概览</span></div>
     <div class="header-actions">
       <div class="header-status"><span class="dot"></span>最后更新 <span id="lastUpdateTime">--:--</span><span style="margin-left:6px;font-size:0.68rem;color:var(--orange);background:var(--orange-light);padding:0 6px;border-radius:4px;font-weight:500">⏰ 每日 09:00 雷达</span></div>
       <button class="header-btn" onclick="showImportDialog()">📥 导入</button>
@@ -845,7 +845,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 
   <div class="content-area" id="mainContent">
 
-    <!-- ===== 全览看板（唯一主面板） ===== -->
+    <!-- ===== 全揽看板（唯一主面板） ===== -->
     <div class="page-panel active" id="panel-dashboard">
       <!-- KPI Bar + 今日聚焦 并列 -->
       <div class="kpi-focus-row">
@@ -3103,7 +3103,7 @@ function processCommand(cmd) {
   cmd = cmd.trim();
   if (cmd === '/看板') {
     switchPanel('dashboard');
-    notifyUI('已切换到全览看板');
+    notifyUI('已切换到全揽看板');
   } else if (cmd === '/待写') {
     showPendingList();
   } else if (cmd === '/写作中') {
@@ -3297,7 +3297,7 @@ function showWorkbenchGuide() {
         <h3>🖥️ 九大面板</h3>
         <div class="guide-step">
           <span class="gs-num">1</span>
-          <div class="gs-text"><strong>全览看板</strong> — 默认首页，一屏掌握全局。顶部 KPI 卡片显示待写/写作中/已发布/信源/终止数量；今日聚焦列出紧急任务；官方信源监控 9 个渠道动态；选题看板分四列展示待写/写作中/已发布/草稿箱。</div>
+          <div class="gs-text"><strong>全揽看板</strong> — 默认首页，一屏掌握全局。顶部 KPI 卡片显示待写/写作中/已发布/信源/终止数量；今日聚焦列出紧急任务；官方信源监控 9 个渠道动态；选题看板分四列展示待写/写作中/已发布/草稿箱。</div>
         </div>
         <div class="guide-step">
           <span class="gs-num">2</span>
@@ -3336,7 +3336,7 @@ function showWorkbenchGuide() {
       <div class="guide-section" id="guide-topics">
         <h3>📌 选题管理</h3>
         <h4>新建选题</h4>
-        <p>在全览看板点击「选题看板」区域的「＋ 新建选题」按钮，或在选题管理页点击右上角「＋ 新建选题」。填写标题、类型、优先级、截稿时间、大纲等信息后保存。</p>
+        <p>在全揽看板点击「选题看板」区域的「＋ 新建选题」按钮，或在选题管理页点击右上角「＋ 新建选题」。填写标题、类型、优先级、截稿时间、大纲等信息后保存。</p>
         <h4>选题类型说明</h4>
         <p>
           <span class="guide-tag red">🔥 热点</span> 紧跟时事的招聘/政策动态，时效性强<br>
@@ -3464,7 +3464,7 @@ function showWorkbenchGuide() {
         <h3>⌨️ 快捷指令</h3>
         <p>在底部指令输入框输入以下指令，快速操作工作台：</p>
         <div style="display:grid;gap:6px;margin-top:8px">
-          <div><code>/看板</code> — 返回全览看板</div>
+          <div><code>/看板</code> — 返回全揽看板</div>
           <div><code>/待写</code> — 进入待写选题列表</div>
           <div><code>/写作中</code> — 进入写作中列表</div>
           <div><code>/信源 [信源名]</code> — 查看指定信源，如 <code>/信源 国资小新</code></div>
@@ -3495,7 +3495,7 @@ function showWorkbenchGuide() {
         </div>
         <div style="margin-bottom:8px">
           <div style="font-weight:600;margin-bottom:2px">Q：如何修改已有选题？</div>
-          <div style="color:var(--text-secondary);font-size:0.82rem">A：在「全览看板」或「选题管理」中点击选题卡片，弹出详情弹窗后可编辑标题、类型、优先级、大纲等信息。</div>
+          <div style="color:var(--text-secondary);font-size:0.82rem">A：在「全揽看板」或「选题管理」中点击选题卡片，弹出详情弹窗后可编辑标题、类型、优先级、大纲等信息。</div>
         </div>
         <div style="margin-bottom:8px">
           <div style="font-weight:600;margin-bottom:2px">Q：一篇文章可以同时写多个吗？</div>
@@ -4226,9 +4226,9 @@ function copyPrompt(type) {
 // NAVIGATION & PANEL SWITCHING
 // ===================================================================
 function switchPanel(panelId) {
-  const pageMap = { dashboard: '全览看板', topic: '选题管理', writing: '写作中', archive: '已发布', stats: '数据统计', radar: '信息雷达', tools: '创作工具', terminated: '已终止', compliance: '合规中心' };
+  const pageMap = { dashboard: '全揽看板', topic: '选题管理', writing: '写作中', archive: '已发布', stats: '数据统计', radar: '信息雷达', tools: '创作工具', terminated: '已终止', compliance: '合规中心' };
   const subMap = { dashboard: '· 今日数据概览', topic: '· 待写选题清单', writing: '· 写作中文章', archive: '· 已发布归档', stats: '· 选题趋势与IMA', radar: '· 招聘信息雷达', tools: '· 常用工具快捷入口', terminated: '· 已终止归档', compliance: '· 发前必检 · 高危词扫描' };
-  document.getElementById('pageTitleText').textContent = pageMap[panelId] || '全览看板';
+  document.getElementById('pageTitleText').textContent = pageMap[panelId] || '全揽看板';
   document.getElementById('pageSubtitle').textContent = subMap[panelId] || '';
   document.querySelectorAll('.page-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-' + panelId).classList.add('active');
