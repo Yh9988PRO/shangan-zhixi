@@ -20,20 +20,21 @@
   --bg: #F5F5F7;
   --sidebar-bg: #0D1B2A; --gold: #C9A84C; --sidebar-hover: #1B263B; --sidebar-text: #E0E7FF;
   --text: #1F2937; --text-secondary: #6B7280; --text-muted: #9CA3AF;
-  --sidebar-w: 240px; --header-h: 64px;
+  --sidebar-w: 240px; --header-h: 56px;
   --radius: 16px; --radius-sm: 10px; --radius-lg: 20px;
   --shadow-card: 0 4px 6px -1px rgba(0,0,0,0.05), 0 10px 20px -5px rgba(0,0,0,0.08);
   --shadow-hover: 0 10px 25px -5px rgba(0,0,0,0.10), 0 8px 10px -6px rgba(0,0,0,0.06);
   --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 html{font-size:16px}
-body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-height:100vh;overflow:hidden;line-height:1.5}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-height:100dvh;overflow:clip;line-height:1.5}
 ::selection{background:#1B263B;color:var(--white)}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--gray-border);border-radius:3px}
-.app{display:flex;height:100vh;position:relative}
+.app{display:flex;height:100dvh;position:relative}
 
 /* Sidebar — deep sea blue */
 .sidebar{width:var(--sidebar-w);background:var(--sidebar-bg);color:var(--sidebar-text);display:flex;flex-direction:column;flex-shrink:0;z-index:100}
@@ -52,21 +53,55 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .sidebar-footer .user-role{font-size:0.68rem;opacity:0.5;color:var(--sidebar-text)}
 
 /* Main */
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.main-header{height:var(--header-h);background:var(--white);border-bottom:1px solid var(--gray-border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;flex-shrink:0}
-.main-header .page-title{font-family:var(--font-serif);font-size:1.1rem;font-weight:700}
-.main-header .page-title span{font-size:0.78rem;font-weight:400;color:var(--text-muted);margin-left:6px}
-.header-actions{display:flex;align-items:center;gap:10px}
-.header-btn{padding:6px 14px;border-radius:var(--radius-sm);border:1px solid var(--gray-border);background:var(--white);cursor:pointer;font-size:0.78rem;font-family:var(--font-sans);color:var(--text-secondary);transition:all 0.15s;display:flex;align-items:center;gap:4px}
-.header-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
-.header-btn.primary{background:var(--sidebar-bg);color:var(--white);border-color:var(--sidebar-bg)}
-.header-btn.primary:hover{background:var(--sidebar-hover);border-color:var(--sidebar-hover)}
-.header-status{display:flex;align-items:center;gap:5px;font-size:0.75rem;color:var(--text-muted)}
-.header-status .dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse-dot 2s ease-in-out infinite}
+.main{flex:1;display:flex;flex-direction:column;min-height:0}
+
+/* ===== Header — sticky 56px ===== */
+.main-header{position:sticky;top:0;z-index:500;height:56px;background:var(--white);border-bottom:1px solid var(--gray-border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.main-header .header-left{display:flex;align-items:center;gap:12px;min-width:0}
+.main-header .breadcrumb{font-size:0.82rem;color:var(--text-muted);display:flex;align-items:center;gap:4px}
+.main-header .breadcrumb .sep{color:var(--gray-border);margin:0 2px}
+.main-header .breadcrumb .current{color:var(--text);font-weight:500}
+.main-header .update-time{font-size:0.72rem;color:var(--text-muted);display:flex;align-items:center;gap:4px;white-space:nowrap}
+.main-header .update-time .dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse-dot 2s ease-in-out infinite;display:inline-block}
+
+/* Header right: icon group + action group */
+.header-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
+
+/* Icon group — square 40×40 */
+.header-icon-group{display:flex;align-items:center;gap:2px}
+.header-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-sm);border:1px solid transparent;background:transparent;cursor:pointer;font-size:0.85rem;color:var(--text-secondary);position:relative;transition:all 0.15s;font-family:var(--font-sans);padding:0}
+.header-icon:hover{background:var(--gray-light);border-color:var(--gray-border);color:var(--text)}
+.header-icon:active{background:var(--gray-border);transform:scale(0.95)}
+.header-icon:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:var(--radius-sm)}
+.header-icon:disabled{opacity:0.4;cursor:not-allowed;pointer-events:none}
+
+/* Notification badge */
+.header-icon .badge{position:absolute;top:2px;right:2px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--red);color:var(--white);font-size:0.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1;box-shadow:0 0 0 2px var(--white)}
+
+/* Action group — buttons ≥40×40 */
+.header-action-group{display:flex;align-items:center;gap:6px;margin-left:4px;padding-left:8px;border-left:1px solid var(--gray-border)}
+.header-action-btn{height:40px;padding:0 16px;border-radius:var(--radius-sm);border:1px solid var(--gray-border);background:var(--white);cursor:pointer;font-size:0.78rem;font-family:var(--font-sans);color:var(--text-secondary);display:flex;align-items:center;gap:6px;transition:all 0.15s;white-space:nowrap}
+.header-action-btn:hover{background:var(--gray-light);border-color:var(--blue);color:var(--blue)}
+.header-action-btn:active{transform:scale(0.97)}
+.header-action-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:var(--radius-sm)}
+.header-action-btn:disabled{opacity:0.4;cursor:not-allowed;pointer-events:none}
+.header-action-btn.primary{background:var(--sidebar-bg);color:var(--white);border-color:var(--sidebar-bg)}
+.header-action-btn.primary:hover{background:var(--sidebar-hover);border-color:var(--sidebar-hover)}
+.header-action-btn.primary:active{background:#0a1520}
+.header-action-btn.primary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ===== Source expiry warning bar ===== */
+.source-warning-bar{display:none;align-items:center;gap:10px;padding:8px 20px;background:#FEF2F2;border-left:3px solid #DC2626;font-size:0.78rem;color:var(--text);flex-shrink:0}
+.source-warning-bar .swb-text{flex:1;min-width:0}
+.source-warning-bar .swb-btn{height:36px;padding:0 16px;border-radius:var(--radius-sm);border:1px solid #DC2626;background:#DC2626;color:var(--white);cursor:pointer;font-size:0.78rem;font-family:var(--font-sans);font-weight:500;display:flex;align-items:center;gap:4px;transition:all 0.15s;flex-shrink:0}
+.source-warning-bar .swb-btn:hover{background:#B91C1C;border-color:#B91C1C}
+.source-warning-bar .swb-btn:active{transform:scale(0.97)}
+.source-warning-bar .swb-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.source-warning-bar .swb-btn:disabled{opacity:0.5;cursor:not-allowed}
 @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.4}}
 
 /* Content area */
-.content-area{flex:1;overflow-y:auto;padding:16px 28px 28px}
+.content-area{flex:1;overflow-y:auto;padding:16px 28px 64px}
 .page-panel{display:none}
 .page-panel.active{display:block}
 .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
@@ -180,7 +215,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 /* ===== Drawer (Right-side Panel) ===== */
 .drawer-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:1000;justify-content:flex-end}
 .drawer-overlay.active{display:flex}
-.drawer{width:520px;max-width:95vw;height:100vh;background:#F3F4F6;display:flex;flex-direction:column;box-shadow:-4px 0 16px rgba(0,0,0,0.10);overflow:hidden;animation:drawerSlideIn 0.25s ease-out}
+.drawer{width:520px;max-width:95vw;height:100dvh;background:#F3F4F6;display:flex;flex-direction:column;box-shadow:-4px 0 16px rgba(0,0,0,0.10);overflow:hidden;animation:drawerSlideIn 0.25s ease-out}
 @keyframes drawerSlideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
 
 /* Drawer Header */
@@ -388,6 +423,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .btn-red:hover{background:var(--red);color:var(--white);border-color:var(--red)}
 .btn-sm{padding:4px 12px;font-size:0.75rem}
 .btn-group{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.panel-bottom{height:48px;flex-shrink:0;display:block}
 
 /* ===== Command Bar ===== */
 .cmd-bar{margin-top:16px;background:var(--white);border-radius:var(--radius);border:1px solid var(--gray-border);overflow:hidden;box-shadow:var(--shadow-card)}
@@ -413,8 +449,8 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 
 /* ===== Responsive ===== */
 /* ===== Stats Panel ===== */
-.stats-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
-.stats-kpi .kpi-big{background:var(--white);border:1px solid var(--gray-border);border-radius:8px;padding:20px;cursor:pointer;transition:all 0.15s}
+.stats-kpi{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.stats-kpi .kpi-big{background:var(--white);border:1px solid var(--gray-border);border-radius:8px;padding:16px;cursor:pointer;transition:all 0.15s;flex:1;min-width:200px}
 .stats-kpi .kpi-big:hover{box-shadow:0 4px 12px rgba(0,0,0,0.08);transform:translateY(-2px)}
 .kpi-big .kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .kpi-big .kpi-label{font-size:13px;color:#6B7280;font-weight:500}
@@ -433,7 +469,8 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .kpi-num.blue2{color:#2563EB}
 
 /* Two column layout */
-.stats-two-col{display:flex;gap:16px;margin-bottom:20px}
+.stats-two-col{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.stats-two-col>div{flex:1 1 0;min-width:300px}
 .stats-card{background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius);padding:20px;margin-bottom:20px;box-shadow:var(--shadow-card);transition:var(--transition)}
 .stats-card:hover{box-shadow:var(--shadow-hover)}
 .stats-card .sc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
@@ -799,6 +836,52 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .guide-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;padding:10px 14px;background:var(--gray-light);border-radius:var(--radius-sm);position:sticky;top:0;z-index:5}
 .guide-nav a{font-size:0.78rem;color:#2563EB;text-decoration:none;padding:2px 10px;border-radius:4px;transition:background 0.15s;cursor:pointer}
 .guide-nav a:hover{background:#EFF6FF;text-decoration:underline}
+
+/* ===== Responsive — 1366 / 1440 / 1920 ===== */
+/* 主内容区中央视野约束 */
+.content-area{max-width:1120px;margin:0 auto;width:100%}
+
+/* 1920+ 宽屏：内容区居中，不超过1400px */
+@media(min-width:1800px){
+  .content-area{max-width:1320px}
+}
+/* 1440 中屏：适当缩小 */
+@media(max-width:1440px){
+  .content-area{max-width:1040px;padding:16px 24px 64px}
+  .kpi-focus-row{gap:8px}
+  .kpi-card{padding:8px 12px}
+  .stats-two-col{gap:8px}
+}
+/* 1366 窄屏：折叠侧栏文字，缩小间距 */
+@media(max-width:1366px){
+  .sidebar{width:56px}
+  .sidebar-brand{padding:16px 10px 12px}
+  .sidebar-brand .brand-icon{justify-content:center}
+  .sidebar-brand h1{display:none}
+  .sidebar-brand .brand-sub{display:none}
+  .nav-item{justify-content:center;padding:10px;gap:0}
+  .nav-item span{display:none}
+  .nav-item.active::before{left:0;width:3px;height:16px}
+  .sidebar-footer .user-info{display:none}
+  .sidebar-footer .avatar{width:28px;height:28px;font-size:0.7rem}
+  .sidebar-footer{justify-content:center;padding:10px}
+  .main-header{padding:0 12px}
+  .content-area{padding:12px 16px 64px;max-width:100%}
+  .header-action-btn{padding:0 10px;font-size:0.72rem}
+  .kpi-focus-row{flex-direction:column}
+  .stats-two-col{flex-direction:column}
+  .kpi-bar{flex-wrap:wrap}
+  .kpi-card{min-width:calc(33.33% - 8px);flex:1 1 auto}
+  .header-icon-group{gap:0}
+  .header-action-group{gap:4px;margin-left:2px;padding-left:4px}
+}
+/* 卡片高度自适应：不得拉伸至视口底部 */
+.stats-card,.kpi-big,.kpi-card,.pk-card,.focus-bar,.sc-chart-wrap{min-height:auto;height:auto}
+.rank-table-wrap{max-height:400px;overflow-y:auto}
+
+/* 8px 栅格对齐 */
+.kpi-focus-row{gap:8px}
+.kpi-bar{gap:8px}
 </style>
 </head>
 <body>
@@ -832,16 +915,32 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 
 <!-- ===== Main ===== -->
 <div class="main">
-  <header class="main-header">
-    <div class="page-title"><span id="pageTitleText">全揽看板</span><span id="pageSubtitle">· 今日概览</span></div>
-    <div class="header-actions">
-      <div class="header-status"><span class="dot"></span>最后更新 <span id="lastUpdateTime">--:--</span><span style="margin-left:6px;font-size:0.68rem;color:var(--orange);background:var(--orange-light);padding:0 6px;border-radius:4px;font-weight:500">⏰ 每日 09:00 雷达</span></div>
-      <button class="header-btn" onclick="showImportDialog()">📥 导入</button>
-      <button class="header-btn" onclick="showFileList()">📁 文件路径</button>
-      <button class="header-btn" onclick="showCommandHelp()">💡 指令</button>
-      <button class="header-btn primary" onclick="showWorkbenchGuide()">📖 操作说明</button>
+<header class="main-header">
+    <div class="header-left">
+      <div class="breadcrumb"><span class="current" id="pageTitleText">全揽看板</span><span class="sep">/</span><span id="pageSubtitle" style="color:var(--text-muted);font-size:0.82rem">今日概览</span></div>
+      <div class="update-time"><span class="dot"></span>最后更新 <span id="lastUpdateTime">--:--</span></div>
+    </div>
+    <div class="header-right">
+      <div class="header-icon-group">
+        <button class="header-icon" onclick="refreshSources()" title="刷新信源" aria-label="刷新信源">⟳</button>
+        <button class="header-icon" id="notifBtn" onclick="showNotifications()" title="通知" aria-label="通知">
+          🔔
+          <span class="badge" id="notifBadge">12</span>
+        </button>
+        <button class="header-icon" onclick="showCommandHelp()" title="帮助" aria-label="帮助">?</button>
+      </div>
+      <div class="header-action-group">
+        <button class="header-action-btn" onclick="showImportDialog()">📥 导入</button>
+        <button class="header-action-btn primary" onclick="showNewTopicDialog()">＋ 新建选题</button>
+      </div>
     </div>
   </header>
+
+  <!-- Source expiry warning bar -->
+  <div class="source-warning-bar" id="sourceWarningBar">
+    <span class="swb-text">⚠️ <span id="sourceWarningText">部分信源数据已过期</span></span>
+    <button class="swb-btn" onclick="refreshSources()">⟳ 立即刷新</button>
+  </div>
 
   <div class="content-area" id="mainContent">
 
@@ -883,7 +982,9 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
           <span class="cmd-quick" onclick="showFileList()">/存放</span>
         </div>
       </div>
-    </div>
+</div>
+  <div class="panel-bottom"></div>
+</div>
 
     <!-- ===== 子面板：选题管理 / 写作中 / 已发布 / 数据统计（保留原有） ===== -->
     <div class="page-panel" id="panel-topic">
@@ -904,6 +1005,8 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
   <div class="topic-card-list" id="topicListContainer"></div>
   <div class="btn-group"><button class="btn btn-primary" onclick="switchPanel('dashboard')">← 返回看板</button></div>
 </div>
+  <div class="panel-bottom"></div>
+</div>
     <div class="page-panel" id="panel-writing">
   <div class="section-header"><h2>✍️ 写作中</h2><span style="font-size:0.8rem;color:var(--text-muted)" id="writingCountLabel"></span></div>
   <div class="w-pipeline" id="wPipeline"></div>
@@ -921,6 +1024,8 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
   </div>
   <div class="w-list" id="writingListContainer"></div>
   <div class="btn-group"><button class="btn btn-primary" onclick="switchPanel('dashboard')">← 返回看板</button><button class="btn btn-outline" onclick="showSyncGuide()">📡 同步公众号数据</button></div>
+</div>
+  <div class="panel-bottom"></div>
 </div>
     <div class="page-panel" id="panel-archive">
   <div class="section-header"><h2>✅ 已发布</h2><span style="font-size:0.8rem;color:var(--text-muted)" id="archiveCountLabel"></span></div>
@@ -941,6 +1046,8 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
   </div>
   <div class="pub-list" id="archiveListContainer"></div>
   <div class="btn-group"><button class="btn btn-primary" onclick="switchPanel('dashboard')">← 返回看板</button></div>
+</div>
+  <div class="panel-bottom"></div>
 </div>
 <div class="page-panel" id="panel-stats">
   <div class="stats-kpi" id="statsKpiGrid"></div>
@@ -967,6 +1074,8 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
   </div>
   <div class="btn-group" style="margin-top:4px"><button class="btn btn-primary" onclick="switchPanel('dashboard')">← 返回看板</button><button class="btn btn-outline" onclick="showSyncGuide()">📡 同步公众号数据</button></div>
 </div>
+  <div class="panel-bottom"></div>
+</div>
     <div class="page-panel" id="panel-radar">
       <div class="section-header"><h2>📡 信息雷达</h2><span style="font-size:0.85rem;font-weight:500;color:var(--text-muted)" id="radarDateLabel">2026-08-26</span></div>
       <div class="radar-layout">
@@ -977,12 +1086,16 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
         </div>
         <div class="radar-sidebar" id="radarSidebar"></div>
       </div>
-    </div>
+</div>
+  <div class="panel-bottom"></div>
+</div>
     <div class="page-panel" id="panel-tools">
       <div class="section-header"><h2>🛠️ 创作工具</h2><span style="font-size:0.8rem;color:var(--text-muted)">WorkBuddy质检 + 工具快捷入口</span></div>
       <div id="toolsGrid"></div>
       <div class="btn-group"><button class="btn btn-primary" onclick="switchPanel('dashboard')">← 返回看板</button></div>
-    </div>
+</div>
+  <div class="panel-bottom"></div>
+</div>
   <div class="stats-card" style="width:100%">
     <div class="sc-head"><h3>🏆 本月发布表现 TOP 10</h3><span class="sc-badge gray">本月</span></div>
     <div class="rank-table-wrap"><table class="rank-table" id="rankTable"><thead></thead><tbody></tbody></table></div>
@@ -1005,6 +1118,8 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
     <div style="text-align:center;padding:40px;color:var(--text-muted)">加载中...</div>
   </div>
   <div class="btn-group"><button class="btn btn-primary" onclick="switchPanel('dashboard')">← 返回看板</button></div>
+</div>
+  <div class="panel-bottom"></div>
 </div>
 
 <!-- ===== 合规中心（第9面板） ===== -->
@@ -1036,15 +1151,15 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
   <!-- 高危词检测工具 -->
   <div class="stats-card">
     <div class="sc-head"><h3>🔎 高危词检测 & 替换</h3><span class="sc-badge gray" id="dangerWordCount">8 条规则</span></div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
-      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">保过 → 提升通过率策略</span>
-      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">包进 → 提高录取概率的方法</span>
-      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">100% → 高概率</span>
-      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">内部名额 → 特定渠道名额</span>
-      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">关系渠道 → 推荐渠道</span>
-      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">保证录用 → 提高录用概率</span>
-      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">包过面试 → 提升面试通过率</span>
-      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">稳进 → 增加录取机会</span>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">提升通过率策略（原：违规承诺词）</span>
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">提高录取概率的方法（原：违规承诺词）</span>
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">高概率（原：绝对化表述）</span>
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">特定渠道名额（原：不实表述）</span>
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">推荐渠道（原：不当表述）</span>
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">提高录用概率（原：违规承诺词）</span>
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">提升面试通过率（原：违规承诺词）</span>
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">增加录取机会（原：不当表述）</span>
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap">
       <textarea id="complianceTextInput" placeholder="在此粘贴文案，点击「检测并替换」自动扫描高危词…" style="flex:1;min-height:120px;padding:12px;border:1px solid var(--gray-border);border-radius:8px;font-family:var(--font-sans);font-size:0.82rem;resize:vertical;outline:none;background:var(--white);min-width:200px"></textarea>
@@ -1078,32 +1193,38 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
     </div>
   </div>
 
-  <!-- 发前必检清单 + 发布闸门 -->
+<!-- 发前必检清单 + 发布闸门 -->
   <div class="stats-card" style="border-left:4px solid var(--sidebar-bg)">
     <div class="sc-head"><h3>📋 发前必检清单</h3><span class="sc-badge gray" id="checklistProgress">0 / 6</span></div>
-    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
-      <label class="cl-item" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--gray-light)">
-        <input type="checkbox" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.85rem">标题含核心热词，18-26字，无违规承诺</span>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">
+      <label class="cl-item" style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:5px 0;border-bottom:1px solid var(--gray-light)">
+        <input type="checkbox" id="cl1" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.82rem">① 标题合规 — 含核心热词，18-26字，无违规承诺</span>
       </label>
-      <label class="cl-item" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--gray-light)">
-        <input type="checkbox" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.85rem">开篇前100字预埋核心关键词，抛痛点留钩子</span>
+      <label class="cl-item" style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:5px 0;border-bottom:1px solid var(--gray-light)">
+        <input type="checkbox" id="cl2" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.82rem">② 字数达标 — 正文≥800字（P0干货≥2000字需拆分）</span>
       </label>
-      <label class="cl-item" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--gray-light)">
-        <input type="checkbox" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.85rem">正文含至少1个信息差+具体数据，金句≥8句</span>
+      <label class="cl-item" style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:5px 0;border-bottom:1px solid var(--gray-light)">
+        <input type="checkbox" id="cl3" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.82rem">③ 金句达标 — 正文≥8句「」加粗金句</span>
       </label>
-      <label class="cl-item" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--gray-light)">
-        <input type="checkbox" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.85rem">文末四附录齐全：互动+渠道+来源+免责声明</span>
+      <label class="cl-item" style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:5px 0;border-bottom:1px solid var(--gray-light)">
+        <input type="checkbox" id="cl4" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.82rem">④ 违禁词清零 — 无违规承诺/绝对化表述</span>
       </label>
-      <label class="cl-item" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--gray-light)">
-        <input type="checkbox" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.85rem">关键数据有出处，无绝对化承诺</span>
+      <label class="cl-item" style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:5px 0;border-bottom:1px solid var(--gray-light)">
+        <input type="checkbox" id="cl5" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.82rem">⑤ 热搜词覆盖 — 标题+正文含核心词和长尾词</span>
       </label>
-      <label class="cl-item" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--gray-light)">
-        <input type="checkbox" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.85rem">已通过高危词检测，无违禁词残留</span>
+      <label class="cl-item" id="cl6wrap" style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:5px 0;border-bottom:1px solid var(--gray-light)">
+        <input type="checkbox" id="cl6" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.82rem">⑥ 原创度达标 — 未检测到AI味过重，人味充足</span>
       </label>
     </div>
+    <!-- 粘贴文案检测区 -->
+    <div style="margin-bottom:10px;display:flex;gap:8px;align-items:flex-start">
+      <textarea id="publishDraftText" placeholder="粘贴或输入待发布文案，自动检测违禁词和字数…" style="flex:1;min-height:60px;padding:8px;border:1px solid var(--gray-border);border-radius:6px;font-family:var(--font-sans);font-size:0.78rem;resize:vertical;outline:none;background:var(--white)"></textarea>
+      <button class="btn btn-primary" onclick="scanDraft()" style="height:40px;padding:0 16px;flex-shrink:0;font-size:0.78rem">🔍 检测</button>
+    </div>
+    <div id="draftScanResult" style="margin-bottom:8px;font-size:0.78rem;display:none"></div>
     <div style="display:flex;align-items:center;gap:12px">
-      <button class="btn btn-primary" id="publishBtn" disabled title="请先勾选全部6项必检项" onclick="confirmPublish()" style="padding:10px 32px;font-size:0.9rem">📤 确认发布</button>
-      <span id="publishHint" style="font-size:0.78rem;color:var(--text-muted)">请先勾选全部6项必检项</span>
+      <button class="btn btn-primary" id="publishBtn" disabled style="padding:10px 32px;font-size:0.9rem;opacity:0.5;cursor:not-allowed;pointer-events:none">📤 确认发布</button>
+      <span id="publishHint" style="font-size:0.78rem;color:var(--text-muted)">需完成全部6项检查才能发布</span>
     </div>
   </div>
   <div class="btn-group" style="margin-top:8px"><button class="btn btn-primary" onclick="switchPanel('dashboard')">← 返回看板</button></div>
@@ -2916,14 +3037,18 @@ function applySourceData(data) {
 // SOURCE REFRESH — 真正从 JSON 重新加载
 // ===================================================================
 async function refreshSources() {
-  const btn = event.target;
-  btn.textContent = '⟳ 刷新中…';
+  const btn = event && event.target ? event.target : document.querySelector('.header-icon[title="刷新信源"]');
+  if (!btn) return;
+  const origText = btn.textContent || '⟳';
+  btn.textContent = '⟳ ⟳';
   btn.disabled = true;
   try {
     const ok = await loadSourceData();
     if (ok) {
       renderSources();
       renderStats();
+      updateLastUpdateTime();
+      showSourceWarning(false);
       notifyUI('✅ 信源数据已更新至 ' + DATA.today);
     } else {
       notifyUI('⚠️ 刷新失败，数据未变化');
@@ -2931,9 +3056,21 @@ async function refreshSources() {
   } catch (e) {
     notifyUI('❌ 刷新异常：' + e.message);
   }
-  btn.textContent = '⟳ 已刷新 ✓';
+  btn.textContent = '✓';
   btn.disabled = false;
-  setTimeout(() => { btn.textContent = '⟳ 刷新'; }, 2000);
+  setTimeout(() => { btn.textContent = origText; }, 2000);
+}
+
+// Show/hide source expiry warning bar
+function showSourceWarning(show, msg) {
+  const bar = document.getElementById('sourceWarningBar');
+  const text = document.getElementById('sourceWarningText');
+  if (show) {
+    text.textContent = msg || '部分信源数据已过期，请及时刷新';
+    bar.style.display = 'flex';
+  } else {
+    bar.style.display = 'none';
+  }
 }
 
 // ===================================================================
@@ -3216,6 +3353,10 @@ function showFileList() {
   }
   html += `<div class="modal-actions"><button class="btn btn-outline" onclick="closeModal()">关闭</button></div>`;
   openModal('📁 文件存放路径', html);
+}
+
+function showNotifications() {
+  openModal('🔔 通知', `<div style="padding:20px;text-align:center;color:var(--text-muted)">暂无新通知</div>`);
 }
 
 function showCommandHelp() {
@@ -3632,10 +3773,15 @@ function renderStatsKpi() {
       <div class="kpi-num orange">${pubCount}<span class="kpi-unit">篇</span></div>
       <div class="kpi-sub">同比上月 +${pubCount - lastMonth} 篇 <span class="dot"></span> 目标 8 篇</div>
     </div>
-    <div class="kpi-big" onclick="showFileList()">
+<div class="kpi-big" onclick="showFileList()">
       <div class="kpi-top"><span class="kpi-label">IMA 链接数</span><span class="kpi-arrow up">↑ ${imaCount}</span></div>
       <div class="kpi-num blue2">${imaTotal.toLocaleString()}<span class="kpi-unit"></span></div>
       <div class="kpi-sub">已关联知识库 ${imaCount} 个</div>
+    </div>
+    <div class="kpi-big" onclick="switchPanel('compliance')" style="cursor:pointer">
+      <div class="kpi-top"><span class="kpi-label">✅ 合规通过率</span><span class="kpi-arrow up">${getComplianceRate().desc}</span></div>
+      <div class="kpi-num" style="color:${getComplianceRate().rate === 100 ? 'var(--green)' : 'var(--orange)'}">${getComplianceRate().rate}%<span class="kpi-unit"></span></div>
+      <div class="kpi-sub">已发布 ${getComplianceRate().total} 篇 · ${getComplianceRate().clean} 篇合规</div>
     </div>
   `;
 }
@@ -3707,9 +3853,9 @@ function renderTrendChart() {
     ctx.stroke();
   });
 
-  // X labels
+// X labels
   ctx.fillStyle = '#9CA3AF';
-  ctx.font = '11px sans-serif';
+  ctx.font = '12px sans-serif';
   ctx.textAlign = 'center';
   days.forEach((d, i) => {
     const x = pad.left + i * stepX;
@@ -3718,7 +3864,7 @@ function renderTrendChart() {
 
   // Y labels
   ctx.textAlign = 'right';
-  ctx.font = '10px sans-serif';
+  ctx.font = '12px sans-serif';
   for (let i = 0; i <= 4; i++) {
     const val = Math.round((max / 4) * (4 - i));
     const y = pad.top + (chartH / 4) * i;
@@ -4123,6 +4269,18 @@ function renderToolsPanel() {
           </div>
         </div>
       </div>
+</div>
+  `;
+
+  // Compliance rate card (tools panel)
+  const cr = getComplianceRate();
+  const complianceCard = `
+    <div style="margin-bottom:16px;background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius);padding:16px;cursor:pointer" onclick="switchPanel('compliance')">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <span style="font-size:15px;font-weight:700;font-family:var(--font-serif);">✅ 合规通过率</span>
+        <span style="font-size:24px;font-weight:700;color:${cr.rate === 100 ? 'var(--green)' : 'var(--orange)'}">${cr.rate}%</span>
+      </div>
+      <div style="font-size:0.78rem;color:var(--text-muted)">已发布 ${cr.total} 篇 · ${cr.clean} 篇合规 · ${cr.desc}</div>
     </div>
   `;
 
@@ -4179,7 +4337,7 @@ function renderToolsPanel() {
       { name: '别摸鱼导航', desc: '新媒体运营导航，收录平台/数据分析/文案灵感工具', url: 'https://biemoyu.com/xinmeiti', icon: '🧭' }
     ]}
   ];
-  let html = promptHtml;
+let html = promptHtml + complianceCard;
   categories.forEach(cat => {
     const items = cat.items.map(t => `
       <div class="tool-card" onclick="window.open('${t.url}','_blank')" title="${t.url}">
@@ -4479,10 +4637,11 @@ function renderPubKpi() {
   const avgReads = items.length > 0 ? Math.round(totalReads / items.length) : 0;
   const avgRate = items.length > 0 ? ((totalLikes / totalReads) * 100).toFixed(1) : '0.0';
   const rateCls = parseFloat(avgRate) >= 5 ? 'up' : parseFloat(avgRate) < 2 ? 'down' : '';
-  document.getElementById('pubKpiBar').innerHTML = `
+document.getElementById('pubKpiBar').innerHTML = `
     <div class="pk-card"><div class="pk-top"><span class="pk-label">本月发布</span></div><div class="pk-num blue">${items.length}<span style="font-size:20px;font-weight:400;color:#6B7280;margin-left:4px">篇</span></div><div class="pk-sub">较上月 <span class="pk-change up">+${Math.max(0, items.length - 1)} 篇</span></div></div>
     <div class="pk-card"><div class="pk-top"><span class="pk-label">累计阅读</span></div><div class="pk-num blue2">${(totalReads / 10000).toFixed(1)}<span style="font-size:20px;font-weight:400;color:#6B7280;margin-left:4px">万</span></div><div class="pk-sub">篇均 ${avgReads.toLocaleString()}</div></div>
     <div class="pk-card"><div class="pk-top"><span class="pk-label">累计点赞</span></div><div class="pk-num orange">${totalLikes.toLocaleString()}</div><div class="pk-sub">平均互动率 <span class="pk-change ${rateCls}">${avgRate}%</span></div></div>
+    <div class="pk-card" onclick="switchPanel('compliance')" style="cursor:pointer"><div class="pk-top"><span class="pk-label">✅ 合规通过率</span></div><div class="pk-num" style="color:${getComplianceRate().rate === 100 ? 'var(--green)' : 'var(--orange)'}">${getComplianceRate().rate}%</div><div class="pk-sub">${getComplianceRate().desc}</div></div>
   `;
 }
 
@@ -5091,55 +5250,71 @@ function renderAll() {
 async function init() {
   await loadSourceData();
   renderAll();
-  // Set last update time from DATA.today
-  document.getElementById('lastUpdateTime').textContent = DATA.today || new Date().toLocaleDateString('zh-CN');
+  // Set last update time to current time
+  updateLastUpdateTime();
   // Update time display every 30s
   setInterval(() => {
-    const el = document.getElementById('lastUpdateTime');
-    if (el && DATA.today) el.textContent = DATA.today;
+    updateLastUpdateTime();
   }, 30000);
+}
+
+function updateLastUpdateTime() {
+  const el = document.getElementById('lastUpdateTime');
+  if (!el) return;
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  el.textContent = DATA.today + ' ' + h + ':' + m;
 }
 
 // Init
 init();
 
 // ===================================================================
-// COMPLIANCE CENTER — 合规中心
+// COMPLIANCE — 合规中心（统一口径：已发布文章中未命中高危词的比例）
 // ===================================================================
 
-// 高危词替换规则
-const DANGER_WORDS = {
-  '保过': '提升通过率策略',
-  '包进': '提高录取概率的方法',
-  '100%': '高概率',
-  '内部名额': '特定渠道名额',
-  '关系渠道': '推荐渠道',
-  '保证录用': '提高录用概率',
-  '包过面试': '提升面试通过率',
-  '稳进': '增加录取机会'
-};
-let complianceData = { scanned: 0, intercepted: 0, firstPass: 0 };
+function getComplianceRate() {
+  const articles = DATA.topics.published || [];
+  const total = articles.length;
+  if (total === 0) return { rate: 100, desc: '暂无已发布文章', clean: total, total: total };
+  const clean = articles.filter(a => !a.hitDangerWord).length;
+  const rate = Math.round(clean / total * 100);
+  return { rate, desc: rate === 100 ? '全部合规 ✨' : rate >= 80 ? '合规状态良好 👍' : '建议加强自查 ⚠️', clean, total };
+}
 
 function renderCompliancePanel() {
   updateComplianceStats();
   document.getElementById('checklistProgress').textContent = '0 / 6';
-  document.getElementById('publishBtn').disabled = true;
-  document.getElementById('publishHint').textContent = '请先勾选全部6项必检项';
+  // Reset publish button to disabled state
+  const btn = document.getElementById('publishBtn');
+  btn.disabled = true;
+  btn.style.opacity = '0.5';
+  btn.style.cursor = 'not-allowed';
+  btn.style.pointerEvents = 'none';
+  btn.textContent = '📤 确认发布';
+  btn.style.background = '';
+  document.getElementById('publishHint').textContent = '需完成全部6项检查才能发布';
+  document.getElementById('publishHint').style.color = 'var(--text-muted)';
   document.getElementById('complianceResult').style.display = 'none';
   document.getElementById('complianceTextInput').value = '';
+  document.getElementById('publishDraftText').value = '';
+  document.getElementById('draftScanResult').style.display = 'none';
+  // Uncheck all
+  document.getElementById('cl1').checked = false;
+  document.getElementById('cl2').checked = false;
+  document.getElementById('cl3').checked = false;
+  document.getElementById('cl4').checked = false;
+  document.getElementById('cl5').checked = false;
+  document.getElementById('cl6').checked = false;
 }
 
 function updateComplianceStats() {
-  const rate = complianceData.scanned > 0
-    ? Math.round(complianceData.firstPass / complianceData.scanned * 100)
-    : 100;
-  document.getElementById('complianceScanned').textContent = complianceData.scanned;
-  document.getElementById('complianceIntercepted').textContent = complianceData.intercepted;
-  document.getElementById('complianceRate').textContent = rate + '%';
-  document.getElementById('complianceRateDesc').textContent =
-    rate === 100 ? '首次扫描即合规 ✨' :
-    rate >= 80 ? '合规状态良好 👍' :
-    '建议加强自查 ⚠️';
+  const cr = getComplianceRate();
+  document.getElementById('complianceScanned').textContent = cr.total;
+  document.getElementById('complianceIntercepted').textContent = cr.total - cr.clean;
+  document.getElementById('complianceRate').textContent = cr.rate + '%';
+  document.getElementById('complianceRateDesc').textContent = cr.desc;
 }
 
 function scanAndReplace() {
@@ -5244,36 +5419,161 @@ function showDangerWordDetail() {
 }
 
 function updateChecklist() {
-  const checkboxes = document.querySelectorAll('#panel-compliance .cl-item input[type="checkbox"]');
-  const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
-  const total = checkboxes.length;
+  // Check all 6 items
+  const c1 = document.getElementById('cl1').checked;
+  const c2 = document.getElementById('cl2').checked;
+  const c3 = document.getElementById('cl3').checked;
+  const c4 = document.getElementById('cl4').checked;
+  const c5 = document.getElementById('cl5').checked;
+  const c6 = document.getElementById('cl6').checked;
+  const checked = [c1, c2, c3, c4, c5, c6].filter(Boolean).length;
+  const total = 6;
+  document.getElementById('checklistProgress').textContent = checked + ' / ' + total;
+
+  const btn = document.getElementById('publishBtn');
+  const hint = document.getElementById('publishHint');
+  if (checked === total) {
+    // Real disable — pointer-events:none + cursor:not-allowed in CSS, plus JS disabled
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    btn.style.cursor = 'pointer';
+    btn.style.pointerEvents = 'auto';
+    hint.textContent = '✅ 全部就绪，杨老师觉得这波可以冲！';
+    hint.style.color = 'var(--green)';
+  } else {
+    btn.disabled = true;
+    btn.style.opacity = '0.5';
+    btn.style.cursor = 'not-allowed';
+    btn.style.pointerEvents = 'none';
+    const reasons = [];
+    if (!c1) reasons.push('标题合规');
+    if (!c2) reasons.push('字数达标');
+    if (!c3) reasons.push('金句达标');
+    if (!c4) reasons.push('违禁词清零');
+    if (!c5) reasons.push('热搜词覆盖');
+    if (!c6) reasons.push('原创度达标');
+    hint.textContent = '需完成全部6项检查才能发布 · 缺：' + reasons.join('、');
+    hint.style.color = 'var(--text-muted)';
+  }
+}
+
+function scanDraft() {
+  const text = document.getElementById('publishDraftText').value;
+  const resultDiv = document.getElementById('draftScanResult');
+  if (!text.trim()) {
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = '<span style="color:var(--orange)">⚠️ 请先粘贴文案再检测</span>';
+    return;
+  }
+
+  const wordCount = text.length;
+  const hasDangerWords = Object.keys(DANGER_WORDS).some(w => text.includes(w));
+  const foundWords = Object.keys(DANGER_WORDS).filter(w => text.includes(w));
+  const isP0 = wordCount > 2000;
+  const aiWords = ['首先', '其次', '最后', '综上所述', '赋能', '闭环', '抓手', '优化', '提升', '落地'];
+  const aiHits = aiWords.filter(w => text.includes(w)).length;
+  const aiScore = Math.min(aiHits * 12, 80);
+  const originalityOk = aiScore <= 20;
+
+  let html = '';
+  let failed = false;
+
+  // 字数
+  html += `<div>📏 字数：${wordCount} 字 — ${wordCount >= 800 ? '✅ 达标' : '❌ 不足800字'}`;
+
+  // P0 2000字拆文检查
+  if (isP0) {
+    html += ` <span style="color:var(--red);font-weight:600">⚠️ P0干货超过2000字，需拆分为多篇发布</span>`;
+    failed = true;
+  }
+
+  html += `</div>`;
+
+  // 违禁词
+  if (hasDangerWords) {
+    html += `<div>⛔ 违禁词：<span style="color:var(--red);font-weight:600">发现 ${foundWords.length} 个：${foundWords.join('、')}</span> — 请先通过检测替换</div>`;
+    failed = true;
+  } else {
+    html += `<div>✅ 违禁词：未检测到违规词</div>`;
+  }
+
+  // AI味
+  html += `<div>🤖 AI味：${aiScore}% — ${originalityOk ? '✅ 原创度达标' : '❌ AI味过重，建议重写'}`;
+
+  // 金句
+  const quoteCount = (text.match(/「/g) || []).length;
+  html += `<div>💬 金句：${quoteCount} 句「」 — ${quoteCount >= 8 ? '✅ 达标' : '❌ 不足8句'}</div>`;
+
+  // 综合
+  if (failed) {
+    html += `<div style="color:var(--red);font-weight:600;margin-top:4px">⛔ 存在未通过项，请修复后重新检测</div>`;
+  } else {
+    html += `<div style="color:var(--green);font-weight:600;margin-top:4px">✅ 全部检测通过，可以勾选清单发布了</div>`;
+  }
+
+  resultDiv.style.display = 'block';
+  resultDiv.innerHTML = html;
+  resultDiv.style.background = failed ? '#FEF2F2' : '#F0FDF4';
+  resultDiv.style.padding = '10px';
+  resultDiv.style.borderRadius = '6px';
+  resultDiv.style.border = '1px solid ' + (failed ? '#FECACA' : '#BBF7D0');
+}
+
+function updateChecklist() {
+  const c1 = document.getElementById('cl1').checked;
+  const c2 = document.getElementById('cl2').checked;
+  const c3 = document.getElementById('cl3').checked;
+  const c4 = document.getElementById('cl4').checked;
+  const c5 = document.getElementById('cl5').checked;
+  const c6 = document.getElementById('cl6').checked;
+  const checked = [c1, c2, c3, c4, c5, c6].filter(Boolean).length;
+  const total = 6;
   document.getElementById('checklistProgress').textContent = checked + ' / ' + total;
 
   const btn = document.getElementById('publishBtn');
   const hint = document.getElementById('publishHint');
   if (checked === total) {
     btn.disabled = false;
-    btn.title = '全部就绪，点击发布';
+    btn.style.opacity = '1';
+    btn.style.cursor = 'pointer';
+    btn.style.pointerEvents = 'auto';
     hint.textContent = '✅ 全部就绪，杨老师觉得这波可以冲！';
     hint.style.color = 'var(--green)';
   } else {
     btn.disabled = true;
-    btn.title = '请先勾选全部' + total + '项必检项';
-    hint.textContent = '还差 ' + (total - checked) + ' 项，勾完再发';
+    btn.style.opacity = '0.5';
+    btn.style.cursor = 'not-allowed';
+    btn.style.pointerEvents = 'none';
+    const reasons = [];
+    if (!c1) reasons.push('标题合规');
+    if (!c2) reasons.push('字数达标');
+    if (!c3) reasons.push('金句达标');
+    if (!c4) reasons.push('违禁词清零');
+    if (!c5) reasons.push('热搜词覆盖');
+    if (!c6) reasons.push('原创度达标');
+    hint.textContent = '需完成全部6项检查才能发布 · 缺：' + reasons.join('、');
     hint.style.color = 'var(--text-muted)';
   }
 }
 
 function confirmPublish() {
-  if (!confirm('📤 确认发布这篇内容？\n\n发布前请确认：\n• 标题已预埋热搜词\n• 正文已通过高危词检测\n• 文末附录已齐全\n\n点了「确定」就正式发布了！')) return;
-
   const btn = document.getElementById('publishBtn');
+  if (btn.disabled) return; // Gate: cannot bypass
+
+  if (!confirm('📤 确认发布这篇内容？\n\n杨老师提醒你：\n• 发布前请确认全部6项检查已通过\n• 违禁词已清零\n• P0陈述已拆分\n\n点了「确定」就正式发布了！')) return;
+
   btn.textContent = '⏳ 发布中...';
   btn.disabled = true;
+  btn.style.opacity = '0.5';
+  btn.style.cursor = 'not-allowed';
+  btn.style.pointerEvents = 'none';
 
   setTimeout(() => {
     btn.textContent = '✅ 已发布';
     btn.style.background = 'var(--green)';
+    btn.style.opacity = '1';
+    btn.style.cursor = 'default';
+    btn.style.pointerEvents = 'none';
     document.getElementById('publishHint').textContent = '🎉 搞定！杨老师觉得这篇能爆';
     document.getElementById('publishHint').style.color = 'var(--green)';
     showHint('🎉 发布成功！杨老师觉得这波可以冲');
