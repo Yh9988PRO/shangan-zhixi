@@ -1636,37 +1636,6 @@ function renderCountdownBar() {
   }
 }
 
-// 信源Tab切换
-function switchSourceTab(tab, btn) {
-  document.querySelectorAll('.src-tab').forEach(b => b.classList.remove('src-tab-active'));
-  if (btn) btn.classList.add('src-tab-active');
-  const grid = document.getElementById('sourceGrid');
-  const items = DATA.sources || [];
-  const filtered = tab === 'alert' ? items.filter(s => s.status === 'alert' || s.status === 'offline') : items;
-  // Reuse renderSources logic but with filtered data
-  grid.innerHTML = filtered.map(s => {
-    const dotClass = s.status === 'alert' ? 'alert' : s.status;
-    const todayCount = s.updates.filter(u => isToday(u.date)).length;
-    const hasUpdate = todayCount > 0 || s.status === 'alert';
-    const latest = s.updates.length > 0 ? s.updates[0] : null;
-    const latestTime = latest ? latest.date + ' ' + (latest.time || '') : '—';
-    const daysSince = latest ? getDaysSince(latest.date) : 99;
-    const freshClass = !latest ? 'none' : daysSince === 0 ? 'today' : daysSince === 1 ? 'yesterday' : daysSince <= 2 ? 'days1' : daysSince <= 3 ? 'days2' : daysSince <= 5 ? 'days3' : daysSince <= 7 ? 'days4' : 'older';
-    const freshLabel = !latest ? '暂无更新' : daysSince === 0 ? '今日更新' : daysSince === 1 ? '昨日更新' : daysSince + '天前';
-    const chnMap = { gzxz: 'gov', gzw: 'gov', gjrcj: 'gov', gpxd: 'gov', rsb: 'gov', jyb: 'gov', czb: 'gov', szksy: 'gov', szrs: 'gov', ncss: 'gov', jobmohrss: 'gov', ciicsc: 'gov', gwkd: 'media', htw: 'media', zhihu: 'media', zhonggong: 'media', gdyj: 'media', bilibili: 'media', wxsearch: 'media' };
-    const chnLabel = chnMap[s.id] === 'gov' ? '官网' : '媒体';
-    return `<div class="source-card${hasUpdate ? ' has-update' : ''}" onclick="showSourceDetail('${s.id}')" style="${daysSince >= 7 ? 'opacity:0.85' : ''}">
-      <div class="sc-top"><div class="sc-source"><span class="sc-name">${s.name}</span><span class="sc-chn ${chnMap[s.id]}">${chnLabel}</span></div><span class="sc-dot ${dotClass}"></span></div>
-      <div class="sc-update">${s.updateLabel}</div>
-      <div class="sc-time">${latest ? '最近 ' + latestTime : '已加入监控'}</div>
-      <span class="sc-fresh ${freshClass}">${freshLabel}</span>
-    </div>`;
-  }).join('');
-  if (filtered.length === 0) {
-    grid.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-muted);font-size:0.82rem;grid-column:1/-1">✅ 所有信源运行正常</div>';
-  }
-}
-
 // Render stats bar (keep for backward compatibility with other panels)
 function renderStats() {
   renderDashKpiGrid();
@@ -1705,10 +1674,12 @@ function switchSourceTab(tab, btn) {
       <span class="sc-fresh ${freshClass}">${freshLabel}</span>
     </div>`;
   }).join('');
-  if (filtered.length === 0) {
+if (filtered.length === 0) {
     grid.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-muted);font-size:0.82rem">✅ 所有信源运行正常</div>';
   }
-  document.getElementById('srcAlertCount').textContent = items.filter(s => s.status === 'alert' || s.status === 'offline').length;
+  // Update alert count badge
+const alertCount = document.getElementById('srcAlertCount');
+  if (alertCount) alertCount.textContent = items.filter(s => s.status === 'alert' || s.status === 'offline').length;
 }
 
 // ===================================================================
