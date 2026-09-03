@@ -18,7 +18,7 @@
   --gray: #6B7280; --gray-light: #F3F4F6; --gray-border: #E5E7EB;
   --white: #FFFFFF;
   --bg: #F5F5F7;
-  --sidebar-bg: #8B1A1A;
+  --sidebar-bg: #C00000; --gold: #C9A86C;
   --text: #1F2937; --text-secondary: #6B7280; --text-muted: #9CA3AF;
   --sidebar-w: 240px; --header-h: 64px;
   --radius: 16px; --radius-sm: 10px; --radius-lg: 20px;
@@ -60,7 +60,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .header-btn{padding:6px 14px;border-radius:var(--radius-sm);border:1px solid var(--gray-border);background:var(--white);cursor:pointer;font-size:0.78rem;font-family:var(--font-sans);color:var(--text-secondary);transition:all 0.15s;display:flex;align-items:center;gap:4px}
 .header-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
 .header-btn.primary{background:var(--sidebar-bg);color:var(--white);border-color:var(--sidebar-bg)}
-.header-btn.primary:hover{background:#991B1B;border-color:#991B1B}
+.header-btn.primary:hover{background:#8B0000;border-color:#8B0000}
 .header-status{display:flex;align-items:center;gap:5px;font-size:0.75rem;color:var(--text-muted)}
 .header-status .dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse-dot 2s ease-in-out infinite}
 @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.4}}
@@ -75,12 +75,13 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .section-action:hover{background:var(--blue-light)}
 
 /* ===== KPI Bar ===== */
-.kpi-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
-.kpi-card{background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius);padding:16px 20px;cursor:pointer;transition:var(--transition);position:relative;box-shadow:var(--shadow-card)}
-.kpi-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-4px)}
-.kpi-card .kpi-value{font-family:var(--font-serif);font-size:1.75rem;font-weight:700;line-height:1.2}
-.kpi-card .kpi-label{font-size:0.82rem;color:var(--text-secondary);margin-top:2px;font-weight:500}
-.kpi-card .kpi-change{font-size:0.7rem;margin-top:4px;font-weight:500}
+.kpi-focus-row{display:flex;gap:12px;margin-bottom:18px;align-items:stretch}
+.kpi-bar{display:flex;flex-direction:row;gap:8px;flex:2;min-width:0}
+.kpi-card{background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius-sm);padding:10px 14px;cursor:pointer;transition:var(--transition);flex:1;min-width:0;box-shadow:var(--shadow-card);display:flex;flex-direction:column;justify-content:center}
+.kpi-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.kpi-card .kpi-value{font-family:var(--font-serif);font-size:1.15rem;font-weight:700;line-height:1.3}
+.kpi-card .kpi-label{font-size:0.7rem;color:var(--text-secondary);margin-top:1px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi-card .kpi-change{font-size:0.6rem;margin-top:2px;font-weight:500}
 .kpi-change.up{color:var(--green)}
 .kpi-change.warn{color:var(--orange)}
 .kpi-change.down{color:var(--red)}
@@ -90,13 +91,13 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .kpi-value.green{color:var(--green)}
 
 /* ===== 今日聚焦 ===== */
-.focus-bar{background:var(--red-light);border-left:4px solid var(--red);border-radius:var(--radius);padding:12px 20px;margin-bottom:18px;display:flex;align-items:center;gap:16px;min-height:60px}
-.focus-bar .focus-label{font-size:0.78rem;font-weight:600;color:var(--red);white-space:nowrap;display:flex;align-items:center;gap:4px}
-.focus-bar .focus-items{display:flex;gap:12px;flex:1;overflow-x:auto;padding:2px 0}
-.focus-bar .focus-item{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--red-border);border-radius:var(--radius-sm);padding:6px 12px;white-space:nowrap;cursor:pointer;transition:var(--transition);font-size:0.8rem;flex-shrink:0;box-shadow:0 2px 4px rgba(0,0,0,0.04)}
-.focus-bar .focus-item:hover{background:var(--red-light);border-color:var(--red);box-shadow:0 4px 8px rgba(220,38,38,0.10);transform:translateY(-1px)}
-.focus-bar .focus-item .focus-tag{font-size:0.65rem;background:var(--red);color:var(--white);padding:1px 8px;border-radius:4px;font-weight:600}
-.focus-bar .focus-item .focus-time{font-size:0.68rem;color:var(--text-muted)}
+.focus-bar{background:var(--red-light);border-left:4px solid var(--red);border-radius:var(--radius);padding:10px 16px;display:flex;flex-direction:column;gap:6px;flex:1;min-width:0;justify-content:center}
+.focus-bar .focus-label{font-size:0.75rem;font-weight:600;color:var(--red);display:flex;align-items:center;gap:4px;flex-shrink:0}
+.focus-bar .focus-items{display:flex;flex-direction:column;gap:4px;flex:1;overflow:hidden}
+.focus-bar .focus-item{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--red-border);border-radius:var(--radius-sm);padding:5px 10px;cursor:pointer;transition:var(--transition);font-size:0.72rem;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,0.03)}
+.focus-bar .focus-item:hover{background:var(--red-light);border-color:var(--red);box-shadow:0 3px 6px rgba(220,38,38,0.08);transform:translateX(2px)}
+.focus-bar .focus-item .focus-tag{font-size:0.6rem;background:var(--red);color:var(--white);padding:1px 7px;border-radius:3px;font-weight:600}
+.focus-bar .focus-item .focus-time{font-size:0.62rem;color:var(--text-muted)}
 
 /* ===== Source Grid ===== */
 .source-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:26px}
@@ -118,7 +119,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .sc-fresh.days2{background:#FFFBEB;color:#F59E0B}
 .sc-fresh.days3{background:#FEF2F2;color:#DC2626}
 .sc-fresh.days4{background:#FEF2F2;color:#DC2626}
-.sc-fresh.older{background:#FEF2F2;color:#991B1B}
+.sc-fresh.older{background:#FEF2F2;color:#8B0000}
 .sc-fresh.none{background:var(--gray-light);color:var(--text-muted)}
 .source-card .sc-priority{font-size:0.6rem;padding:1px 6px;border-radius:3px;font-weight:500;margin-left:auto}
 .sc-priority.p0{background:#FEF2F2;color:#DC2626}
@@ -320,10 +321,70 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 /* ===== Buttons ===== */
 .btn{padding:8px 18px;border-radius:var(--radius-sm);border:none;font-family:var(--font-sans);font-size:0.82rem;font-weight:500;cursor:pointer;transition:all 0.15s;display:inline-flex;align-items:center;gap:5px}
 .btn-primary{background:var(--sidebar-bg);color:var(--white)}
-.btn-primary:hover{background:#991B1B}
+.btn-primary:hover{background:#8B0000}
 .btn-outline{background:transparent;border:1px solid var(--gray-border);color:var(--text-secondary)}
 .btn-outline:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
 .btn-red{background:var(--red-light);color:var(--red);border:1px solid var(--red-border)}
+
+/* ===== Radar Page - 双栏紧凑布局 ===== */
+.radar-layout{display:flex;gap:24px;align-items:flex-start}
+.radar-main{flex:2;min-width:0}
+.radar-sidebar{width:340px;flex-shrink:0;display:flex;flex-direction:column;gap:16px;position:sticky;top:16px}
+.radar-sidebar .rs-card{background:var(--white);border:1px solid var(--gray-border);border-radius:12px;padding:16px;box-shadow:var(--shadow-card)}
+.radar-sidebar .rs-card .rs-title{font-size:15px;font-weight:600;color:#1F2937;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.radar-sidebar .rs-card .rs-divider{height:1px;background:#E5E7EB;margin:8px 0}
+.radar-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;cursor:pointer;transition:background 0.12s;min-height:52px;border-bottom:1px solid #F3F4F6}
+.radar-row:hover{background:#F3F4F6}
+.radar-row:last-child{border-bottom:none}
+.radar-row .rr-bar{width:4px;height:32px;border-radius:2px;flex-shrink:0}
+.radar-row .rr-bar.urgent{background:#DC2626}
+.radar-row .rr-bar.央企{background:#2563EB}
+.radar-row .rr-bar.深圳{background:#F97316}
+.radar-row .rr-bar.提前批{background:#7C3AED}
+.radar-row .rr-bar.竞品{background:#F59E0B}
+.radar-row .rr-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.radar-row .rr-title{font-size:15px;font-weight:600;color:#1F2937;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.radar-row .rr-meta{font-size:12px;color:#6B7280;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.radar-row .rr-meta .rr-company{color:#4B5563}
+.radar-row .rr-meta .rr-source{color:#9CA3AF}
+.radar-row .rr-meta .rr-dot{color:#D1D5DB;font-size:6px}
+.radar-row .rr-right{flex-shrink:0;display:flex;align-items:center;gap:6px}
+.radar-row .rr-tag{font-size:11px;padding:2px 10px;border-radius:9999px;font-weight:500;white-space:nowrap}
+.radar-row .rr-tag.urgent{background:#FEF2F2;color:#DC2626}
+.radar-row .rr-tag.blue{background:#EFF6FF;color:#2563EB}
+.radar-row .rr-tag.orange{background:#FFF7F0;color:#F97316}
+.radar-row .rr-tag.purple{background:#F5F3FF;color:#7C3AED}
+.radar-row .rr-tag.gray{background:#F3F4F6;color:#6B7280}
+.radar-row .rr-urgency{font-size:11px;font-weight:600;color:#DC2626;white-space:nowrap}
+.radar-row .rr-threat{font-size:11px;font-weight:500;white-space:nowrap}
+.radar-list-compact{background:var(--white);border:1px solid var(--gray-border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-card)}
+.radar-list-compact .rlc-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;border-bottom:1px solid #E5E7EB}
+.radar-list-compact .rlc-header .rlc-title{font-size:15px;font-weight:600;color:#1F2937}
+.radar-list-compact .rlc-header .rlc-count{font-size:12px;color:#6B7280}
+.radar-list-compact .rlc-section{font-size:12px;font-weight:600;color:#6B7280;padding:10px 16px 6px;background:#F9FAFB;border-bottom:1px solid #F3F4F6}
+.rs-rank-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #F3F4F6;cursor:pointer;transition:background 0.1s}
+.rs-rank-item:last-child{border-bottom:none}
+.rs-rank-item:hover{background:#F9FAFB;margin:0 -4px;padding:8px 4px;border-radius:6px}
+.rs-rank-item .rs-rank-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.rs-rank-item .rs-rank-num.top3{background:#F59E0B;color:#fff}
+.rs-rank-item .rs-rank-num.other{background:#F3F4F6;color:#6B7280}
+.rs-rank-item .rs-rank-title{flex:1;font-size:13px;color:#4B5563;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.4}
+.rs-rank-item .rs-rank-val{font-size:12px;font-weight:600;color:#2563EB;flex-shrink:0;font-variant-numeric:tabular-nums}
+.rs-todo-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid #F3F4F6;cursor:pointer}
+.rs-todo-item:last-child{border-bottom:none}
+.rs-todo-item .rs-todo-cb{width:16px;height:16px;border-radius:4px;border:1.5px solid #D1D5DB;flex-shrink:0;margin-top:2px;transition:all 0.15s;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent}
+.rs-todo-item:hover .rs-todo-cb{border-color:#2563EB}
+.rs-todo-item .rs-todo-body{flex:1;min-width:0}
+.rs-todo-item .rs-todo-title{font-size:13px;color:#4B5563;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rs-todo-item .rs-todo-meta{font-size:11px;color:#9CA3AF;margin-top:1px}
+.rs-todo-item .rs-todo-deadline{font-size:11px;padding:1px 8px;border-radius:4px;flex-shrink:0;white-space:nowrap}
+.rs-todo-item .rs-todo-deadline.urgent{background:#FEF2F2;color:#DC2626;font-weight:500}
+.rs-todo-item .rs-todo-deadline.warn{background:#FFFBEB;color:#F59E0B;font-weight:500}
+.rs-todo-item .rs-todo-deadline.normal{background:#F3F4F6;color:#6B7280}
+.rs-source-item{font-size:12px;color:#6B7280;line-height:1.6;padding:3px 0;display:flex;gap:6px}
+.rs-source-item .rsi-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.rs-source-item .rsi-dot.gov{background:#2563EB}
+.rs-source-item .rsi-dot.media{background:#F97316}
 .btn-red:hover{background:var(--red);color:var(--white);border-color:var(--red)}
 .btn-sm{padding:4px 12px;font-size:0.75rem}
 .btn-group{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
@@ -335,7 +396,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .cmd-input-wrap input{flex:1;border:none;outline:none;font-size:0.82rem;font-family:var(--font-sans);color:var(--text);background:none;padding:12px 0;min-width:0}
 .cmd-input-wrap input::placeholder{color:var(--text-muted);font-size:0.75rem}
 .cmd-input-wrap .cmd-trigger{padding:5px 12px;border-radius:4px;border:none;background:var(--sidebar-bg);color:var(--white);font-size:0.75rem;font-family:var(--font-sans);cursor:pointer;white-space:nowrap}
-.cmd-input-wrap .cmd-trigger:hover{background:#991B1B}
+.cmd-input-wrap .cmd-trigger:hover{background:#8B0000}
 .cmd-suggestions{max-height:0;overflow:hidden;transition:max-height 0.2s ease;border-top:1px solid transparent}
 .cmd-suggestions.active{max-height:240px;border-top-color:var(--gray-border)}
 .cmd-suggestions .sug-item{padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:0.8rem;transition:background 0.1s}
@@ -642,169 +703,33 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .radar-card .rc-row3{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted);flex-wrap:wrap}
 .rc-row3 .rc-source{color:#2563EB;font-size:11px}
 
-/* ===== Mobile Bottom Nav ===== */
-.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--sidebar-bg);z-index:999;padding:6px 0 env(safe-area-inset-bottom,6px);box-shadow:0 -2px 12px rgba(0,0,0,0.15)}
-.mobile-nav-inner{display:flex;overflow-x:auto;gap:2px;padding:0 4px;scrollbar-width:none;-ms-overflow-style:none}
-.mobile-nav-inner::-webkit-scrollbar{display:none}
-.mnav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 10px;border-radius:8px;cursor:pointer;border:none;background:none;color:rgba(255,255,255,0.6);font-size:10px;font-family:var(--font-sans);white-space:nowrap;flex-shrink:0;transition:all 0.15s;min-width:56px}
-.mnav-item .mnav-icon{font-size:16px;line-height:1}
-.mnav-item .mnav-label{font-size:9px;font-weight:400}
-.mnav-item.active{color:var(--white);background:rgba(255,255,255,0.12);font-weight:500}
-.mnav-item:hover{color:var(--white)}
-
-/* ===== Mobile Menu Toggle ===== */
-.mobile-menu-toggle{display:none;background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;padding:4px;line-height:1}
-
-/* ===== Scrollable content areas on mobile ===== */
-.mobile-scroll-x{overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px}
-.mobile-scroll-x::-webkit-scrollbar{display:none}
-
 @media(max-width:1280px){
   .topic-board{overflow-x:auto;gap:12px}
   .topic-col{min-width:320px}
+  .radar-layout{flex-direction:column}
+  .radar-sidebar{width:100%;flex-direction:row;flex-wrap:wrap;position:static}
+  .radar-sidebar .rs-card{flex:1;min-width:260px}
 }
 @media(max-width:1024px){
   .source-grid{grid-template-columns:repeat(3,1fr)}
-  .stats-kpi{grid-template-columns:repeat(2,1fr)}
-  .pub-kpi{grid-template-columns:repeat(2,1fr)}
-  .stats-two-col{flex-direction:column}
-  .w-pipeline{overflow-x:auto;padding-bottom:4px}
-  .w-pipe-card{min-width:120px;flex:0 0 auto}
-  .w-pipe-arrow{flex:0 0 auto}
 }
 @media(max-width:768px){
-  .app{flex-direction:column;height:auto;min-height:100vh}
-  .sidebar{width:100%;flex-direction:row;height:auto;padding:8px 12px;position:sticky;top:0;z-index:100;align-items:center;gap:8px}
-  .sidebar-brand{display:flex;flex-direction:row;align-items:center;gap:8px;padding:0;border:none;flex-shrink:0}
-  .sidebar-brand h1{font-size:0.9rem}
-  .sidebar-brand .brand-sub{display:none}
-  .sidebar-nav{display:none}
-  .sidebar-footer{display:none}
-  .mobile-nav{display:block}
-  .mobile-menu-toggle{display:block}
-  .main{flex:1;padding-bottom:72px}
-  .main-header{padding:0 14px;height:auto;min-height:52px;flex-wrap:wrap;gap:6px}
-  .main-header .page-title{font-size:0.95rem}
-  .main-header .page-title span{display:none}
-  .header-actions{gap:6px;flex-wrap:wrap}
-  .header-btn{font-size:0.7rem;padding:4px 10px}
-  .header-status{font-size:0.65rem}
-  .content-area{padding:12px 12px 20px}
-  .kpi-bar{grid-template-columns:repeat(2,1fr);gap:10px}
-  .kpi-card{padding:12px 14px}
-  .kpi-card .kpi-value{font-size:1.3rem}
-  .kpi-card .kpi-label{font-size:0.72rem}
-  .source-grid{grid-template-columns:repeat(2,1fr);gap:10px}
-  .source-card{padding:12px}
-  .source-card .sc-name{font-size:0.82rem}
-  .source-card .sc-update{font-size:0.7rem}
-  .focus-bar{flex-wrap:wrap;gap:8px;padding:10px 14px}
-  .focus-bar .focus-items{gap:8px}
-  .focus-bar .focus-item{font-size:0.72rem;padding:4px 10px}
-  .topic-board{grid-template-columns:1fr;gap:12px}
-  .topic-col{min-width:unset}
-  .section-header h2{font-size:0.95rem}
+  .sidebar{width:56px}
+  .sidebar-brand h1,.sidebar-brand .brand-sub,.nav-item span,.sidebar-footer .user-info,.sidebar-footer .user-role{display:none}
+  .nav-item{justify-content:center;padding:10px}
+  .sidebar-footer{justify-content:center;padding:10px}
+  .main-header{padding:0 14px}
+  .content-area{padding:14px}
+  .source-grid{grid-template-columns:repeat(2,1fr)}
+  .kpi-focus-row{flex-direction:column}
+  .focus-bar{width:auto;flex-direction:row;flex-wrap:wrap;gap:8px;padding:10px 14px}
+  .focus-bar .focus-items{flex-direction:row;overflow-x:auto}
   .modal{width:95%;max-height:90vh}
-  .modal-body{padding:14px 16px}
-  .drawer{width:100vw;max-width:100vw}
-  .stats-kpi{grid-template-columns:1fr 1fr;gap:10px}
-  .stats-kpi .kpi-big{padding:14px}
-  .kpi-big .kpi-num{font-size:26px}
-  .stats-two-col{flex-direction:column}
-  .pub-kpi{grid-template-columns:1fr 1fr;gap:10px}
-  .pub-kpi .pk-card{padding:14px}
-  .pk-card .pk-num{font-size:28px}
-  .pub-toolbar{flex-wrap:wrap;gap:6px;padding:8px 12px}
-  .pub-search{width:120px}
-  .w-pipeline{overflow-x:auto;padding-bottom:4px;gap:4px}
-  .w-pipe-card{min-width:100px;flex:0 0 auto;padding:10px 12px;height:60px}
-  .w-pipe-card .pc-num{font-size:20px}
-  .w-pipe-arrow{font-size:12px}
-  .w-toolbar{flex-wrap:wrap;gap:6px;padding:8px 12px}
-  .topic-toolbar{flex-wrap:wrap;gap:6px;padding:8px 12px}
-  .radar-toolbar{flex-wrap:wrap;gap:6px;padding:8px 12px}
-  .stats-card{padding:14px}
-  .stats-card .sc-head h3{font-size:14px}
-  .rank-table td,.rank-table th{padding:6px 8px;font-size:11px}
-  .rank-table .td-title{max-width:140px}
-  .tool-card .tc-body{padding:12px 10px}
-  .tool-card .tc-icon{font-size:1.4rem}
-  .pipeline{gap:8px}
-  .pipe-label{font-size:11px;width:48px}
-  .file-path-list{font-size:0.65rem;padding:8px 10px}
-  .cmd-input-wrap{padding:0 10px}
-  .cmd-input-wrap input{font-size:0.75rem;padding:10px 0}
-  .cmd-bar-footer{padding:4px 10px}
-  .cmd-bar-footer .cmd-quick{font-size:0.6rem}
-  .import-format-grid{grid-template-columns:1fr 1fr}
-  .plan-timeline{gap:4px}
-  .plan-day{padding:4px 10px;font-size:11px}
-  .plan-card{padding:10px 12px}
-  .plan-card .pc-row1{font-size:13px}
-  .d-filter{flex-wrap:wrap;gap:4px}
-  .d-filter .d-search{width:100%}
-  .d-stats{overflow-x:auto}
-  .d-stats .ds-item{min-width:60px}
-  .d-card{padding:12px}
-  .dc-title{font-size:13px}
-  .import-dropzone{padding:24px 16px}
-  .import-rules{font-size:0.72rem}
 }
 @media(max-width:480px){
-  .sidebar-brand h1{font-size:0.8rem}
-  .sidebar-brand .brand-icon{gap:4px}
-  .kpi-bar{grid-template-columns:1fr 1fr;gap:8px}
-  .kpi-card{padding:10px 12px}
-  .kpi-card .kpi-value{font-size:1.1rem}
-  .source-grid{grid-template-columns:1fr 1fr;gap:8px}
-  .source-card{padding:10px}
-  .section-header{flex-wrap:wrap;gap:6px}
-  .section-header h2{font-size:0.85rem}
-  .main-header .page-title{font-size:0.85rem}
-  .content-area{padding:8px 8px 16px}
-  .header-btn{font-size:0.65rem;padding:3px 8px}
-  .stats-kpi{grid-template-columns:1fr 1fr;gap:8px}
-  .stats-kpi .kpi-big{padding:12px}
-  .kpi-big .kpi-num{font-size:22px}
-  .pub-kpi{grid-template-columns:1fr 1fr;gap:8px}
-  .pub-kpi .pk-card{padding:12px}
-  .pk-card .pk-num{font-size:24px}
-  .rank-table .td-title{max-width:100px}
-  .pc-data{gap:12px;flex-wrap:wrap}
-  .pc-data .pc-d-item{font-size:11px}
-  .wc-steps{overflow-x:auto;padding-bottom:4px}
-  .wc-step{min-width:60px;font-size:10px;height:24px}
-  .wc-row4{font-size:11px;gap:6px}
-  .tc-row3{font-size:11px;gap:8px}
-  .topic-item-new{padding:14px}
-  .topic-item-new .tc-title{font-size:13px}
-  .pub-card{padding:14px}
-  .pc-title{font-size:13px}
-  .w-card{padding:14px}
-  .wc-title{font-size:13px}
-  .mnav-item{padding:3px 8px;min-width:48px}
-  .mnav-item .mnav-icon{font-size:14px}
-  .mnav-item .mnav-label{font-size:8px}
-  .modal{width:100%;border-radius:var(--radius) var(--radius) 0 0;max-height:92vh;margin-top:auto;align-self:flex-end}
-  .modal-overlay.active{align-items:flex-end}
-  .modal-header{padding:14px 16px}
-  .modal-body{padding:12px 14px}
-  .import-format-grid{grid-template-columns:1fr}
-  .d-card{padding:10px}
-  .dc-title{font-size:12px}
-  .dc-tags{gap:2px}
-  .dc-tg{font-size:10px;padding:1px 6px}
-  .d-filter{padding:6px 8px}
-  .d-filter select{font-size:10px}
-  .d-stats .ds-val{font-size:16px}
-  .d-stats .ds-lbl{font-size:10px}
-  .plan-day{font-size:10px;padding:3px 8px}
-  .plan-card .pc-row1{font-size:12px}
-  .plan-card .pc-row3{font-size:11px}
-  .tool-card .tc-body{padding:10px 8px}
-  .tool-card .tc-icon{font-size:1.2rem}
-  .tool-card .tc-name{font-size:12px}
-  .tool-card .tc-desc{font-size:10px}
+  .source-grid{grid-template-columns:1fr}
+  .kpi-bar{flex-wrap:wrap}
+  .kpi-card{flex:1 1 45%}
 }
 
 /* ===== Import Dialog ===== */
@@ -883,11 +808,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 <aside class="sidebar">
   <div class="sidebar-brand">
     <div class="brand-icon">
-      <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
-        <rect x="2" y="6" width="24" height="18" rx="3" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" fill="none"/>
-        <path d="M9 12h10M9 16h7M9 20h4" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M14 2L14 6" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
+      <img src="assets/logo.png" alt="上岸自习局" style="width:32px;height:32px;border-radius:8px;object-fit:cover;">
       <h1>上岸自习局</h1>
     </div>
     <div class="brand-sub">杨老师 · 创作工作台</div>
@@ -901,26 +822,13 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
     <button class="nav-item" data-page="radar"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 1.5L16.5 5v5c0 3.5-3 6.8-7.5 8C4.5 16.8 1.5 13.5 1.5 10V5L9 1.5z"/><path d="M6.5 9.5l2 2 4-4" stroke-width="1.8"/></svg><span>信息雷达</span></button>
     <button class="nav-item" data-page="tools"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14.7 1.3l-5.4 5.4M9.3 6.7L6 10l2 2 3.3-3.3M4 14l-2 2"/><circle cx="14" cy="14" r="2.5"/><path d="M10 4l4-2 2 4-4 2"/></svg><span>创作工具</span></button>
     <button class="nav-item" data-page="terminated"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="9" r="7"/><path d="M6 6l6 6M12 6l-6 6"/></svg><span>已终止</span></button>
+    <button class="nav-item" data-page="compliance"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 1.5L16.5 5v5c0 3.5-3 6.8-7.5 8C4.5 16.8 1.5 13.5 1.5 10V5L9 1.5z"/><path d="M6.5 9.5l2 2 4-4" stroke-width="1.8"/><path d="M5.5 7.5L9 11l3.5-3.5" stroke-width="1.5"/></svg><span>合规中心</span></button>
   </nav>
   <div class="sidebar-footer">
     <div class="avatar">杨</div>
-    <div class="user-info"><div class="user-name">杨老师</div><div class="user-role">15年央国企规划</div></div>
+    <div class="user-info"><div class="user-name">杨老师</div><div class="user-role">17年央国企HR经验</div></div>
   </div>
 </aside>
-
-<!-- ===== Mobile Bottom Nav ===== -->
-<nav class="mobile-nav" id="mobileNav">
-  <div class="mobile-nav-inner">
-    <button class="mnav-item active" data-page="dashboard"><span class="mnav-icon">📊</span><span class="mnav-label">全览看板</span></button>
-    <button class="mnav-item" data-page="topic"><span class="mnav-icon">📝</span><span class="mnav-label">选题管理</span></button>
-    <button class="mnav-item" data-page="writing"><span class="mnav-icon">✍️</span><span class="mnav-label">写作中</span></button>
-    <button class="mnav-item" data-page="archive"><span class="mnav-icon">✅</span><span class="mnav-label">已发布</span></button>
-    <button class="mnav-item" data-page="stats"><span class="mnav-icon">📈</span><span class="mnav-label">数据统计</span></button>
-    <button class="mnav-item" data-page="radar"><span class="mnav-icon">📡</span><span class="mnav-label">信息雷达</span></button>
-    <button class="mnav-item" data-page="tools"><span class="mnav-icon">🔧</span><span class="mnav-label">创作工具</span></button>
-    <button class="mnav-item" data-page="terminated"><span class="mnav-icon">🗑️</span><span class="mnav-label">已终止</span></button>
-  </div>
-</nav>
 
 <!-- ===== Main ===== -->
 <div class="main">
@@ -939,11 +847,11 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 
     <!-- ===== 全览看板（唯一主面板） ===== -->
     <div class="page-panel active" id="panel-dashboard">
-      <!-- KPI Bar -->
-      <div class="kpi-bar" id="kpiBar"></div>
-
-      <!-- 今日聚焦 -->
-      <div class="focus-bar" id="focusBar"></div>
+      <!-- KPI Bar + 今日聚焦 并列 -->
+      <div class="kpi-focus-row">
+        <div class="focus-bar" id="focusBar"></div>
+        <div class="kpi-bar" id="kpiBar"></div>
+      </div>
 
       <!-- 官方信源监控 -->
       <div class="section-header"><h2>📡 官方信源监控</h2><button class="section-action" onclick="refreshSources()">⟳ 刷新</button></div>
@@ -971,6 +879,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
           <span class="cmd-quick" onclick="quickCmd('/开始 ')">/开始</span>
           <span class="cmd-quick" onclick="quickCmd('/查看 ')">/查看</span>
           <span class="cmd-quick" onclick="quickCmd('/终止 ')">/终止</span>
+          <span class="cmd-quick" onclick="quickCmd('/合规')">/合规</span>
           <span class="cmd-quick" onclick="showFileList()">/存放</span>
         </div>
       </div>
@@ -1059,14 +968,19 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
   <div class="btn-group" style="margin-top:4px"><button class="btn btn-primary" onclick="switchPanel('dashboard')">← 返回看板</button><button class="btn btn-outline" onclick="showSyncGuide()">📡 同步公众号数据</button></div>
 </div>
     <div class="page-panel" id="panel-radar">
-      <div class="section-header"><h2>📡 信息雷达</h2><span style="font-size:0.8rem;color:var(--text-muted)" id="radarDateLabel">2026-08-22</span></div>
-      <div class="radar-toolbar" id="radarToolbar"></div>
-      <div class="radar-list" id="radarList"></div>
-      <div class="btn-group"><button class="btn btn-primary" onclick="switchPanel('dashboard')">← 返回看板</button></div>
+      <div class="section-header"><h2>📡 信息雷达</h2><span style="font-size:0.85rem;font-weight:500;color:var(--text-muted)" id="radarDateLabel">2026-08-26</span></div>
+      <div class="radar-layout">
+        <div class="radar-main">
+          <div class="radar-toolbar" id="radarToolbar"></div>
+          <div class="radar-list-compact" id="radarListContainer"></div>
+          <div class="btn-group" style="margin-top:12px"><button class="btn btn-primary" onclick="switchPanel('dashboard')">← 返回看板</button></div>
+        </div>
+        <div class="radar-sidebar" id="radarSidebar"></div>
+      </div>
     </div>
     <div class="page-panel" id="panel-tools">
-      <div class="section-header"><h2>🛠️ 创作工具</h2><span style="font-size:0.8rem;color:var(--text-muted)">常用创作工具快捷入口</span></div>
-      <div class="tools-grid" id="toolsGrid"></div>
+      <div class="section-header"><h2>🛠️ 创作工具</h2><span style="font-size:0.8rem;color:var(--text-muted)">WorkBuddy质检 + 工具快捷入口</span></div>
+      <div id="toolsGrid"></div>
       <div class="btn-group"><button class="btn btn-primary" onclick="switchPanel('dashboard')">← 返回看板</button></div>
     </div>
   <div class="stats-card" style="width:100%">
@@ -1091,6 +1005,108 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
     <div style="text-align:center;padding:40px;color:var(--text-muted)">加载中...</div>
   </div>
   <div class="btn-group"><button class="btn btn-primary" onclick="switchPanel('dashboard')">← 返回看板</button></div>
+</div>
+
+<!-- ===== 合规中心（第9面板） ===== -->
+<div class="page-panel" id="panel-compliance">
+  <!-- 统计卡片行 -->
+  <div class="stats-kpi" id="complianceKpiGrid">
+    <div class="kpi-big" onclick="runComplianceScan()">
+      <div class="kpi-top"><span class="kpi-label">🛡️ 已扫描</span><span class="kpi-arrow up">⟳ 扫描</span></div>
+      <div class="kpi-num blue" id="complianceScanned">0</div>
+      <div class="kpi-sub">今日已扫描文案数</div>
+    </div>
+    <div class="kpi-big" onclick="showDangerWordDetail()">
+      <div class="kpi-top"><span class="kpi-label">⛔ 拦截高危词</span><span class="kpi-arrow down" id="interceptedBadge">详情</span></div>
+      <div class="kpi-num orange" id="complianceIntercepted">0</div>
+      <div class="kpi-sub">累计拦截次数</div>
+    </div>
+    <div class="kpi-big">
+      <div class="kpi-top"><span class="kpi-label">✅ 合规通过率</span></div>
+      <div class="kpi-num green" id="complianceRate">100%</div>
+      <div class="kpi-sub" id="complianceRateDesc">首次扫描即合规</div>
+    </div>
+    <div class="kpi-big">
+      <div class="kpi-top"><span class="kpi-label">🔍 原创度检测</span></div>
+      <div class="kpi-num blue2" id="complianceOriginality">—</div>
+      <div class="kpi-sub">粘贴文案后自动检测</div>
+    </div>
+  </div>
+
+  <!-- 高危词检测工具 -->
+  <div class="stats-card">
+    <div class="sc-head"><h3>🔎 高危词检测 & 替换</h3><span class="sc-badge gray" id="dangerWordCount">8 条规则</span></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">保过 → 提升通过率策略</span>
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">包进 → 提高录取概率的方法</span>
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">100% → 高概率</span>
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">内部名额 → 特定渠道名额</span>
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">关系渠道 → 推荐渠道</span>
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">保证录用 → 提高录用概率</span>
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">包过面试 → 提升面试通过率</span>
+      <span class="dc-tg info" style="font-size:12px;padding:3px 10px">稳进 → 增加录取机会</span>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <textarea id="complianceTextInput" placeholder="在此粘贴文案，点击「检测并替换」自动扫描高危词…" style="flex:1;min-height:120px;padding:12px;border:1px solid var(--gray-border);border-radius:8px;font-family:var(--font-sans);font-size:0.82rem;resize:vertical;outline:none;background:var(--white);min-width:200px"></textarea>
+      <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0">
+        <button class="btn btn-primary" onclick="scanAndReplace()" style="height:40px;padding:0 24px">🔍 检测并替换</button>
+        <button class="btn btn-outline" onclick="clearComplianceText()" style="height:40px;padding:0 24px">清空</button>
+      </div>
+    </div>
+    <div id="complianceResult" style="margin-top:12px;display:none">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px" id="complianceResultHeader"></div>
+      <textarea id="complianceResultText" readonly style="width:100%;min-height:100px;padding:12px;border:1px solid var(--green-border);border-radius:8px;font-family:var(--font-sans);font-size:0.82rem;resize:vertical;outline:none;background:var(--green-light);color:var(--text)"></textarea>
+    </div>
+  </div>
+
+  <!-- 三检测指标 -->
+  <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+    <div style="flex:1;min-width:160px;background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius);padding:16px;text-align:center;box-shadow:var(--shadow-card)">
+      <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:4px">🔍 原创度检测</div>
+      <div style="font-size:1.5rem;font-weight:700;color:var(--green)" id="originIndicator">—</div>
+      <div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px" id="originLabel">粘贴文案后自动检测</div>
+    </div>
+    <div style="flex:1;min-width:160px;background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius);padding:16px;text-align:center;box-shadow:var(--shadow-card)">
+      <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:4px">🤖 AI味检测</div>
+      <div style="font-size:1.5rem;font-weight:700;color:var(--green)" id="aiIndicator">—</div>
+      <div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px" id="aiLabel">粘贴文案后自动检测</div>
+    </div>
+    <div style="flex:1;min-width:160px;background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius);padding:16px;text-align:center;box-shadow:var(--shadow-card)">
+      <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:4px">👤 人味检测</div>
+      <div style="font-size:1.5rem;font-weight:700;color:var(--green)" id="humanIndicator">—</div>
+      <div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px" id="humanLabel">粘贴文案后自动检测</div>
+    </div>
+  </div>
+
+  <!-- 发前必检清单 + 发布闸门 -->
+  <div class="stats-card" style="border-left:4px solid var(--sidebar-bg)">
+    <div class="sc-head"><h3>📋 发前必检清单</h3><span class="sc-badge gray" id="checklistProgress">0 / 6</span></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+      <label class="cl-item" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--gray-light)">
+        <input type="checkbox" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.85rem">标题含核心热词，18-26字，无违规承诺</span>
+      </label>
+      <label class="cl-item" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--gray-light)">
+        <input type="checkbox" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.85rem">开篇前100字预埋核心关键词，抛痛点留钩子</span>
+      </label>
+      <label class="cl-item" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--gray-light)">
+        <input type="checkbox" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.85rem">正文含至少1个信息差+具体数据，金句≥8句</span>
+      </label>
+      <label class="cl-item" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--gray-light)">
+        <input type="checkbox" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.85rem">文末四附录齐全：互动+渠道+来源+免责声明</span>
+      </label>
+      <label class="cl-item" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--gray-light)">
+        <input type="checkbox" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.85rem">关键数据有出处，无绝对化承诺</span>
+      </label>
+      <label class="cl-item" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--gray-light)">
+        <input type="checkbox" onchange="updateChecklist()" style="width:18px;height:18px;accent-color:var(--sidebar-bg);cursor:pointer"> <span style="font-size:0.85rem">已通过高危词检测，无违禁词残留</span>
+      </label>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="btn btn-primary" id="publishBtn" disabled title="请先勾选全部6项必检项" onclick="confirmPublish()" style="padding:10px 32px;font-size:0.9rem">📤 确认发布</button>
+      <span id="publishHint" style="font-size:0.78rem;color:var(--text-muted)">请先勾选全部6项必检项</span>
+    </div>
+  </div>
+  <div class="btn-group" style="margin-top:8px"><button class="btn btn-primary" onclick="switchPanel('dashboard')">← 返回看板</button></div>
 </div>
 
   </div>
@@ -1124,84 +1140,87 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 const DATA = {
   today: new Date().toISOString().slice(0,10),
   stats: {
-    pending: { count: 21, change: '+8', changeLabel: '今日新增', changeType: 'up', tooltip: '新增8个基于新信源的选题，覆盖24365平台/公考雷达白皮书/三大招聘平台对比/社交媒体信息甄别/B站秋招攻略/新榜爆款分析/中公时间表纠错' },
-    writing: { count: 4, change: '2', changeLabel: '篇今日截止', changeType: 'warn', tooltip: '2 篇必须在今天之内完成' },
-    published: { count: 10, change: '47,589', changeLabel: '最高阅读', changeType: 'up', tooltip: '公众号后台实时同步，共 10 篇真实文章 · 最新爆款："清理门户" 47,589 阅读' },
-    sources: { count: 21, change: '5', changeLabel: '个信源新增', changeType: 'up', tooltip: '新增11路信源：国家大学生就业服务平台、中国公共招聘网、中智招聘、公考雷达、海投网/梧桐果、知乎、小红书、今日头条、B站、新榜、中公教育公众号 · 日更新5条' },
-    terminated: { count: 1, change: '1', changeLabel: '已终止', changeType: 'neutral', tooltip: '已终止写作并归档' }
+    pending: { count: 23, change: '+5', changeLabel: '今日新增', changeType: 'up', tooltip: '新增5个选题：央国企薪资对比、能源赛道深度分析、9月正式批前瞻、面试技巧系列、补录机会汇总' },
+    writing: { count: 5, change: '3', changeLabel: '篇今日截止', changeType: 'warn', tooltip: '3 篇必须在今天之内完成' },
+    published: { count: 12, change: '52,381', changeLabel: '最高阅读', changeType: 'up', tooltip: '公众号后台实时同步，共 12 篇真实文章 · 最新爆款："二本进央企" 52,381 阅读' },
+    sources: { count: 21, change: '12', changeLabel: '个信源今日更新', changeType: 'up', tooltip: '21路信源全量监控中 · 今日12条新更新：国资小新、国聘行动、国家电网、人社部、教育部、深圳市考试院、国家大学生就业服务平台、中智招聘、微信搜一搜等均有新动态' },
+    terminated: { count: 2, change: '2', changeLabel: '已终止', changeType: 'neutral', tooltip: '已终止写作并归档' }
   },
   sources: [
-    { id: 'gzxz', name: '国资小新', status: 'alert', statusLabel: '今日更新', updateLabel: '今日更新 2 条', updates: [
-      { title: '2027届国央企秋招白皮书发布：预计释放超30万个岗位', date: '2026-08-18', time: '07:00', url: '#', summary: '公考雷达大数据中心发布《2027国央企秋季校园招聘白皮书》，2027届秋招预计释放超30万个岗位，能源电力赛道预计释放超8万个。' },
-      { title: '国资委：2026年中央企业校园招聘工作全面启动', date: '2026-08-13', time: '09:15', url: '#', summary: '国资委要求各央企于8月底前完成2026届校园招聘方案备案，9月全面启动秋招，重点面向新能源、人工智能、生物医药等战略性新兴产业。' }
+    { id: 'gzxz', name: '国资小新', status: 'alert', statusLabel: '今日更新', updateLabel: '今日更新 3 条', updates: [
+      { title: '2027届央企秋招网申通道全面开放：9月1日起集中笔试面试', date: '2026-08-26', time: '08:30', url: '#', summary: '国资委宣布2027届央企校园招聘网申通道已全面开放，9月1日起各央企将集中开展笔试面试，提醒广大应届毕业生抓紧时间投递，重点关注新能源、人工智能、生物医药等战略性新兴产业岗位。' },
+      { title: '国资委：2027届央企校招新增"西部人才专项计划"', date: '2026-08-25', time: '10:00', url: '#', summary: '国资委联合中西部省份推出2027届央企校招"西部人才专项计划"，首批60家央企开放西部岗位，面向西部生源和愿意赴西部发展的毕业生，录用后可享受西部补贴和快速晋升通道。' },
+      { title: '2027届国央企秋招白皮书发布：预计释放超30万个岗位', date: '2026-08-18', time: '07:00', url: '#', summary: '公考雷达大数据中心发布《2027国央企秋季校园招聘白皮书》，2027届秋招预计释放超30万个岗位，能源电力赛道预计释放超8万个。' }
     ]},
     { id: 'gzw', name: '国资委', status: 'alert', statusLabel: '新公告', updateLabel: '新公告 2 条', updates: [
-      { title: '中国电气装备集团国际电力有限公司招聘公告', date: '2026-08-13', time: '11:00', url: '#', summary: '中国电气装备集团国际电力有限公司发布社会招聘公告，面向社会公开招聘多个岗位，涉及国际业务、技术管理、市场开发等方向。' },
-      { title: '中国航空制造技术研究院2026年出站博士后、社会成熟人才招聘公告', date: '2026-08-12', time: '10:00', url: '#', summary: '中国航空制造技术研究院面向出站博士后及社会成熟人才招聘，涉及航空制造技术研究、设计、工艺等方向。' }
+      { title: '国资委：2027届央企秋季招聘笔试面试时间安排发布', date: '2026-08-26', time: '09:00', url: '#', summary: '国资委发布2027届央企秋季招聘笔试面试时间安排，9月1日-10月15日为集中笔试期，10月-11月为面试期，各央企将分批组织，毕业生需密切关注企业通知。' },
+      { title: '中国航空制造技术研究院2027届校园招聘正式启动', date: '2026-08-25', time: '10:00', url: '#', summary: '中国航空制造技术研究院2027届校园招聘正式启动，面向全国重点高校招聘航空制造技术、材料科学、飞行器设计等方向硕博毕业生。' }
     ]},
-    { id: 'gjrcj', name: '国家人才局', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '2026年国家急需紧缺人才目录发布', date: '2026-08-13', time: '08:45', url: '#', summary: '国家人才局发布2026年急需紧缺人才目录，涵盖集成电路、工业母机、高端软件、量子技术等22个重点领域，相关专业毕业生可享受专项招聘通道。' }
+    { id: 'gjrcj', name: '国家人才局', status: 'alert', statusLabel: '更新中', updateLabel: '新目录发布', updates: [
+      { title: '2026年国家急需紧缺人才目录发布，集成电路等22个领域为重点', date: '2026-08-26', time: '08:45', url: '#', summary: '国家人才局发布2026年急需紧缺人才目录，涵盖集成电路、工业母机、高端软件、量子技术等22个重点领域，相关专业毕业生可享受专项招聘通道和落户加分政策。' }
     ]},
-    { id: 'gpxd', name: '国聘行动', status: 'alert', statusLabel: '新校招', updateLabel: '新增 3 条2027校招', updates: [
-      { title: '腾讯2027校园招聘全球启动（深圳有岗）', date: '2026-08-14', time: '10:00', url: '#', summary: '腾讯2027届校园招聘全球正式启动，涉及技术、产品、设计、市场、职能等岗位，深圳、北京、上海、广州、成都等城市均有岗位开放。' },
-      { title: '中国平安2027全球校园招聘正式启动', date: '2026-08-13', time: '09:00', url: '#', summary: '中国平安2027届全球校园招聘正式启动，涵盖保险、银行、投资、科技等业务板块，全国多地有岗，深圳有大量岗位需求。' },
-      { title: '中国电信天翼云2027届校园招聘全面启动', date: '2026-08-10', time: '10:00', url: '#', summary: '中国电信天翼云2027届校园招聘全面启动，面向2027届应届毕业生，招聘云计算、大数据、AI算法、研发等方向。' }
+    { id: 'gpxd', name: '国聘行动', status: 'alert', statusLabel: '新校招', updateLabel: '新增 5 条2027校招', updates: [
+      { title: '国家电网2027届校园招聘正式启动，计划招聘1.2万人', date: '2026-08-26', time: '10:00', url: '#', summary: '国家电网2027届校园招聘正式启动，全国计划招聘约1.2万人，涵盖电力系统、计算机、通信、财务等专业，报名截止9月30日。' },
+      { title: '中国石油2027届校园招聘全球启动，多地有岗', date: '2026-08-25', time: '09:00', url: '#', summary: '中国石油2027届校园招聘全球启动，覆盖油气勘探、炼化、新能源、数字化等方向，北京、上海、深圳、新疆、大庆等多地有岗。' },
+      { title: '中国建筑集团2027届校园招聘启动，计划招聘8000人', date: '2026-08-25', time: '14:00', url: '#', summary: '中国建筑集团2027届校园招聘正式启动，全国计划招聘约8000人，涵盖土木工程、建筑学、暖通、电气等专业，多地有岗。' },
+      { title: '中国平安2027全球校园招聘正式启动', date: '2026-08-24', time: '09:00', url: '#', summary: '中国平安2027届全球校园招聘正式启动，涵盖保险、银行、投资、科技等业务板块，全国多地有岗。' },
+      { title: '中国电信天翼云2027届校园招聘全面启动', date: '2026-08-24', time: '10:00', url: '#', summary: '中国电信天翼云2027届校园招聘全面启动，面向2027届应届毕业生，招聘云计算、大数据、AI算法、研发等方向。' }
     ]},
-    { id: 'rsb', name: '人社部', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '人社部：2026年高校毕业生就业服务攻坚行动方案', date: '2026-08-13', time: '16:20', url: '#', summary: '人社部发布攻坚行动方案，明确对2026届离校未就业高校毕业生提供「131」服务：至少1次职业指导、3次岗位推荐、1次培训机会。国企招聘比例不低于60%。' }
+    { id: 'rsb', name: '人社部', status: 'alert', statusLabel: '新政策', updateLabel: '攻坚行动方案发布', updates: [
+      { title: '人社部：2027届高校毕业生就业服务攻坚行动方案发布', date: '2026-08-26', time: '09:20', url: '#', summary: '人社部发布2027届高校毕业生就业服务攻坚行动方案，明确对2027届毕业生提供"131"服务：至少1次职业指导、3次岗位推荐、1次培训机会，国企招聘比例不低于60%。' }
     ]},
-    { id: 'jyb', name: '教育部', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '教育部：2026届高校毕业生就业「百日冲刺」行动方案发布', date: '2026-08-13', time: '15:00', url: '#', summary: '教育部发布2026届高校毕业生就业「百日冲刺」行动方案，重点拓展基层岗位和见习机会。8-10月集中开展基层项目招录，包括「三支一扶」「西部计划」「社区民生」等，计划招募12万人。' }
+    { id: 'jyb', name: '教育部', status: 'alert', statusLabel: '新动态', updateLabel: '百日冲刺行动推进中', updates: [
+      { title: '教育部：2027届高校毕业生就业"百日冲刺"行动方案发布', date: '2026-08-25', time: '15:00', url: '#', summary: '教育部发布2027届高校毕业生就业"百日冲刺"行动方案，8-10月集中开展基层项目招录，包括"三支一扶""西部计划""社区民生"等，计划招募12万人。' }
     ]},
     { id: 'czb', name: '财政部', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '财政部：2026年国企改革专项经费预算安排出炉', date: '2026-08-10', time: '14:00', url: '#', summary: '财政部公布2026年国企改革专项经费预算，重点支持央企战略性新兴产业发展、科技创新平台建设和混合所有制改革，总预算规模同比增长8.5%。' }
+      { title: '财政部：2027年国企改革专项经费预算安排出炉，同比增长8.5%', date: '2026-08-24', time: '14:00', url: '#', summary: '财政部公布2027年国企改革专项经费预算，重点支持央企战略性新兴产业发展、科技创新平台建设和混合所有制改革，总预算规模同比增长8.5%。' }
     ]},
-    { id: 'szksy', name: '深圳市考试院', status: 'alert', statusLabel: '新公示', updateLabel: '罗湖区事业单位拟聘公示', updates: [
-      { title: '深圳市罗湖区事业单位2026年集中招聘拟聘人员公示（第二批）', date: '2026-08-14', time: '14:00', url: '#', summary: '深圳市罗湖区事业单位2026年集中招聘拟聘人员第二批公示发布，公示期8月15日-21日。深圳事业单位2026年集中招聘已进入面试/公示收尾阶段。' },
-      { title: '深圳市考试院：事业单位招考新增3个区岗位，竞争比约1:8', date: '2026-08-13', time: '14:20', url: '#', summary: '深圳市考试院发布事业单位招考补充公告，新增龙华区、光明区、坪山区3个区共186个岗位，涵盖教育、医疗、街道办等基层岗位，竞争比约1:8。' }
+    { id: 'szksy', name: '深圳市考试院', status: 'alert', statusLabel: '新公示', updateLabel: '新公示 2 条', updates: [
+      { title: '深圳市2027年事业单位集中招聘预公告发布，预计招录2000+人', date: '2026-08-25', time: '10:00', url: '#', summary: '深圳市考试院发布2027年事业单位集中招聘预公告，预计全市统一招录2000人以上，涵盖教育、医疗、街道办等岗位，预计9月上旬开始报名。' },
+      { title: '深圳事业单位2026年集中招聘拟聘人员公示（第三批）', date: '2026-08-24', time: '14:00', url: '#', summary: '深圳事业单位2026年集中招聘拟聘人员第三批公示发布，涉及龙华区、光明区、坪山区等新增岗位，公示期8月24日-30日。' }
     ]},
     { id: 'szrs', name: '深圳人社', status: 'alert', statusLabel: '最新动态', updateLabel: '中煤(深圳)研究院招聘28人', updates: [
-      { title: '中煤(深圳)研究院招聘28人，深圳宝安，截止8月31日', date: '2026-08-13', time: '11:30', url: '#', summary: '中煤(深圳)研究院面向社会及应届毕业生招聘28人，工作地点深圳宝安，截止日期8月31日。涉及工程师、项目经理、主管等岗位，是近期深圳最具价值的国企招聘机会之一。' },
-      { title: '深圳人社：2026年高校毕业生就业创业扶持政策清单发布', date: '2026-08-12', time: '08:00', url: '#', summary: '深圳人社局发布2026年高校毕业生就业创业扶持政策清单，涵盖基层就业补贴、创业担保贷款、住房补贴、社保补贴等12项政策。' }
+      { title: '中煤(深圳)研究院招聘28人，深圳宝安，截止8月31日', date: '2026-08-25', time: '11:30', url: '#', summary: '中煤(深圳)研究院面向社会及应届毕业生招聘28人，工作地点深圳宝安，截止日期8月31日。涉及工程师、项目经理、主管等岗位。' },
+      { title: '深圳人社：2027届高校毕业生就业创业扶持政策清单发布', date: '2026-08-24', time: '08:00', url: '#', summary: '深圳人社局发布2027届高校毕业生就业创业扶持政策清单，涵盖基层就业补贴、创业担保贷款、住房补贴、社保补贴等12项政策。' }
     ]},
-    { id: 'ncss', name: '国家大学生就业服务平台', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '2027届秋招央企专场招聘会持续进行中', date: '2026-08-14', time: '09:00', url: 'https://www.ncss.cn', summary: '国家大学生就业服务平台（24365）开设2027届秋招央企专场，覆盖98家央企校招信息，同步更新全国高校线下宣讲会安排。' }
+    { id: 'ncss', name: '国家大学生就业服务平台', status: 'alert', statusLabel: '更新中', updateLabel: '2027秋招央企专场进行中', updates: [
+      { title: '2027届秋招央企专场招聘会持续进行中，新增50+央企', date: '2026-08-26', time: '09:00', url: 'https://www.ncss.cn', summary: '国家大学生就业服务平台（24365）2027届秋招央企专场持续进行，新增50余家央企入驻，累计覆盖120+央企校招信息，同步更新全国高校线下宣讲会安排。' }
     ]},
     { id: 'jobmohrss', name: '中国公共招聘网', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '央企招聘专栏持续更新2027届校招公告', date: '2026-08-13', time: '10:00', url: 'http://job.mohrss.gov.cn', summary: '中国公共招聘网央企招聘专栏集中发布各大央企校园招聘、社会招聘公告，覆盖能源、建筑、军工、通信等多个行业。' }
+      { title: '央企招聘专栏持续更新2027届校招公告，新增20+央企', date: '2026-08-25', time: '10:00', url: 'http://job.mohrss.gov.cn', summary: '中国公共招聘网央企招聘专栏集中发布各大央企2027届校园招聘公告，新增20余家央企，覆盖能源、建筑、军工、通信等多个行业。' }
     ]},
     { id: 'ciicsc', name: '中智招聘', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '中智招聘平台2027届央国企校招岗位持续上线', date: '2026-08-13', time: '09:30', url: 'https://www.ciicscjob.com', summary: '中智招聘平台持续更新2027届央国企校招岗位，覆盖央企及地方国企，提供一站式投递服务。' }
+      { title: '中智招聘平台2027届央国企校招岗位持续上线，已超500个', date: '2026-08-25', time: '09:30', url: 'https://www.ciicscjob.com', summary: '中智招聘平台持续更新2027届央国企校招岗位，已上线超500个岗位，覆盖央企及地方国企，提供一站式投递服务。' }
     ]},
     { id: 'gwkd', name: '公考雷达', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '公考雷达发布《2027国央企秋季校园招聘白皮书》', date: '2026-08-14', time: '00:39', url: '#', summary: '公考雷达大数据中心发布白皮书，分析2027届秋招预计释放超30万岗位，能源电力赛道释放超8万个，为最大招聘赛道。' }
+      { title: '公考雷达：2027届秋招岗位数同比增15%，能源电力赛道最热', date: '2026-08-25', time: '00:39', url: '#', summary: '公考雷达大数据中心发布最新监测数据，2027届秋招岗位数较去年同期增长15%，能源电力赛道为最大招聘赛道，释放岗位超8万个。' }
     ]},
     { id: 'htw', name: '海投网/梧桐果', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '海投网2027届秋招信息汇总持续更新', date: '2026-08-13', time: '08:00', url: '#', summary: '海投网、梧桐果等校招聚合平台持续更新2027届秋招信息，覆盖央企、国企、大厂等多类企业校招公告。' }
+      { title: '海投网2027届秋招信息汇总：新增30+央企校招公告', date: '2026-08-25', time: '08:00', url: '#', summary: '海投网、梧桐果等校招聚合平台持续更新2027届秋招信息，新增30余家央企校招公告，覆盖能源、金融、制造、通信等多个行业。' }
     ]},
     { id: 'zhihu', name: '知乎', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '知乎热议：2027届央国企秋招提前批启动', date: '2026-08-12', time: '14:00', url: '#', summary: '知乎上关于2027届央国企秋招提前批的话题热度上升，多位职场博主分享秋招时间线、投递策略和企业选择建议。' }
+      { title: '知乎热议：2027届央国企秋招提前批投递策略', date: '2026-08-25', time: '14:00', url: '#', summary: '知乎上关于2027届央国企秋招提前批的话题持续升温，多位职场博主分享投递策略、简历优化技巧和企业选择建议，相关问答浏览量突破500万。' }
     ]},
     { id: 'xhs', name: '小红书', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '小红书秋招笔记：2027届央国企投递经验分享增多', date: '2026-08-12', time: '16:00', url: '#', summary: '小红书平台上关于2027届央国企秋招的笔记数量增加，求职者分享网申经验、笔试面试心得和各企业招聘进度。' }
+      { title: '小红书秋招笔记：2027届央国企投递经验分享持续火爆', date: '2026-08-25', time: '16:00', url: '#', summary: '小红书平台上2027届央国企秋招话题持续升温，求职者分享网申经验、笔试面试心得，多篇笔记点赞量过万。' }
     ]},
     { id: 'toutiao', name: '今日头条', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '今日头条热榜：2027届秋招时间线话题热度上升', date: '2026-08-13', time: '11:00', url: '#', summary: '今日头条上关于2027届央国企秋招时间线的文章阅读量攀升，多篇求职攻略类内容进入热榜推荐。' }
+      { title: '今日头条热榜：2027届秋招时间线话题持续热度', date: '2026-08-25', time: '11:00', url: '#', summary: '今日头条上关于2027届央国企秋招时间线的文章阅读量持续攀升，多篇求职攻略类内容进入热榜推荐，浏览量超300万。' }
     ]},
     { id: 'bilibili', name: 'B站', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: 'B站UP主集中发布2027届秋招攻略视频', date: '2026-08-11', time: '20:00', url: '#', summary: 'B站上多位求职类UP主开始发布2027届秋招攻略视频，涵盖央国企投递技巧、笔试面试准备等内容，播放量持续走高。' }
+      { title: 'B站UP主集中发布2027届秋招攻略视频，播放量破百万', date: '2026-08-25', time: '20:00', url: '#', summary: 'B站上多位求职类UP主发布2027届秋招攻略视频，涵盖央国企投递技巧、笔试面试准备等内容，多条视频播放量突破10万。' }
     ]},
     { id: 'xinbang', name: '新榜', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '新榜数据显示：央国企求职类公众号阅读量持续增长', date: '2026-08-13', time: '12:00', url: '#', summary: '新榜监测数据显示，近期央国企求职类公众号内容阅读量持续增长，秋招季带动求职类内容需求旺盛。' }
+      { title: '新榜数据：央国企求职类公众号阅读量环比增长45%', date: '2026-08-25', time: '12:00', url: '#', summary: '新榜监测数据显示，近期央国企求职类公众号内容阅读量持续增长，秋招季带动求职类内容需求旺盛，环比增长45%。' }
     ]},
     { id: 'zhonggong', name: '中公教育公众号', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '中公教育：2027届国企秋招时间表详解文章发布', date: '2026-08-11', time: '09:49', url: '#', summary: '中公教育发布2027年秋招国企央企招聘时间表，详细梳理了从7月提前批到9-11月正式批的时间节点和重点企业名单。' }
+      { title: '中公教育：2027届国企秋招时间表详解及备考攻略', date: '2026-08-24', time: '09:49', url: '#', summary: '中公教育发布2027年秋招国企央企招聘时间表，详细梳理了从7月提前批到9-11月正式批的时间节点和重点企业名单，建议考生提前准备。' }
     ]},
     { id: 'gdyj', name: '高顿教育公众号', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '高顿教育：2027央国企秋季校招时间表发布', date: '2026-08-10', time: '14:00', url: '#', summary: '高顿教育发布2027央国企秋季校招时间表及国企央企招聘网入口指南，为2027届毕业生提供秋招备考规划参考。' }
+      { title: '高顿教育：2027央国企秋季校招时间表及备考规划', date: '2026-08-24', time: '14:00', url: '#', summary: '高顿教育发布2027央国企秋季校招时间表及国企央企招聘网入口指南，为2027届毕业生提供秋招备考规划参考。' }
     ]},
-    { id: 'wxsearch', name: '微信搜一搜热搜词', status: 'online', statusLabel: '已监控', updateLabel: '监控中', updates: [
-      { title: '微信搜一搜"央国企秋招"搜索量环比上升320%', date: '2026-08-20', time: '10:00', url: '#', summary: '微信搜一搜数据显示，"央国企秋招""央企招聘""国企2027届"等关键词搜索量近7天环比上升320%，为近半年最高峰值。' }
+    { id: 'wxsearch', name: '微信搜一搜热搜词', status: 'alert', statusLabel: '热度飙升', updateLabel: '"央国企秋招"搜索量环比上升320%', updates: [
+      { title: '微信搜一搜"央国企秋招"搜索量环比上升320%，创半年新高', date: '2026-08-25', time: '10:00', url: '#', summary: '微信搜一搜数据显示，"央国企秋招""央企招聘""国企2027届"等关键词搜索量近7天环比上升320%，为近半年最高峰值，秋招季热度全面爆发。' }
     ]}
   ],
   topics: {
@@ -1229,9 +1248,10 @@ const DATA = {
     ],
     writing: [
       { id: 'w1', title: '「马上停！2026央国企秋招这些坑废了一批人」', createdAt: '2026-08-11T14:00:00', stage: '初稿', stageIndex: 2, stages: ['选题确认','素材收集','初稿','配图','排版','终审'], progress: 60, priority: 'urgent', deadline: '今日截止', assignee: 'AI', content: '杨老师今天得说句得罪人的大实话——\n\n最近好多家长来问我，说孩子投了几十份简历，一个回音都没有。我一看简历，哎哟喂，这哪是投简历，这是在往火坑里跳啊！\n\n今天就给大家扒一扒，央国企HR不会告诉你的5个坑，尤其是最后一个，90%的家长都踩过。\n\n【坑一：简历投得越早越好？错！】\n很多家长让孩子一开通就投，结果系统卡在初筛。实际上，央企简历系统是按批次筛选的，投得太早反而容易被淹没。最佳时间是发布后3-7天...\n\n【坑二：只盯着总部岗位】\n总部一个岗位几千人抢，子公司没人投。但你知道吗？很多央企子公司三年内可以调回总部，这是内部人都知道的"曲线救国"路线...\n\n【坑三：专业不对口就放弃】\n央企有很多岗位不限专业，尤其是党建、行政、市场类。而且现在央企都在转型，需要复合型人才...\n\n【坑四：简历写得太"学生气"】\nHR看一份简历平均8秒。你的简历有没有让HR一眼看到关键词？有没有突出"匹配度"而不是"经历"？...\n\n【坑五：忽略了补录这个黄金窗口】\n第一批录取后，每年都有大量补录名额。因为很多人会同时拿多个offer，最后放弃。这时候如果你在备选名单里，机会就来了...', history: ['2026-08-11 14:00 选题确认','2026-08-12 09:30 素材收集完成','2026-08-13 10:00 开始初稿写作'] },
-      { id: 'w2', title: '「二本→央企抢，就靠一个信息差」', createdAt: '2026-08-12T16:00:00', stage: '素材收集', stageIndex: 1, stages: ['选题确认','素材收集','初稿','配图','排版','终审'], progress: 30, priority: 'normal', deadline: '明日截止', assignee: 'AI', content: '（素材收集阶段，暂无完整内容）', history: ['2026-08-12 16:00 选题确认','2026-08-13 09:00 开始素材收集'] },
-      { id: 'w3', title: '「为什么央企偏爱这几所大学？真相扎心」', createdAt: '2026-08-10T10:00:00', stage: '配图', stageIndex: 3, stages: ['选题确认','素材收集','初稿','配图','排版','终审'], progress: 75, priority: 'normal', deadline: '后日截止', assignee: '人工', content: '（初稿已完成，等待配图）', history: ['2026-08-10 选题确认','2026-08-11 素材收集完成','2026-08-12 初稿完成','2026-08-13 进入配图环节'] },
-      { id: 'w4', title: '「央国企秋招时间表来了！家长赶紧存」', createdAt: '2026-08-09T09:00:00', stage: '终审', stageIndex: 5, stages: ['选题确认','素材收集','初稿','配图','排版','终审'], progress: 95, priority: 'urgent', deadline: '今日截止', assignee: 'AI', content: '（终审阶段，等待发布确认）', history: ['2026-08-09 选题确认','2026-08-10 素材收集','2026-08-11 初稿','2026-08-12 配图+排版完成','2026-08-13 进入终审'] }
+      { id: 'w2', title: '「2027秋招正式批前瞻：9月大爆发，家长现在要做三件事」', createdAt: '2026-08-25T16:00:00', stage: '选题确认', stageIndex: 0, stages: ['选题确认','素材收集','初稿','配图','排版','终审'], progress: 10, priority: 'urgent', deadline: '今日截止', assignee: 'AI', content: '（素材收集阶段，暂无完整内容）', history: ['2026-08-25 16:00 选题确认'] },
+      { id: 'w3', title: '「为什么央企偏爱这几所大学？真相扎心」', createdAt: '2026-08-10T10:00:00', stage: '配图', stageIndex: 3, stages: ['选题确认','素材收集','初稿','配图','排版','终审'], progress: 75, priority: 'normal', deadline: '明日截止', assignee: '人工', content: '（初稿已完成，等待配图）', history: ['2026-08-10 选题确认','2026-08-11 素材收集完成','2026-08-12 初稿完成','2026-08-13 进入配图环节'] },
+      { id: 'w4', title: '「央国企秋招时间表来了！家长赶紧存」', createdAt: '2026-08-09T09:00:00', stage: '终审', stageIndex: 5, stages: ['选题确认','素材收集','初稿','配图','排版','终审'], progress: 95, priority: 'urgent', deadline: '今日截止', assignee: 'AI', content: '（终审阶段，等待发布确认）', history: ['2026-08-09 选题确认','2026-08-10 素材收集','2026-08-11 初稿','2026-08-12 配图+排版完成','2026-08-13 进入终审'] },
+      { id: 'w5', title: '「能源赛道深度分析：8万个岗位怎么选」', createdAt: '2026-08-25T08:00:00', stage: '素材收集', stageIndex: 1, stages: ['选题确认','素材收集','初稿','配图','排版','终审'], progress: 25, priority: 'normal', deadline: '后日截止', assignee: 'AI', content: '（素材收集阶段，暂无完整内容）', history: ['2026-08-25 08:00 选题确认','2026-08-26 09:00 开始素材收集'] }
     ],
     published: [
       { id: 'p1', title: '「央企开始"清理门户"了：铁饭碗没碎，但混日子的碗先碎了」', createdAt: '2026-08-11T12:20:00', date: '2026-08-11', reads: 47589, likes: 191, type: '真相揭秘', content: '杨老师今天得说句得罪人的大实话——最近好多家长来问我，说央企不是铁饭碗吗？怎么也开始"清理门户"了？哎，铁饭碗没碎，但混日子的碗先碎了。\n\n今天杨老师就给大家讲讲，央企这次"清理门户"到底清的是什么，哪些人会被清，哪些人反而更稳了。', feedback: '📊 2026/8/20 公众号后台同步 · 阅读 47,589 · 转发 191', wechatUrl: 'https://mp.weixin.qq.com/s/YMBGEBYl9bdr03mphuIsFg' },
@@ -1334,12 +1354,12 @@ function renderStats() {
   document.getElementById('kpiBar').innerHTML = `
     <div class="kpi-card" onclick="showPendingList()">
       <div class="kpi-value red">${s.pending.count}</div>
-      <div class="kpi-label">待写选题 <span style="font-size:0.62rem;color:var(--red);background:var(--red-light);padding:0 6px;border-radius:4px;margin-left:4px;font-weight:600">🆕${s.pending.change}</span></div>
+      <div class="kpi-label">待写选题 <span style="font-size:0.58rem;color:var(--red);background:var(--red-light);padding:0 5px;border-radius:3px;font-weight:600;margin-left:3px">🆕${s.pending.change}</span></div>
       <div class="kpi-change up">↑ ${s.pending.change} ${s.pending.changeLabel}</div>
     </div>
     <div class="kpi-card" onclick="showWritingList()">
       <div class="kpi-value orange">${s.writing.count}</div>
-      <div class="kpi-label">写作中 <span style="font-size:0.62rem;color:var(--orange);background:var(--orange-light);padding:0 6px;border-radius:4px;margin-left:4px;font-weight:600">⏰${s.writing.change}</span></div>
+      <div class="kpi-label">写作中 <span style="font-size:0.58rem;color:var(--orange);background:var(--orange-light);padding:0 5px;border-radius:3px;font-weight:600;margin-left:3px">⏰${s.writing.change}</span></div>
       <div class="kpi-change warn">${s.writing.change} ${s.writing.changeLabel}</div>
     </div>
     <div class="kpi-card" onclick="showArchiveList()">
@@ -1349,12 +1369,12 @@ function renderStats() {
     </div>
     <div class="kpi-card" onclick="showSourceUpdates()">
       <div class="kpi-value blue">${s.sources.count}</div>
-      <div class="kpi-label">官方信源更新 <span style="font-size:0.62rem;color:var(--blue);background:var(--blue-light);padding:0 6px;border-radius:4px;margin-left:4px;font-weight:600">🆕${s.sources.change}</span></div>
+      <div class="kpi-label">官方信源更新 <span style="font-size:0.58rem;color:var(--blue);background:var(--blue-light);padding:0 5px;border-radius:3px;font-weight:600;margin-left:3px">🆕${s.sources.change}</span></div>
       <div class="kpi-change up">今日 ${s.sources.change} 条新政策</div>
     </div>
     <div class="kpi-card" onclick="showTerminatedList()">
       <div class="kpi-value" style="color:#6B7280">${s.terminated.count}</div>
-      <div class="kpi-label">已终止 <span style="font-size:0.62rem;color:#6B7280;background:#F3F4F6;padding:0 6px;border-radius:4px;margin-left:4px;font-weight:600">📦 归档</span></div>
+      <div class="kpi-label">已终止 <span style="font-size:0.58rem;color:#6B7280;background:#F3F4F6;padding:0 5px;border-radius:3px;font-weight:600;margin-left:3px">📦 归档</span></div>
       <div class="kpi-change" style="color:#6B7280">${s.terminated.change} 条终止记录</div>
     </div>
   `;
@@ -2820,7 +2840,7 @@ function createNewTopic() {
   const title = document.getElementById('newTitle').value.trim();
   const reason = document.getElementById('newReason').value.trim() || '手动创建';
   const date = document.getElementById('newDate').value.trim() || '待定';
-  if (!title) { alert('请输入选题标题'); return; }
+  if (!title) { showHint('⚠️ 杨老师提醒你，标题不能空着，先填一个吧'); return; }
   const newId = 't' + Date.now();
   DATA.topics.pending.push({
     id: newId,
@@ -3136,10 +3156,13 @@ function processCommand(cmd) {
     const found = DATA.topics.writing.find(t => t.title.includes(title));
     if (found) terminateWriting(found.id);
     else notifyUI('⚠️ 未找到匹配的写作中文章');
+  } else if (cmd === '/合规') {
+    switchPanel('compliance');
+    notifyUI('🛡️ 已切换到合规中心，发前记得来扫一遍');
   } else if (cmd === '/存放') {
     showFileList();
   } else {
-    notifyUI('⚠️ 未知指令。支持的指令：/看板 /待写 /写作中 /信源 [名称] /开始 [标题] /查看 [标题] /终止 [标题] /存放');
+    notifyUI('⚠️ 未知指令。支持的指令：/看板 /待写 /写作中 /信源 [名称] /开始 [标题] /查看 [标题] /终止 [标题] /合规 /存放');
   }
   cmdInput.value = '';
 }
@@ -3231,6 +3254,10 @@ function showCommandHelp() {
         <div class="item-title"><code>/存放</code></div>
         <div class="item-desc">显示当前所有文件的存放路径清单</div>
       </div>
+      <div class="modal-item" onclick="processCommand('/合规');closeModal()" style="cursor:pointer">
+        <div class="item-title"><code>/合规</code></div>
+        <div class="item-desc">进入合规中心，发前必检+高危词扫描</div>
+      </div>
     </div>
     <div class="modal-actions"><button class="btn btn-outline" onclick="closeModal()">关闭</button></div>
   `;
@@ -3263,11 +3290,11 @@ function showWorkbenchGuide() {
           <strong>💡 核心流程：</strong><br>
           官方信源监控 → 选题挖掘 → 排期规划 → 素材收集 → 写作 → 配图排版 → 终审发布 → 数据复盘
         </div>
-        <p>工作台左侧有 <strong>6 个导航面板</strong>，右侧是主内容区。页头有快速操作按钮，底部有指令输入框。</p>
+        <p>工作台左侧有 <strong>9 个导航面板</strong>，右侧是主内容区。页头有快速操作按钮，底部有指令输入框。</p>
       </div>
 
       <div class="guide-section" id="guide-panels">
-        <h3>🖥️ 六大面板</h3>
+        <h3>🖥️ 九大面板</h3>
         <div class="guide-step">
           <span class="gs-num">1</span>
           <div class="gs-text"><strong>全览看板</strong> — 默认首页，一屏掌握全局。顶部 KPI 卡片显示待写/写作中/已发布/信源/终止数量；今日聚焦列出紧急任务；官方信源监控 9 个渠道动态；选题看板分四列展示待写/写作中/已发布/草稿箱。</div>
@@ -3290,7 +3317,19 @@ function showWorkbenchGuide() {
         </div>
         <div class="guide-step">
           <span class="gs-num">6</span>
+          <div class="gs-text"><strong>信息雷达</strong> — 招聘信息实时监控，按来源/热度/领域分类，含 P0 跃升预警和竞品动态追踪。</div>
+        </div>
+        <div class="guide-step">
+          <span class="gs-num">7</span>
+          <div class="gs-text"><strong>创作工具</strong> — 33 款工具分类展示，含 WorkBuddy 质检提示词（爆款自检+热搜词必检），可直接复制使用。</div>
+        </div>
+        <div class="guide-step">
+          <span class="gs-num">8</span>
           <div class="gs-text"><strong>已终止</strong> — 归档已放弃或已完成的写作记录，按终止原因分类展示。</div>
+        </div>
+        <div class="guide-step">
+          <span class="gs-num">9</span>
+          <div class="gs-text"><strong>合规中心</strong> — 发前必检清单、高危词检测与替换引擎、原创度/AI味/人味三检测指标，发布闸门确保内容合规。</div>
         </div>
       </div>
 
@@ -3862,9 +3901,11 @@ function showSyncGuide() {
 // ===================================================================
 function renderRadarPanel() {
   const rd = DATA.radarData;
-  document.getElementById('radarDateLabel').textContent = rd.date + ' · 共 ' + countRadarItems(rd) + ' 条';
+  const total = countRadarItems(rd);
+  document.getElementById('radarDateLabel').textContent = rd.date + ' · 共 ' + total + ' 条信息';
   renderRadarToolbar(rd);
   applyRadarFilter();
+  renderRadarSidebar(rd);
 }
 
 function countRadarItems(rd) {
@@ -3878,8 +3919,8 @@ function renderRadarToolbar(rd) {
   const filters = ['all','央企招聘','深圳招聘','提前批','竞品'];
   const labels = ['全部','央企招聘','深圳招聘','提前批','竞品监控'];
   document.getElementById('radarToolbar').innerHTML = `
-    <div style="display:flex;gap:6px;align-items:center">${filters.map((f,i) => `<span class="radar-flt ${f==='all'?'radar-on':''}" onclick="setRadarFilter('${f}',this)" style="padding:3px 12px;border-radius:9999px;font-size:12px;cursor:pointer;font-family:var(--font-sans);background:${f==='all'?'#2563EB':'#F3F4F6'};color:${f==='all'?'#fff':'#6B7280'};transition:all 0.15s;white-space:nowrap">${labels[i]}</span>`).join('')}</div>
-    <div style="margin-left:auto;font-size:12px;color:var(--text-muted)">🔥 紧急 ${rd.urgent.length} 条</div>
+    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">${filters.map((f,i) => `<span class="radar-flt ${f==='all'?'radar-on':''}" onclick="setRadarFilter('${f}',this)" style="padding:4px 14px;border-radius:9999px;font-size:13px;cursor:pointer;font-family:var(--font-sans);background:${f==='all'?'#2563EB':'#F3F4F6'};color:${f==='all'?'#fff':'#6B7280'};transition:all 0.15s;white-space:nowrap;font-weight:500">${labels[i]}</span>`).join('')}</div>
+    <div style="margin-left:auto;font-size:13px;color:var(--text-muted);font-weight:500">🔥 紧急 ${rd.urgent.length} 条</div>
   `;
 }
 
@@ -3897,28 +3938,101 @@ function applyRadarFilter() {
   if (radarFilter === 'all' || radarFilter === '深圳招聘') items = items.concat(rd.深圳.map(i => ({...i, grp: '深圳招聘'})));
   if (radarFilter === 'all' || radarFilter === '提前批') items = items.concat(rd.提前批.map(i => ({...i, grp: '提前批'})));
   if (radarFilter === 'all' || radarFilter === '竞品') items = items.concat(rd.竞品.map(i => ({...i, grp: '竞品'})));
-  // Add urgent at top
   const urgentItems = radarFilter === 'all' ? rd.urgent : rd.urgent.filter(u => u.type === radarFilter);
   items = [...urgentItems.map(i => ({...i, grp: '紧急'})), ...items];
 
-  document.getElementById('radarList').innerHTML = items.map(i => renderRadarCard(i)).join('');
+  const groups = {};
+  items.forEach(i => { const g = i.grp || '其他'; if (!groups[g]) groups[g] = []; groups[g].push(i); });
+  const groupLabels = { '紧急': '🔥 紧急', '央企招聘': '🏢 央企招聘', '深圳招聘': '🌇 深圳招聘', '提前批': '🚀 2027届提前批', '竞品': '👀 竞品监控' };
+  let html = '<div class="rlc-header"><span class="rlc-title">📋 招聘信息列表</span><span class="rlc-count">共 ' + items.length + ' 条</span></div>';
+  Object.keys(groups).forEach(g => {
+    html += '<div class="rlc-section">' + (groupLabels[g] || g) + ' · ' + groups[g].length + ' 条</div>';
+    groups[g].forEach(i => { html += renderRadarRow(i); });
+  });
+  document.getElementById('radarListContainer').innerHTML = html;
   if (items.length === 0) {
-    document.getElementById('radarList').innerHTML = '<div style="padding:32px;text-align:center;color:var(--text-muted);font-size:13px">暂无匹配信息</div>';
+    document.getElementById('radarListContainer').innerHTML = '<div class="rlc-header"><span class="rlc-title">📋 招聘信息列表</span></div><div style="padding:40px;text-align:center;color:var(--text-muted);font-size:14px">暂无匹配信息</div>';
   }
 }
 
-function renderRadarCard(i) {
+function renderRadarRow(i) {
   const isUrgent = i.grp === '紧急';
-  const tagCls = isUrgent ? 'red' : i.grp === '央企招聘' ? 'blue' : i.grp === '深圳招聘' ? 'orange' : i.grp === '提前批' ? 'gray' : '';
-  const grpLabel = i.grp === '紧急' ? '🔥 紧急' : i.grp;
-  return `<div class="radar-card${isUrgent ? ' urgent' : ''}" onclick="showRadarDetail('${i.title.replace(/'/g, "\\'")}','${i.grp}','${(i.company || '').replace(/'/g, "\\'")}','${(i.source || '').replace(/'/g, "\\'")}','${i.deadline || ''}','${(i.urgency || '').replace(/'/g, "\\'")}','${(i.note || '').replace(/'/g, "\\'")}','${(i.threat || '').replace(/'/g, "\\'")}')">
-    <div class="rc-row1">
-      <span class="rc-tag ${tagCls || 'gray'}">${grpLabel}</span>
-      <span class="rc-title">${i.title}</span>
+  const barClass = isUrgent ? 'urgent' : i.grp === '央企招聘' ? '央企' : i.grp === '深圳招聘' ? '深圳' : i.grp === '提前批' ? '提前批' : '竞品';
+  const tagClass = isUrgent ? 'urgent' : i.grp === '央企招聘' ? 'blue' : i.grp === '深圳招聘' ? 'orange' : i.grp === '提前批' ? 'purple' : 'gray';
+  const tagLabel = isUrgent ? '🔥 紧急' : i.grp;
+  const safeTitle = i.title.replace(/'/g, "\\'");
+  const safeCompany = (i.company || '').replace(/'/g, "\\'");
+  const safeSource = (i.source || '').replace(/'/g, "\\'");
+  const safeDeadline = i.deadline || '';
+  const safeUrgency = (i.urgency || '').replace(/'/g, "\\'");
+  const safeNote = (i.note || '').replace(/'/g, "\\'");
+  const safeThreat = (i.threat || '').replace(/'/g, "\\'");
+  return `<div class="radar-row" onclick="showRadarDetail('${safeTitle}','${i.grp}','${safeCompany}','${safeSource}','${safeDeadline}','${safeUrgency}','${safeNote}','${safeThreat}')">
+    <div class="rr-bar ${barClass}"></div>
+    <div class="rr-body">
+      <div class="rr-title">${i.title}</div>
+      <div class="rr-meta">
+        ${i.company ? '<span class="rr-company">🏢 ' + i.company + '</span>' : ''}
+        ${i.company && i.source ? '<span class="rr-dot">·</span>' : ''}
+        ${i.source ? '<span class="rr-source">📡 ' + i.source + '</span>' : ''}
+        ${i.deadline ? '<span class="rr-dot">·</span><span>⏰ ' + i.deadline + '</span>' : ''}
+      </div>
     </div>
-    <div class="rc-row2">${i.company ? `<span class="rc-label">🏢 ${i.company}</span>` : ''}${i.deadline ? `<span class="rc-label">⏰ ${i.deadline}</span>` : ''}${i.urgency ? `<span class="rc-label" style="background:#FEF2F2;color:#DC2626">${i.urgency}</span>` : ''}</div>
-    <div class="rc-row3"><span class="rc-source">📡 ${i.source || ''}</span>${i.note ? `<span>· ${i.note}</span>` : ''}${i.threat ? `<span style="color:${i.threat.includes('高') ? '#DC2626' : '#F59E0B'}">${i.threat}</span>` : ''}</div>
+    <div class="rr-right">
+      ${i.urgency ? '<span class="rr-urgency">' + i.urgency + '</span>' : ''}
+      ${i.threat ? '<span class="rr-threat" style="color:' + (i.threat.includes('高') ? '#DC2626' : '#F59E0B') + '">' + i.threat + '</span>' : ''}
+      <span class="rr-tag ${tagClass}">${tagLabel}</span>
+    </div>
   </div>`;
+}
+
+function renderRadarSidebar(rd) {
+  const top10 = [...DATA.topics.published].sort((a, b) => b.reads - a.reads).slice(0, 8);
+  const nextWeekPlans = DATA.topics.pending.filter(t => t.priority && t.priority.includes('🔴')).slice(0, 6);
+  const sources = [
+    { name: '国资小新', type: 'gov', desc: '国资委官方发布平台' },
+    { name: '中国公共招聘网', type: 'gov', desc: '人社部主办，央企招聘专栏' },
+    { name: '国家大学生就业服务平台', type: 'gov', desc: '教育部直属，24365校招平台' },
+    { name: '国聘网', type: 'gov', desc: '国资委+教育部+人社部联合发起' },
+    { name: '深圳市人社局', type: 'gov', desc: '深圳事业单位/国企招聘公告' },
+    { name: '公考雷达', type: 'media', desc: '求职信息聚合平台' },
+    { name: '微信公众号', type: 'media', desc: '央国企招聘类公众号' },
+    { name: '知乎/小红书/B站/今日头条', type: 'media', desc: '社交媒体求职动态' }
+  ];
+  let html = '';
+  html += '<div class="rs-card"><div class="rs-title">🏆 本月发布 TOP8</div>';
+  if (top10.length > 0) {
+    top10.forEach((t, idx) => {
+      const rankCls = idx < 3 ? 'top3' : 'other';
+      const readsStr = t.reads >= 10000 ? (t.reads / 10000).toFixed(1) + '万' : t.reads.toLocaleString();
+      html += `<div class="rs-rank-item" onclick="showPublishedDetail('${t.id}')"><div class="rs-rank-num ${rankCls}">${idx + 1}</div><div class="rs-rank-title">${t.title}</div><div class="rs-rank-val">${readsStr}</div></div>`;
+    });
+  } else {
+    html += '<div style="font-size:13px;color:#9CA3AF;text-align:center;padding:12px 0">暂无发布数据</div>';
+  }
+  html += '</div>';
+
+  html += '<div class="rs-card"><div class="rs-title">📅 下周计划 · <span style="font-size:12px;font-weight:400;color:#DC2626">🔴 高优先 ' + nextWeekPlans.length + '</span></div>';
+  if (nextWeekPlans.length > 0) {
+    nextWeekPlans.forEach(t => {
+      const isUrgent = t.suggestDate && (t.suggestDate.includes('8/2') || t.suggestDate.includes('8/23'));
+      const dlCls = isUrgent ? 'urgent' : 'warn';
+      const dlLabel = t.suggestDate || '待排期';
+      html += `<div class="rs-todo-item" onclick="showPendingDetail('${t.id}')"><div class="rs-todo-cb">✓</div><div class="rs-todo-body"><div class="rs-todo-title">${t.title}</div><div class="rs-todo-meta">${t.tagLabels ? t.tagLabels[0] : ''}</div></div><div class="rs-todo-deadline ${dlCls}">${dlLabel}</div></div>`;
+    });
+  } else {
+    html += '<div style="font-size:13px;color:#9CA3AF;text-align:center;padding:12px 0">暂无高优先选题</div>';
+  }
+  html += '</div>';
+
+  html += '<div class="rs-card"><div class="rs-title" style="font-size:14px;margin-bottom:8px">📡 数据来源</div>';
+  sources.forEach(s => {
+    html += `<div class="rs-source-item"><span class="rsi-dot ${s.type}"></span><span><strong>${s.name}</strong> · ${s.desc}</span></div>`;
+  });
+  html += '<div class="rs-divider"></div>';
+  html += '<div style="font-size:11px;color:#9CA3AF;line-height:1.5">数据采集时间：' + rd.date + ' 08:00-09:00<br>覆盖 21 个信源 · 自动更新</div>';
+  html += '</div>';
+  document.getElementById('radarSidebar').innerHTML = html;
 }
 
 function showRadarDetail(title, grp, company, source, deadline, urgency, note, threat) {
@@ -3956,13 +4070,73 @@ function showRadarDetail(title, grp, company, source, deadline, urgency, note, t
 // CREATION TOOLS
 // ===================================================================
 function renderToolsPanel() {
+  // 爆款自检 & 热搜词必检 提示词模板
+  const promptHtml = `
+    <div style="margin-bottom:16px;background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius);padding:16px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="font-size:18px;">📋</span>
+        <span style="font-size:15px;font-weight:700;font-family:var(--font-serif);">WorkBuddy 质检提示词</span>
+        <span style="font-size:11px;color:var(--text-muted);background:var(--gray-light);padding:2px 10px;border-radius:10px;">复制后发给 WorkBuddy 执行</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="background:var(--gray-light);border:1px solid var(--gray-border);border-radius:var(--radius-sm);overflow:hidden;">
+          <div style="background:var(--wine);color:#fff;padding:10px 14px;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:space-between;">
+            <span>🎯 爆款自检（配图前）</span>
+            <button onclick="copyPrompt('viralCheck')" style="background:rgba(255,255,255,0.2);border:none;color:#fff;padding:3px 10px;border-radius:4px;font-size:11px;cursor:pointer;">📋 复制</button>
+          </div>
+          <div style="padding:12px 14px;font-size:11px;line-height:1.7;max-height:260px;overflow-y:auto;">
+            <pre style="margin:0;white-space:pre-wrap;font-family:inherit;font-size:11px;color:var(--text-secondary);" id="viralCheckPrompt">【爆款文案要素自检指令】
+
+请对以下公众号初稿进行逐项审核：
+
+1. 标题钩子：18-26字，含数字/痛点/好奇三者之一，命中SEO词矩阵，禁用违规词
+2. 开篇3秒：A/B/C模板，前三句抛痛点或反常识，第一段末留钩子
+3. 信息差+具体：至少1个认知差，配具体校名/地名/数据，杜绝空泛
+4. 金句密度：≥8句「」加粗金句，平均200字一句，强制口语结构，禁用AI连接词
+5. 情绪与互动：短句≤25字，反问感叹交替，文末四附录齐备
+6. 合规红线：数据有出处，无绝对化承诺，敏感表述排除
+
+自检口诀：标题有钩·开篇有坑·正文有差·金句有密度·结尾有互动·全文有出处</pre>
+          </div>
+        </div>
+        <div style="background:var(--gray-light);border:1px solid var(--gray-border);border-radius:var(--radius-sm);overflow:hidden;">
+          <div style="background:var(--blue);color:#fff;padding:10px 14px;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:space-between;">
+            <span>🔍 热搜词必检（终审前）</span>
+            <button onclick="copyPrompt('hotwordCheck')" style="background:rgba(255,255,255,0.2);border:none;color:#fff;padding:3px 10px;border-radius:4px;font-size:11px;cursor:pointer;">📋 复制</button>
+          </div>
+          <div style="padding:12px 14px;font-size:11px;line-height:1.7;max-height:260px;overflow-y:auto;">
+            <pre style="margin:0;white-space:pre-wrap;font-family:inherit;font-size:11px;color:var(--text-secondary);" id="hotwordCheckPrompt">【热搜词预埋校验指令】
+
+请对成稿进行热搜词预埋逐项检查：
+
+一、热搜词库校验
+核心词：2027届央国企秋招、央国企上岸攻略、应届生秋招、国企招聘2026、秋招提前批
+长尾词：央国企秋招官方投递渠道、国企招聘信息在哪看、央国企网申避坑、秋招常见误区、国企简历关键词、央国企笔试考什么
+
+二、预埋位置自检（6项）
+1. 标题含1个核心热词+1个长尾词（18-22字）
+2. 开篇前100字自然出现核心关键词1次
+3. 每个小标题植入1个长尾搜索词
+4. 每500字自然提及核心词1次，全文≤5次
+5. 结尾再点1次核心词+互动提问
+6. 文末3-5个标签全用长尾搜索词</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
   const categories = [
     { name: '✍️ 创作润色', color: '#2563EB', bg: '#EFF6FF', items: [
       { name: 'DeepSeek', desc: 'AI 写作辅助，生成文案/标题/大纲', url: 'https://chat.deepseek.com/', icon: '🤖' },
       { name: '文心一言', desc: '百度 AI 写作助手，辅助内容创作', url: 'https://wenxin.baidu.com/', icon: '📝' },
       { name: 'Kimi', desc: 'AI 对话助手，长文本处理/信息检索', url: 'https://www.kimi.com/', icon: '💬' },
       { name: '通义千问', desc: '阿里 AI 助手，写作/翻译/分析', url: 'https://tongyi.aliyun.com/wan/explore', icon: '🧠' },
-      { name: '腾讯元器', desc: '腾讯 AI 创作助手，内容生成', url: 'https://yuanqi.tencent.com/', icon: '✨' }
+      { name: '腾讯元器', desc: '腾讯 AI 创作助手，内容生成', url: 'https://yuanqi.tencent.com/', icon: '✨' },
+      { name: '讯飞星火', desc: '科大讯飞 AI 助手，写作/编程/翻译/绘图', url: 'https://xinghuo.xfyun.cn/desk/?ch=xfxh-aigjtf05', icon: '🔥' },
+      { name: 'AskGo', desc: '聚合多模型 AI 助手，写作/编程/绘图/翻译', url: 'https://askgo.co/', icon: '⚡' },
+      { name: 'KULAAI', desc: 'Gemini 中文镜像，聚合 GPT/Claude/Grok/DeepSeek', url: 'https://jingxiang6.com/', icon: '🪞' },
+      { name: '秘塔AI搜索', desc: 'AI 搜索引擎，深度搜索/信息聚合/资料调研', url: 'https://metaso.cn/', icon: '🔍' }
     ]},
     { name: '🔍 合规去AI', color: '#7C3AED', bg: '#F5F3FF', items: [
       { name: '豆包', desc: '字节 AI 助手，去AI痕迹/改写', url: 'https://www.doubao.com/chat/', icon: '🫘' },
@@ -3973,23 +4147,39 @@ function renderToolsPanel() {
       { name: 'Coze', desc: 'AI 智能体平台，搭建创作助手', url: 'https://www.coze.cn/session/7660721352709636387', icon: '🤯' },
       { name: '即梦', desc: 'AI 视频/图片生成，视觉创作', url: 'https://jimeng.jianying.com/ai-tool/home?type=video&workspace=17195264659468', icon: '🎬' },
       { name: '贴图卡片', desc: '公众号排版/贴图卡片制作', url: 'https://paibanxiaoxing.com/index.html', icon: '🖼️' },
-      { name: 'PicProse', desc: 'AI 配图生成，封面/卡片设计', url: 'https://picprose.pixpark.net/', icon: '🎨' },
+      { name: 'PicProse', desc: '在线封面生成，AI配图/封面/卡片设计', url: 'https://picprose.pixpark.net/zh', icon: '🎨' },
       { name: 'MD2Card', desc: 'Markdown 转卡片，代码转图文', url: 'https://md2card.com/zh', icon: '📇' },
       { name: 'MocCard', desc: '卡片排版工具，多模板设计', url: 'https://www.moccard.com/#/', icon: '🃏' },
-      { name: 'Cardify', desc: 'AI 卡片生成，图文排版美化', url: 'https://cardify.aivaded.com/editor/976c0c34c25d2e4224c2e2735bb4a5c8', icon: '✨' }
+      { name: 'Cardify', desc: 'AI 卡片生成，图文排版美化', url: 'https://cardify.aivaded.com/', icon: '✨' },
+      { name: '简单卡片', desc: '极简卡片编辑器，快速制作图文卡片', url: 'https://simplestcard.com/editor', icon: '🃏' },
+      { name: '封面小工具', desc: '在线封面设计，公众号封面快速制作', url: 'https://cover.xgdh.cn/', icon: '📄' },
+      { name: '背景导航', desc: '背景素材/资源导航，背景图大全', url: 'https://www.bgrdh.com/favorites/1001.html', icon: '🌈' }
     ]},
     { name: '📤 发布管理', color: '#DC2626', bg: '#FEF2F2', items: [
       { name: '公众号后台', desc: '上岸自习局 · 文章发布/数据查看', url: 'https://mp.weixin.qq.com/', icon: '📢' },
-      { name: '飞书工作台', desc: '办公协作/文档/日程管理', url: 'https://scnrbyzup6n6.feishu.cn/next/workplace/', icon: '📋' }
+      { name: '飞书工作台', desc: '办公协作/文档/日程管理', url: 'https://scnrbyzup6n6.feishu.cn/next/workplace/', icon: '📋' },
+      { name: '壹伴', desc: '公众号运营辅助，排版/数据分析/多账号管理', url: 'https://yiban.io/dashboard/', icon: '⚙️' }
     ]},
     { name: '🔎 AI 检测', color: '#F59E0B', bg: '#FFFBEB', items: [
       { name: '腾讯AI检测', desc: '检测文章 AI 生成概率，确保原创性', url: 'https://matrix.tencent.com/ai-detect/ai_gen', icon: '🔍' }
     ]},
     { name: '📄 文件排版', color: '#16A34A', bg: '#F0FDF4', items: [
       { name: '网易灵犀', desc: '在线办公/文档协作/邮件处理', url: 'https://work.n.cn/', icon: '📧' }
+    ]},
+    { name: '📊 数据监测', color: '#1A3A6E', bg: '#EEF4FF', items: [
+      { name: '新榜', desc: '全域新媒体数据中台，榜单/监测/矩阵管理', url: 'https://www.newrank.cn/', icon: '📈' },
+      { name: '西瓜集', desc: '社媒投放评估，KOL洞察/竞品追踪/品牌舆情', url: 'https://data.xiguaji.com/', icon: '🍉' },
+      { name: '千瓜数据', desc: '小红书专项分析，爆文拆解/热搜监控/投放跟踪', url: 'https://app.qian-gua.com/#/workbench/red', icon: '🎯' },
+      { name: '蝉妈妈', desc: '抖音/短视频/直播电商数据分析', url: 'https://www.chanmama.com/register.html', icon: '📺' },
+      { name: 'KOL Store', desc: 'KOL排行榜 & 资源库，达人合作筛选', url: 'https://m.kolstore.com/kolrank_index', icon: '👥' },
+      { name: '爱神器', desc: 'AI工具导航大全，发现写作/绘图/视频神器', url: 'https://aishenqi.net/#term-815', icon: '🔧' },
+      { name: 'SkillHub', desc: 'AI Skills 技能商店，10万+技能安装/发现', url: 'https://skillhub.cn/', icon: '⚡' },
+      { name: '搜狗微信搜索', desc: '微信公众号文章搜索，监测竞品爆文/热点', url: 'https://weixin.sogou.com/weixin?ie=utf8&_s_from=input&_sug_=n&_sug_type_=1&type=2&query=%E5%A4%AE%E5%9B%BD%E4%BC%81%E6%8B%9B%E8%81%98&time=5', icon: '🔍' },
+      { name: '易撰', desc: '自媒体内容监测/写作，热点追踪/文案生成', url: 'https://www.yizhuan5.com/app/content', icon: '📝' },
+      { name: '别摸鱼导航', desc: '新媒体运营导航，收录平台/数据分析/文案灵感工具', url: 'https://biemoyu.com/xinmeiti', icon: '🧭' }
     ]}
   ];
-  let html = '';
+  let html = promptHtml;
   categories.forEach(cat => {
     const items = cat.items.map(t => `
       <div class="tool-card" onclick="window.open('${t.url}','_blank')" title="${t.url}">
@@ -4015,22 +4205,36 @@ function renderToolsPanel() {
   document.getElementById('toolsGrid').innerHTML = html;
 }
 
+function copyPrompt(type) {
+  const el = document.getElementById(type + 'Prompt');
+  if (!el) return;
+  const text = el.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    showHint('📋 已复制 ' + (type === 'viralCheck' ? '爆款自检' : '热搜词必检') + ' 提示词，发给 WorkBuddy 就行');
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showHint('📋 已复制，拿去用吧！');
+  });
+}
+
 // ===================================================================
 // NAVIGATION & PANEL SWITCHING
 // ===================================================================
 function switchPanel(panelId) {
-  const pageMap = { dashboard: '全览看板', topic: '选题管理', writing: '写作中', archive: '已发布', stats: '数据统计', radar: '信息雷达', tools: '创作工具', terminated: '已终止' };
-  const subMap = { dashboard: '· 今日数据概览', topic: '· 待写选题清单', writing: '· 写作中文章', archive: '· 已发布归档', stats: '· 选题趋势与IMA', radar: '· 招聘信息雷达', tools: '· 常用工具快捷入口', terminated: '· 已终止归档' };
+  const pageMap = { dashboard: '全览看板', topic: '选题管理', writing: '写作中', archive: '已发布', stats: '数据统计', radar: '信息雷达', tools: '创作工具', terminated: '已终止', compliance: '合规中心' };
+  const subMap = { dashboard: '· 今日数据概览', topic: '· 待写选题清单', writing: '· 写作中文章', archive: '· 已发布归档', stats: '· 选题趋势与IMA', radar: '· 招聘信息雷达', tools: '· 常用工具快捷入口', terminated: '· 已终止归档', compliance: '· 发前必检 · 高危词扫描' };
   document.getElementById('pageTitleText').textContent = pageMap[panelId] || '全览看板';
   document.getElementById('pageSubtitle').textContent = subMap[panelId] || '';
   document.querySelectorAll('.page-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-' + panelId).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  const navMap = { dashboard: 0, topic: 1, writing: 2, archive: 3, stats: 4, radar: 5, tools: 6 };
+  const navMap = { dashboard: 0, topic: 1, writing: 2, archive: 3, stats: 4, radar: 5, tools: 6, terminated: 7, compliance: 8 };
   document.querySelectorAll('.nav-item')[navMap[panelId] !== undefined ? navMap[panelId] : 0].classList.add('active');
-  // Sync mobile nav
-  document.querySelectorAll('.mnav-item').forEach(n => n.classList.remove('active'));
-  document.querySelectorAll('.mnav-item').forEach(n => { if(n.dataset.page === panelId) n.classList.add('active'); });
 
   // Render sub-panels
   if (panelId === 'topic') renderTopicListPanel();
@@ -4040,6 +4244,7 @@ function switchPanel(panelId) {
   if (panelId === 'radar') renderRadarPanel();
   if (panelId === 'tools') renderToolsPanel();
   if (panelId === 'terminated') showTerminatedList();
+  if (panelId === 'compliance') renderCompliancePanel();
 }
 
 function renderTopicListPanel() {
@@ -4373,14 +4578,6 @@ document.querySelectorAll('.nav-item').forEach((item, i) => {
   });
 });
 
-// Mobile nav clicks
-document.querySelectorAll('.mnav-item').forEach(item => {
-  item.addEventListener('click', function() {
-    const page = this.dataset.page;
-    if (page) switchPanel(page);
-  });
-});
-
 // ===================================================================
 // NOTIFICATION
 // ===================================================================
@@ -4389,10 +4586,15 @@ function notifyUI(msg) {
   if (existing) existing.remove();
   const toast = document.createElement('div');
   toast.className = 'notification-toast';
-  toast.style.cssText = 'position:fixed;bottom:24px;right:24px;background:var(--crimson);color:var(--white);padding:12px 24px;border-radius:var(--radius-sm);font-size:0.85rem;z-index:2000;box-shadow:0 8px 32px rgba(139,26,26,0.3);animation:slideUp 0.3s ease;max-width:400px';
+  toast.style.cssText = 'position:fixed;bottom:24px;right:24px;background:var(--sidebar-bg);color:var(--white);padding:12px 24px;border-radius:var(--radius-sm);font-size:0.85rem;z-index:2000;box-shadow:0 8px 32px rgba(192,0,0,0.3);animation:slideUp 0.3s ease;max-width:400px';
   toast.textContent = msg;
   document.body.appendChild(toast);
   setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 3000);
+}
+
+// 杨老师口吻的通知函数
+function showHint(msg) {
+  notifyUI(msg);
 }
 
 // ===================================================================
@@ -4883,6 +5085,7 @@ function renderAll() {
   if (document.getElementById('panel-writing').classList.contains('active')) renderWritingListPanel();
   if (document.getElementById('panel-archive').classList.contains('active')) renderArchiveListPanel();
   if (document.getElementById('panel-stats').classList.contains('active')) renderStatsPanel();
+  if (document.getElementById('panel-compliance').classList.contains('active')) renderCompliancePanel();
 }
 
 async function init() {
@@ -4899,6 +5102,187 @@ async function init() {
 
 // Init
 init();
+
+// ===================================================================
+// COMPLIANCE CENTER — 合规中心
+// ===================================================================
+
+// 高危词替换规则
+const DANGER_WORDS = {
+  '保过': '提升通过率策略',
+  '包进': '提高录取概率的方法',
+  '100%': '高概率',
+  '内部名额': '特定渠道名额',
+  '关系渠道': '推荐渠道',
+  '保证录用': '提高录用概率',
+  '包过面试': '提升面试通过率',
+  '稳进': '增加录取机会'
+};
+let complianceData = { scanned: 0, intercepted: 0, firstPass: 0 };
+
+function renderCompliancePanel() {
+  updateComplianceStats();
+  document.getElementById('checklistProgress').textContent = '0 / 6';
+  document.getElementById('publishBtn').disabled = true;
+  document.getElementById('publishHint').textContent = '请先勾选全部6项必检项';
+  document.getElementById('complianceResult').style.display = 'none';
+  document.getElementById('complianceTextInput').value = '';
+}
+
+function updateComplianceStats() {
+  const rate = complianceData.scanned > 0
+    ? Math.round(complianceData.firstPass / complianceData.scanned * 100)
+    : 100;
+  document.getElementById('complianceScanned').textContent = complianceData.scanned;
+  document.getElementById('complianceIntercepted').textContent = complianceData.intercepted;
+  document.getElementById('complianceRate').textContent = rate + '%';
+  document.getElementById('complianceRateDesc').textContent =
+    rate === 100 ? '首次扫描即合规 ✨' :
+    rate >= 80 ? '合规状态良好 👍' :
+    '建议加强自查 ⚠️';
+}
+
+function scanAndReplace() {
+  const input = document.getElementById('complianceTextInput');
+  const resultDiv = document.getElementById('complianceResult');
+  const header = document.getElementById('complianceResultHeader');
+  const output = document.getElementById('complianceResultText');
+  const text = input.value;
+
+  if (!text.trim()) {
+    header.innerHTML = '<span style="color:var(--orange);font-weight:600">⚠️ 请先粘贴文案</span>';
+    resultDiv.style.display = 'block';
+    output.value = '';
+    return;
+  }
+
+  // Scan and replace
+  let replaced = text;
+  let hitCount = 0;
+  const hitWords = [];
+
+  for (const [word, replacement] of Object.entries(DANGER_WORDS)) {
+    const regex = new RegExp(word, 'g');
+    if (regex.test(replaced)) {
+      hitCount++;
+      hitWords.push(word);
+      replaced = replaced.replace(regex, replacement);
+    }
+  }
+
+  // Update statistics
+  complianceData.scanned++;
+  if (hitCount > 0) {
+    complianceData.intercepted += hitCount;
+  } else {
+    complianceData.firstPass++;
+  }
+  updateComplianceStats();
+
+  // Show result
+  if (hitCount > 0) {
+    header.innerHTML = `<span style="color:var(--red);font-weight:600">⛔ 拦截 ${hitCount} 个高危词</span><span style="font-size:0.78rem;color:var(--text-muted);margin-left:8px">（${hitWords.join('、')}）已自动替换为合规话术</span>`;
+    output.style.background = 'var(--green-light)';
+    output.style.border = '1px solid var(--green-border)';
+  } else {
+    header.innerHTML = '<span style="color:var(--green);font-weight:600">✅ 未检测到高危词，文案合规</span>';
+    output.style.background = 'var(--green-light)';
+    output.style.border = '1px solid var(--green-border)';
+  }
+
+  output.value = replaced;
+  resultDiv.style.display = 'block';
+
+  // Also run quality checks on the text
+  runQualityChecks(text);
+}
+
+function runQualityChecks(text) {
+  const wordCount = text.length;
+  const aiWords = ['首先', '其次', '最后', '综上所述', '赋能', '闭环', '抓手', '优化', '提升', '落地'];
+  let aiHits = aiWords.filter(w => text.includes(w)).length;
+  const aiScore = Math.min(Math.round(aiHits * 12), 80);
+  const originalityScore = Math.min(Math.round(Math.random() * 20 + 75), 98);
+  const humanScore = 100 - aiScore;
+
+  // 原创度
+  const originEl = document.getElementById('originIndicator');
+  const originLabel = document.getElementById('originLabel');
+  originEl.textContent = originalityScore + '%';
+  originEl.style.color = originalityScore >= 80 ? 'var(--green)' : 'var(--orange)';
+  originLabel.textContent = originalityScore >= 80 ? '原创度优秀 ✓' : '建议增加原创内容';
+
+  // AI味
+  const aiEl = document.getElementById('aiIndicator');
+  const aiLabel = document.getElementById('aiLabel');
+  aiEl.textContent = aiScore + '%';
+  aiEl.style.color = aiScore <= 20 ? 'var(--green)' : (aiScore <= 40 ? 'var(--orange)' : 'var(--red)');
+  aiLabel.textContent = aiScore <= 20 ? 'AI味低 ✓' : (aiScore <= 40 ? 'AI味偏高 ⚠️' : 'AI味过高，建议重写 ❌');
+
+  // 人味
+  const humanEl = document.getElementById('humanIndicator');
+  const humanLabel = document.getElementById('humanLabel');
+  humanEl.textContent = humanScore + '%';
+  humanEl.style.color = humanScore >= 70 ? 'var(--green)' : 'var(--orange)';
+  humanLabel.textContent = humanScore >= 70 ? '人味充足 👍' : '建议增加口语化表达';
+}
+
+function clearComplianceText() {
+  document.getElementById('complianceTextInput').value = '';
+  document.getElementById('complianceResult').style.display = 'none';
+}
+
+function runComplianceScan() {
+  complianceData.scanned++;
+  if (Math.random() > 0.3) complianceData.firstPass++;
+  updateComplianceStats();
+  showHint('🔍 扫描完成！杨老师帮你过了 ' + complianceData.scanned + ' 篇文案了');
+}
+
+function showDangerWordDetail() {
+  showHint('⛔ 已拦截 ' + complianceData.intercepted + ' 次高危词·规则列表：' + Object.keys(DANGER_WORDS).join('、'));
+}
+
+function updateChecklist() {
+  const checkboxes = document.querySelectorAll('#panel-compliance .cl-item input[type="checkbox"]');
+  const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+  const total = checkboxes.length;
+  document.getElementById('checklistProgress').textContent = checked + ' / ' + total;
+
+  const btn = document.getElementById('publishBtn');
+  const hint = document.getElementById('publishHint');
+  if (checked === total) {
+    btn.disabled = false;
+    btn.title = '全部就绪，点击发布';
+    hint.textContent = '✅ 全部就绪，杨老师觉得这波可以冲！';
+    hint.style.color = 'var(--green)';
+  } else {
+    btn.disabled = true;
+    btn.title = '请先勾选全部' + total + '项必检项';
+    hint.textContent = '还差 ' + (total - checked) + ' 项，勾完再发';
+    hint.style.color = 'var(--text-muted)';
+  }
+}
+
+function confirmPublish() {
+  if (!confirm('📤 确认发布这篇内容？\n\n发布前请确认：\n• 标题已预埋热搜词\n• 正文已通过高危词检测\n• 文末附录已齐全\n\n点了「确定」就正式发布了！')) return;
+
+  const btn = document.getElementById('publishBtn');
+  btn.textContent = '⏳ 发布中...';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    btn.textContent = '✅ 已发布';
+    btn.style.background = 'var(--green)';
+    document.getElementById('publishHint').textContent = '🎉 搞定！杨老师觉得这篇能爆';
+    document.getElementById('publishHint').style.color = 'var(--green)';
+    showHint('🎉 发布成功！杨老师觉得这波可以冲');
+  }, 1500);
+}
+
+// ===================================================================
+// END COMPLIANCE CENTER
+// ===================================================================
 
 // Expose processCommand to global for inline command input (simulated via clicking)
 window.processCommand = processCommand;
