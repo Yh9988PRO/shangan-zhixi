@@ -135,19 +135,22 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .focus-bar .focus-item .focus-time{font-size:0.62rem;color:var(--text-muted)}
 
 /* ===== Source Grid ===== */
-.source-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:26px}
-.source-card{background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius);padding:18px 18px 16px;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;box-shadow:var(--shadow-card)}
-.source-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-3px)}
-.source-card.has-update{border-top:3px solid var(--blue)}
-.source-card .sc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.source-card .sc-name{font-family:var(--font-serif);font-size:0.95rem;font-weight:700;letter-spacing:0.02em}
-.source-card .sc-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.source-grid{display:grid;gap:10px;margin-bottom:20px}
+.source-grid.alert{grid-template-columns:repeat(3,1fr)}
+.source-grid.normal{grid-template-columns:repeat(5,1fr)}
+.source-card{background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius);padding:14px 16px 12px;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;box-shadow:var(--shadow-card)}
+.source-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.source-card.alert-card{border-left:3px solid #DC2626;background:#FEF2F2}
+.source-card.normal-card{border-left:3px solid #059669}
+.source-card .sc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.source-card .sc-name{font-family:var(--font-serif);font-size:0.9rem;font-weight:700;letter-spacing:0.02em}
+.source-card .sc-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .sc-dot.online{background:var(--green)}
 .sc-dot.updated{background:var(--orange)}
 .sc-dot.alert{background:var(--red);animation:pulse-dot 2s ease-in-out infinite}
-.source-card .sc-update{font-size:0.78rem;color:var(--text-secondary);margin-bottom:4px;line-height:1.5}
-.source-card .sc-time{font-size:0.68rem;color:var(--text-muted);line-height:1.4}
-.source-card .sc-fresh{font-size:0.62rem;padding:1px 8px;border-radius:4px;font-weight:600;display:inline-block;margin-top:4px}
+.source-card .sc-update{font-size:0.75rem;color:var(--text-secondary);margin-bottom:3px;line-height:1.5}
+.source-card .sc-time{font-size:0.65rem;color:var(--text-muted);line-height:1.4}
+.source-card .sc-fresh{font-size:0.6rem;padding:1px 7px;border-radius:4px;font-weight:600;display:inline-block;margin-top:3px}
 .sc-fresh.today{background:#F0FDF4;color:#16A34A}
 .sc-fresh.yesterday{background:#F0FDF4;color:#16A34A}
 .sc-fresh.days1{background:#FFFBEB;color:#F59E0B}
@@ -163,6 +166,11 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .source-card .sc-source{display:flex;align-items:center;gap:4px;margin-bottom:2px}
 .source-card .sc-chn{font-size:0.6rem;padding:1px 6px;border-radius:3px;font-weight:500;background:#F3F4F6;color:var(--text-muted);white-space:nowrap}
 .source-card .sc-chn.gov{background:#EEF4FF;color:#2563EB}
+.source-card .sc-chn.media{background:#FEF2F2;color:#DC2626}
+.source-card .sc-btn{font-size:0.65rem;padding:2px 10px;border-radius:4px;border:none;cursor:pointer;font-family:var(--font-sans);font-weight:500;margin-top:6px;display:inline-block;transition:all 0.15s}
+.source-card .sc-btn.alert-btn{background:#DC2626;color:var(--white)}
+.source-card .sc-btn.alert-btn:hover{background:#B91C1C}
+.source-card .sc-overdue{font-size:0.7rem;font-weight:600;color:#DC2626;margin-top:3px}
 .source-card .sc-chn.media{background:#FEF2F2;color:#DC2626}
 .source-card .sc-chn.wechat{background:#F0FDF4;color:#16A34A}
 
@@ -924,6 +932,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .src-tab:hover{background:var(--gray-light);border-color:var(--blue);color:var(--blue)}
 .src-tab-active{background:var(--sidebar-bg);color:var(--white);border-color:var(--sidebar-bg)}
 .src-tab-active:hover{background:var(--sidebar-hover);color:var(--white)}
+.src-alert-badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--red);color:var(--white);font-size:0.6rem;font-weight:700;line-height:1}
 
 /* 1366窄屏适配 */
 @media(max-width:1366px){
@@ -1019,7 +1028,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
       <!-- 第二层：信源监控（Tab切换） -->
       <div class="section-header" style="margin-top:12px"><h2>📡 官方信源监控</h2>
         <div style="display:flex;gap:4px;align-items:center">
-          <button class="src-tab src-tab-active" onclick="switchSourceTab('alert',this)">⚠️ 需关注 <span id="srcAlertCount">0</span></button>
+          <button class="src-tab src-tab-active" onclick="switchSourceTab('alert',this)">⚠️ 需关注 <span class="src-alert-badge" id="srcAlertCount">0</span></button>
           <button class="src-tab" onclick="switchSourceTab('all',this)">✅ 运行正常</button>
           <button class="section-action" onclick="refreshSources()" style="margin-left:4px">⟳ 刷新</button>
         </div>
@@ -1657,28 +1666,46 @@ function switchSourceTab(tab, btn) {
   if (btn) btn.classList.add('src-tab-active');
   const grid = document.getElementById('sourceGrid');
   const items = DATA.sources || [];
-  const filtered = tab === 'alert' ? items.filter(s => s.status === 'alert' || s.status === 'offline') : items;
+  const isAlert = tab === 'alert';
+  const filtered = isAlert ? items.filter(s => s.status === 'alert' || s.status === 'offline') : items;
+
+  grid.className = 'source-grid ' + (isAlert ? 'alert' : 'normal');
+
   grid.innerHTML = filtered.map(s => {
-    const dotClass = s.status === 'alert' ? 'alert' : s.status;
     const latest = s.updates.length > 0 ? s.updates[0] : null;
-    const latestTime = latest ? latest.date + ' ' + (latest.time || '') : '—';
     const daysSince = latest ? getDaysSince(latest.date) : 99;
-    const freshClass = !latest ? 'none' : daysSince === 0 ? 'today' : daysSince === 1 ? 'yesterday' : daysSince <= 2 ? 'days1' : daysSince <= 3 ? 'days2' : daysSince <= 5 ? 'days3' : daysSince <= 7 ? 'days4' : 'older';
-    const freshLabel = !latest ? '暂无更新' : daysSince === 0 ? '今日更新' : daysSince === 1 ? '昨日更新' : daysSince + '天前';
+    const freshLabel = !latest ? '暂无更新' : daysSince === 0 ? '今日更新' : daysSince + '天前';
     const chnMap = { gzxz: 'gov', gzw: 'gov', gjrcj: 'gov', gpxd: 'gov', rsb: 'gov', jyb: 'gov', czb: 'gov', szksy: 'gov', szrs: 'gov', ncss: 'gov', jobmohrss: 'gov', ciicsc: 'gov', gwkd: 'media', htw: 'media', zhihu: 'media', zhonggong: 'media', gdyj: 'media', bilibili: 'media', wxsearch: 'media' };
     const chnLabel = chnMap[s.id] === 'gov' ? '官网' : '媒体';
-    return `<div class="source-card${s.status === 'alert' ? ' has-update' : ''}" onclick="showSourceDetail('${s.id}')" style="${daysSince >= 7 ? 'opacity:0.85' : ''}">
-      <div class="sc-top"><div class="sc-source"><span class="sc-name">${s.name}</span><span class="sc-chn ${chnMap[s.id]}">${chnLabel}</span></div><span class="sc-dot ${dotClass}"></span></div>
-      <div class="sc-update">${s.updateLabel}</div>
-      <div class="sc-time">${latest ? '最近 ' + latestTime : '已加入监控'}</div>
-      <span class="sc-fresh ${freshClass}">${freshLabel}</span>
-    </div>`;
+
+    if (isAlert) {
+      // Alert card: 3-column, red left border, red bg, overdue days + "立即查看"
+      const overdueDays = latest ? daysSince : 99;
+      return `<div class="source-card alert-card" onclick="showSourceDetail('${s.id}')">
+        <div class="sc-top"><div class="sc-source"><span class="sc-name">${s.name}</span><span class="sc-chn ${chnMap[s.id]}">${chnLabel}</span></div><span class="sc-dot alert"></span></div>
+        <div class="sc-update">${s.updateLabel}</div>
+        <div class="sc-overdue">⚠️ 已过期 ${overdueDays} 天</div>
+        <button class="sc-btn alert-btn" onclick="event.stopPropagation();showSourceDetail('${s.id}')">立即查看</button>
+      </div>`;
+    } else {
+      // Normal card: 5-column compact, green left border
+      const dotClass = s.status === 'alert' ? 'alert' : 'online';
+      const freshClass = !latest ? 'none' : daysSince === 0 ? 'today' : daysSince === 1 ? 'yesterday' : daysSince <= 2 ? 'days1' : daysSince <= 3 ? 'days2' : daysSince <= 5 ? 'days3' : daysSince <= 7 ? 'days4' : 'older';
+      return `<div class="source-card normal-card" onclick="showSourceDetail('${s.id}')">
+        <div class="sc-top"><div class="sc-source"><span class="sc-name">${s.name}</span><span class="sc-chn ${chnMap[s.id]}">${chnLabel}</span></div><span class="sc-dot ${dotClass}"></span></div>
+        <div class="sc-update">${s.updateLabel}</div>
+        <div class="sc-time">${latest ? '最近 ' + (latest.date + ' ' + (latest.time || '')) : '已加入监控'}</div>
+        <span class="sc-fresh ${freshClass}">${freshLabel}</span>
+      </div>`;
+    }
   }).join('');
-if (filtered.length === 0) {
-    grid.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-muted);font-size:0.82rem">✅ 所有信源运行正常</div>';
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-muted);font-size:0.82rem">' + (isAlert ? '✅ 暂无异常信源' : '✅ 所有信源运行正常') + '</div>';
   }
+
   // Update alert count badge
-const alertCount = document.getElementById('srcAlertCount');
+  const alertCount = document.getElementById('srcAlertCount');
   if (alertCount) alertCount.textContent = items.filter(s => s.status === 'alert' || s.status === 'offline').length;
 }
 
