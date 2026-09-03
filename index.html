@@ -879,7 +879,61 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 .stats-card,.kpi-big,.kpi-card,.pk-card,.focus-bar,.sc-chart-wrap{min-height:auto;height:auto}
 .rank-table-wrap{max-height:400px;overflow-y:auto}
 
-/* 8px 栅格对齐 */
+/* ===== Dashboard — 全揽看板重构 ===== */
+.dash-focus{display:flex;gap:12px;margin-bottom:12px;align-items:stretch}
+.dash-focus-left{flex:3;min-width:0;display:flex;flex-direction:column}
+.dash-focus-right{flex:2;min-width:280px;display:flex;flex-direction:column;gap:8px}
+.df-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font-size:0.85rem}
+.df-head h3{font-family:var(--font-serif);font-size:0.95rem;font-weight:700}
+.df-count{font-size:0.72rem;color:var(--text-muted);background:var(--gray-light);padding:2px 10px;border-radius:10px}
+.df-list{background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius-sm);padding:6px;flex:1;display:flex;flex-direction:column;gap:4px;box-shadow:var(--shadow-card)}
+.df-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;font-size:0.82rem;line-height:1.4;border-left:3px solid var(--gray-border);cursor:pointer;transition:background 0.15s}
+.df-item:hover{background:var(--gray-light)}
+.df-item.urgent{border-left-color:var(--red)}
+.df-item.pending{border-left-color:var(--orange)}
+.df-item.normal{border-left-color:var(--green)}
+.df-item .df-icon{flex-shrink:0;font-size:0.9rem}
+.df-item .df-text{flex:1;min-width:0}
+.df-item .df-time{font-size:0.68rem;color:var(--text-muted);flex-shrink:0;white-space:nowrap}
+.df-item .df-action{font-size:0.68rem;color:var(--blue);font-weight:500;flex-shrink:0;cursor:pointer;padding:2px 8px;border-radius:4px;background:var(--blue-light);border:none;font-family:var(--font-sans)}
+.df-item .df-action:hover{background:var(--blue-border)}
+
+/* 关键数据四宫格 */
+.dash-kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.dash-kpi{background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius-sm);padding:10px 12px;box-shadow:var(--shadow-card);cursor:pointer;transition:all 0.15s;display:flex;flex-direction:column;gap:2px}
+.dash-kpi:hover{box-shadow:var(--shadow-hover);transform:translateY(-1px)}
+.dash-kpi .dk-label{font-size:0.68rem;color:var(--text-muted);font-weight:500}
+.dash-kpi .dk-value{font-size:1.2rem;font-weight:700;font-family:var(--font-serif);line-height:1.2}
+.dash-kpi .dk-value.green{color:var(--green)}
+.dash-kpi .dk-value.blue{color:var(--blue)}
+.dash-kpi .dk-value.orange{color:var(--orange)}
+.dash-kpi .dk-value.purple{color:var(--purple)}
+.dash-kpi .dk-sub{font-size:0.65rem;color:var(--text-muted)}
+
+/* 截稿倒计时横条 */
+.dash-countdown{background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius-sm);padding:8px 14px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow-card);font-size:0.78rem;cursor:pointer;transition:all 0.15s}
+.dash-countdown:hover{box-shadow:var(--shadow-hover)}
+.dash-countdown .dc-icon{font-size:1rem;flex-shrink:0}
+.dash-countdown .dc-text{flex:1;min-width:0}
+.dash-countdown .dc-text strong{color:var(--red)}
+.dash-countdown .dc-btn{font-size:0.68rem;color:var(--blue);font-weight:500;padding:2px 10px;border-radius:4px;background:var(--blue-light);border:none;cursor:pointer;font-family:var(--font-sans);flex-shrink:0}
+.dash-countdown .dc-btn:hover{background:var(--blue-border)}
+
+/* 信源Tab切换 */
+.src-tab{height:30px;padding:0 12px;border-radius:6px;border:1px solid var(--gray-border);background:var(--white);cursor:pointer;font-size:0.75rem;font-family:var(--font-sans);color:var(--text-secondary);display:flex;align-items:center;gap:4px;transition:all 0.15s}
+.src-tab:hover{background:var(--gray-light);border-color:var(--blue);color:var(--blue)}
+.src-tab-active{background:var(--sidebar-bg);color:var(--white);border-color:var(--sidebar-bg)}
+.src-tab-active:hover{background:var(--sidebar-hover);color:var(--white)}
+
+/* 1366窄屏适配 */
+@media(max-width:1366px){
+  .dash-focus{flex-direction:column}
+  .dash-focus-left{flex:none}
+  .dash-focus-right{flex:none;min-width:0}
+  .dash-kpi-grid{grid-template-columns:repeat(4,1fr)}
+}
+
+/* 8px栅格对齐 */
 .kpi-focus-row{gap:8px}
 .kpi-bar{gap:8px}
 </style>
@@ -944,20 +998,36 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-hei
 
   <div class="content-area" id="mainContent">
 
-    <!-- ===== 全揽看板（唯一主面板） ===== -->
+<!-- ===== 全揽看板 ===== -->
     <div class="page-panel active" id="panel-dashboard">
-      <!-- KPI Bar + 今日聚焦 并列 -->
-      <div class="kpi-focus-row">
-        <div class="focus-bar" id="focusBar"></div>
-        <div class="kpi-bar" id="kpiBar"></div>
+      <!-- 第一层：焦点区（首屏可见） -->
+      <div class="dash-focus">
+        <div class="dash-focus-left" id="dashFocusLeft">
+          <div class="df-head"><h3>📋 今日提醒</h3><span class="df-count" id="reminderCount">0 条</span></div>
+          <div class="df-list" id="reminderList">
+            <div style="text-align:center;padding:24px;color:var(--text-muted);font-size:0.82rem">暂无提醒，杨老师给你放个假 🎉</div>
+          </div>
+        </div>
+        <div class="dash-focus-right">
+          <!-- 关键数据四宫格 -->
+          <div class="dash-kpi-grid" id="dashKpiGrid"></div>
+          <!-- 截稿倒计时横条 -->
+          <div class="dash-countdown" id="dashCountdown"></div>
+        </div>
       </div>
 
-      <!-- 官方信源监控 -->
-      <div class="section-header"><h2>📡 官方信源监控</h2><button class="section-action" onclick="refreshSources()">⟳ 刷新</button></div>
+      <!-- 第二层：信源监控（Tab切换） -->
+      <div class="section-header" style="margin-top:12px"><h2>📡 官方信源监控</h2>
+        <div style="display:flex;gap:4px;align-items:center">
+          <button class="src-tab src-tab-active" onclick="switchSourceTab('alert',this)">⚠️ 需关注 <span id="srcAlertCount">0</span></button>
+          <button class="src-tab" onclick="switchSourceTab('all',this)">✅ 运行正常</button>
+          <button class="section-action" onclick="refreshSources()" style="margin-left:4px">⟳ 刷新</button>
+        </div>
+      </div>
       <div class="source-grid" id="sourceGrid"></div>
 
-      <!-- 选题看板 -->
-      <div class="section-header"><h2>📋 选题看板</h2><button class="section-action" onclick="showNewTopicDialog()">＋ 新建选题</button></div>
+      <!-- 第三层：选题看板（需滚动） -->
+      <div class="section-header" style="margin-top:12px"><h2>📋 选题看板</h2><button class="section-action" onclick="showNewTopicDialog()">＋ 新建选题</button></div>
       <div class="topic-board" id="topicBoard"></div>
 
       <!-- Command Bar -->
@@ -1466,183 +1536,179 @@ function formatDateFromISO(isoStr) {
 }
 
 // ===================================================================
-// RENDER ENGINE
+// RENDER ENGINE — Dashboard 重构
 // ===================================================================
 
-// Render stats bar
-function renderStats() {
+// Render 今日提醒（左侧）+ 关键数据四宫格（右侧）
+function renderDashboard() {
+  renderReminders();
+  renderDashKpiGrid();
+  renderCountdownBar();
+  renderSources();
+  renderTopicBoard();
+}
+
+// 今日提醒：最多5条，左边框色条区分紧急/待处理/正常
+function renderReminders() {
+  const list = document.getElementById('reminderList');
+  const countEl = document.getElementById('reminderCount');
+
+  const items = [];
+  // 今日截止的写作中 → 紧急
+  DATA.topics.writing.filter(t => t.deadline === '今日截止').forEach(t => {
+    items.push({ icon: '🔴', text: '截稿：' + t.title, time: '今日截止', type: 'urgent', action: '去写作', actionFn: 'switchPanel(\'writing\')' });
+  });
+  // 高优先级待写 → 待处理
+  DATA.topics.pending.filter(t => t.priority && t.priority.includes('🔴')).slice(0, 3).forEach(t => {
+    items.push({ icon: '🟠', text: '待写：' + (t.title || '').slice(0, 30), time: t.suggestDate || '', type: 'pending', action: '开始', actionFn: 'quickCmd(\'/开始 ' + encodeURIComponent(t.title || '') + '\')' });
+  });
+  // 信源告警 → 紧急
+  if (DATA.sources) {
+    const alerts = DATA.sources.filter(s => s.status === 'alert');
+    alerts.slice(0, 2).forEach(s => {
+      items.push({ icon: '⚠️', text: '信源：' + s.name + ' ' + (s.updateLabel || ''), time: '今日', type: 'urgent', action: '查看', actionFn: 'switchPanel(\'radar\')' });
+    });
+  }
+
+  countEl.textContent = items.length + ' 条';
+
+  if (items.length === 0) {
+    list.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-muted);font-size:0.82rem">暂无提醒，杨老师给你放个假 🎉</div>';
+    return;
+  }
+
+  list.innerHTML = items.slice(0, 5).map(item => `
+    <div class="df-item ${item.type}">
+      <span class="df-icon">${item.icon}</span>
+      <span class="df-text">${item.text}</span>
+      <span class="df-time">${item.time}</span>
+      <button class="df-action" onclick="${item.actionFn}">${item.action}</button>
+    </div>
+  `).join('');
+}
+
+// 关键数据四宫格
+function renderDashKpiGrid() {
   const s = DATA.stats;
-  document.getElementById('kpiBar').innerHTML = `
-    <div class="kpi-card" onclick="showPendingList()">
-      <div class="kpi-value red">${s.pending.count}</div>
-      <div class="kpi-label">待写选题 <span style="font-size:0.58rem;color:var(--red);background:var(--red-light);padding:0 5px;border-radius:3px;font-weight:600;margin-left:3px">🆕${s.pending.change}</span></div>
-      <div class="kpi-change up">↑ ${s.pending.change} ${s.pending.changeLabel}</div>
+  const totalTopics = DATA.topics.pending.length + DATA.topics.writing.length + DATA.topics.published.length;
+  const complianceRate = getComplianceRate().rate;
+  document.getElementById('dashKpiGrid').innerHTML = `
+    <div class="dash-kpi" onclick="switchPanel('topic')">
+      <div class="dk-label">📋 待写选题</div>
+      <div class="dk-value blue">${s.pending.count}<span style="font-size:0.7rem;font-weight:400;color:var(--text-muted);margin-left:4px">篇</span></div>
+      <div class="dk-sub">今日新增 ${s.pending.change}</div>
     </div>
-    <div class="kpi-card" onclick="showWritingList()">
-      <div class="kpi-value orange">${s.writing.count}</div>
-      <div class="kpi-label">写作中 <span style="font-size:0.58rem;color:var(--orange);background:var(--orange-light);padding:0 5px;border-radius:3px;font-weight:600;margin-left:3px">⏰${s.writing.change}</span></div>
-      <div class="kpi-change warn">${s.writing.change} ${s.writing.changeLabel}</div>
+    <div class="dash-kpi" onclick="switchPanel('writing')">
+      <div class="dk-label">✍️ 写作中</div>
+      <div class="dk-value orange">${s.writing.count}<span style="font-size:0.7rem;font-weight:400;color:var(--text-muted);margin-left:4px">篇</span></div>
+      <div class="dk-sub">${s.writing.change} 篇进行中</div>
     </div>
-    <div class="kpi-card" onclick="showArchiveList()">
-      <div class="kpi-value green">${s.published.count}</div>
-      <div class="kpi-label">本月已发布</div>
-      <div class="kpi-change up">↑ ${s.published.change} ${s.published.changeLabel}</div>
+    <div class="dash-kpi" onclick="switchPanel('archive')">
+      <div class="dk-label">✅ 已发布</div>
+      <div class="dk-value green">${s.published.count}<span style="font-size:0.7rem;font-weight:400;color:var(--text-muted);margin-left:4px">篇</span></div>
+      <div class="dk-sub">最高阅读 ${s.published.change}</div>
     </div>
-    <div class="kpi-card" onclick="showSourceUpdates()">
-      <div class="kpi-value blue">${s.sources.count}</div>
-      <div class="kpi-label">官方信源更新 <span style="font-size:0.58rem;color:var(--blue);background:var(--blue-light);padding:0 5px;border-radius:3px;font-weight:600;margin-left:3px">🆕${s.sources.change}</span></div>
-      <div class="kpi-change up">今日 ${s.sources.change} 条新政策</div>
-    </div>
-    <div class="kpi-card" onclick="showTerminatedList()">
-      <div class="kpi-value" style="color:#6B7280">${s.terminated.count}</div>
-      <div class="kpi-label">已终止 <span style="font-size:0.58rem;color:#6B7280;background:#F3F4F6;padding:0 5px;border-radius:3px;font-weight:600;margin-left:3px">📦 归档</span></div>
-      <div class="kpi-change" style="color:#6B7280">${s.terminated.change} 条终止记录</div>
+    <div class="dash-kpi" onclick="switchPanel('compliance')">
+      <div class="dk-label">🛡️ 合规通过率</div>
+      <div class="dk-value" style="color:${complianceRate === 100 ? 'var(--green)' : 'var(--orange)'}">${complianceRate}%</div>
+      <div class="dk-sub">${getComplianceRate().desc}</div>
     </div>
   `;
 }
 
-// Render 今日聚焦
-function renderFocusBar() {
-  const urgentItems = DATA.topics.writing.filter(t => t.deadline === '今日截止');
-  const highPending = DATA.topics.pending.filter(t => t.priority && t.priority.includes('🔴')).slice(0, 2);
-  const bar = document.getElementById('focusBar');
-  if (urgentItems.length === 0 && highPending.length === 0) {
-    bar.style.display = 'none';
-    return;
+// 截稿倒计时横条
+function renderCountdownBar() {
+  const urgent = DATA.topics.writing.filter(t => t.deadline === '今日截止');
+  const total = DATA.topics.pending.length + DATA.topics.writing.length;
+  const el = document.getElementById('dashCountdown');
+  if (urgent.length > 0) {
+    el.innerHTML = `
+      <span class="dc-icon">⏰</span>
+      <span class="dc-text"><strong>${urgent.length} 篇</strong>今日截稿 · ${total} 篇选题待处理 · 杨老师提醒你抓紧啦</span>
+      <button class="dc-btn" onclick="switchPanel('writing')">去写作 →</button>
+    `;
+  } else {
+    el.innerHTML = `
+      <span class="dc-icon">✅</span>
+      <span class="dc-text">今日无截稿 · ${total} 篇选题待处理</span>
+      <button class="dc-btn" onclick="switchPanel('topic')">看选题 →</button>
+    `;
   }
-  bar.style.display = 'flex';
-  let items = '';
-  urgentItems.forEach(t => {
-    items += `<div class="focus-item" onclick="showWritingDetail('${t.id}')">
-      <span>${t.title.length > 18 ? t.title.slice(0,18) + '…' : t.title}</span>
-      <span class="focus-tag">今日截止</span>
-      <span class="focus-time">⏰ ${t.deadline}</span>
-    </div>`;
-  });
-  highPending.forEach(t => {
-    items += `<div class="focus-item" onclick="showPendingDetail('${t.id}')">
-      <span>${t.title.length > 18 ? t.title.slice(0,18) + '…' : t.title}</span>
-      <span class="focus-tag" style="background:var(--orange);color:var(--white)">高优先级</span>
-      <span class="focus-time">${t.suggestDate}</span>
-    </div>`;
-  });
-  bar.innerHTML = `<span class="focus-label">🔴 今日聚焦</span><div class="focus-items">${items}</div>`;
 }
 
-// Render sources
-function renderSources() {
+// 信源Tab切换
+function switchSourceTab(tab, btn) {
+  document.querySelectorAll('.src-tab').forEach(b => b.classList.remove('src-tab-active'));
+  if (btn) btn.classList.add('src-tab-active');
   const grid = document.getElementById('sourceGrid');
-  grid.innerHTML = DATA.sources.map(s => {
+  const items = DATA.sources || [];
+  const filtered = tab === 'alert' ? items.filter(s => s.status === 'alert' || s.status === 'offline') : items;
+  // Reuse renderSources logic but with filtered data
+  grid.innerHTML = filtered.map(s => {
     const dotClass = s.status === 'alert' ? 'alert' : s.status;
     const todayCount = s.updates.filter(u => isToday(u.date)).length;
     const hasUpdate = todayCount > 0 || s.status === 'alert';
     const latest = s.updates.length > 0 ? s.updates[0] : null;
     const latestTime = latest ? latest.date + ' ' + (latest.time || '') : '—';
-    // 时效性计算
     const daysSince = latest ? getDaysSince(latest.date) : 99;
     const freshClass = !latest ? 'none' : daysSince === 0 ? 'today' : daysSince === 1 ? 'yesterday' : daysSince <= 2 ? 'days1' : daysSince <= 3 ? 'days2' : daysSince <= 5 ? 'days3' : daysSince <= 7 ? 'days4' : 'older';
     const freshLabel = !latest ? '暂无更新' : daysSince === 0 ? '今日更新' : daysSince === 1 ? '昨日更新' : daysSince + '天前';
-    // 更新优先级（天数越久优先级越高）
-    const priorityClass = !latest ? 'p2' : daysSince <= 1 ? 'p0' : daysSince <= 3 ? 'p1' : 'p2';
-    // 渠道标签
     const chnMap = { gzxz: 'gov', gzw: 'gov', gjrcj: 'gov', gpxd: 'gov', rsb: 'gov', jyb: 'gov', czb: 'gov', szksy: 'gov', szrs: 'gov', ncss: 'gov', jobmohrss: 'gov', ciicsc: 'gov', gwkd: 'media', htw: 'media', zhihu: 'media', zhonggong: 'media', gdyj: 'media', bilibili: 'media', wxsearch: 'media' };
     const chnLabel = chnMap[s.id] === 'gov' ? '官网' : '媒体';
     return `<div class="source-card${hasUpdate ? ' has-update' : ''}" onclick="showSourceDetail('${s.id}')" style="${daysSince >= 7 ? 'opacity:0.85' : ''}">
-      <div class="sc-top">
-        <div class="sc-source">
-          <span class="sc-name">${s.name}</span>
-          <span class="sc-chn ${chnMap[s.id]}">${chnLabel}</span>
-        </div>
-        <span class="sc-dot ${dotClass}"></span>
-      </div>
+      <div class="sc-top"><div class="sc-source"><span class="sc-name">${s.name}</span><span class="sc-chn ${chnMap[s.id]}">${chnLabel}</span></div><span class="sc-dot ${dotClass}"></span></div>
       <div class="sc-update">${s.updateLabel}</div>
       <div class="sc-time">${latest ? '最近 ' + latestTime : '已加入监控'}</div>
       <span class="sc-fresh ${freshClass}">${freshLabel}</span>
     </div>`;
   }).join('');
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-muted);font-size:0.82rem;grid-column:1/-1">✅ 所有信源运行正常</div>';
+  }
 }
 
-// 计算距今天数
-function getDaysSince(dateStr) {
-  if (!dateStr) return 99;
-  try {
-    const d = new Date(dateStr);
-    const today = new Date(DATA.today || new Date().toISOString().slice(0,10));
-    return Math.floor((today - d) / (1000 * 60 * 60 * 24));
-  } catch(e) { return 99; }
+// Render stats bar (keep for backward compatibility with other panels)
+function renderStats() {
+  renderDashKpiGrid();
 }
 
-// Render topic board
-function renderTopicBoard() {
-  const board = document.getElementById('topicBoard');
-  const pending = [...DATA.topics.pending].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  const writing = [...DATA.topics.writing].sort((a, b) => {
-    if (a.priority === 'urgent' && b.priority !== 'urgent') return -1;
-    if (a.priority !== 'urgent' && b.priority === 'urgent') return 1;
-    return new Date(b.createdAt) - new Date(a.createdAt);
-  });
-  const published = [...DATA.topics.published].sort((a, b) => new Date(b.date) - new Date(a.date));
-  board.innerHTML = `
-    <div class="topic-col">
-      <div class="col-header"><span class="col-icon">📌</span><span class="col-name">待写</span><span class="col-count gray">${pending.length}</span><span class="col-actions" onclick="showNewTopicDialog()">＋ 新建</span></div>
-      ${pending.length > 0 ? pending.map(t => topicCard(t, 'pending')).join('') : '<div class="empty-col">暂无待写选题</div>'}
-    </div>
-    <div class="topic-col">
-      <div class="col-header"><span class="col-icon">✍️</span><span class="col-name">写作中</span><span class="col-count orange">${writing.length}</span></div>
-      ${writing.length > 0 ? writing.map(t => topicCard(t, 'writing')).join('') : '<div class="empty-col">暂无写作中文章</div>'}
-    </div>
-    <div class="topic-col">
-      <div class="col-header"><span class="col-icon">✅</span><span class="col-name">已发布</span><span class="col-count green">${published.length}</span></div>
-      ${published.length > 0 ? published.map(t => topicCard(t, 'published')).join('') : '<div class="empty-col">暂无已发布文章</div>'}
-    </div>
-    <div class="topic-col">
-      <div class="col-header"><span class="col-icon">📄</span><span class="col-name">草稿箱</span><span class="col-count blue">${DATA.topics.drafts.length}</span></div>
-      ${DATA.topics.drafts.length > 0 ? DATA.topics.drafts.map(t => `<div class="topic-card" onclick="showDraftDetail('${t.id}')">
-        <div class="tc-tags"><span class="tc-tag blue" style="font-size:0.6rem">📄 草稿</span></div>
-        <div class="tc-title">${t.title}</div>
-        <div class="tc-bottom"><span>📁 ${t.path || '未分类'}</span><span>📋 ${t.content.length} 字</span></div>
-      </div>`).join('') : '<div class="empty-col">暂无草稿</div>'}
-    </div>
-  `;
+// ===================================================================
+// RENDER SOURCES
+// ===================================================================
+
+function renderSources() {
+  const activeTab = document.querySelector('.src-tab-active');
+  const tab = activeTab && activeTab.textContent.includes('需关注') ? 'alert' : 'all';
+  const btn = activeTab || document.querySelector('.src-tab');
+  switchSourceTab(tab, btn);
 }
 
-function topicCard(t, type) {
-  const isNew = isToday(t.createdAt);
-  const timeStr = formatTime(t.createdAt);
-  const newBadge = isNew ? `<span class="tc-tag red" style="font-size:0.6rem">🆕 ${timeStr}</span>` : '';
-  const imaBadge = t.imaLink ? `<span class="tc-tag blue">📚 IMA</span>` : '';
-
-  if (type === 'pending') {
-    const isUrgent = t.priority && t.priority.includes('🔴');
-    const tags = t.tags.map((tag, i) => {
-      const cls = tag === 'hot' ? 'red' : tag === 'source' ? 'blue' : tag === 'formula' ? 'orange' : 'gray';
-      return `<span class="tc-tag ${cls}">${t.tagLabels[i]}</span>`;
-    }).join('');
-    return `<div class="topic-card${isUrgent ? ' urgent' : ''}" onclick="showPendingDetail('${t.id}')">
-      <div class="tc-tags">${imaBadge}${tags}${newBadge}</div>
-      <div class="tc-title">${isNew ? '🆕 ' : ''}${t.title}</div>
-      <div class="tc-meta"><span>建议 ${t.suggestDate}</span><span>⚡ ${t.priority || '中'}</span></div>
+function switchSourceTab(tab, btn) {
+  document.querySelectorAll('.src-tab').forEach(b => b.classList.remove('src-tab-active'));
+  if (btn) btn.classList.add('src-tab-active');
+  const grid = document.getElementById('sourceGrid');
+  const items = DATA.sources || [];
+  const filtered = tab === 'alert' ? items.filter(s => s.status === 'alert' || s.status === 'offline') : items;
+  grid.innerHTML = filtered.map(s => {
+    const dotClass = s.status === 'alert' ? 'alert' : s.status;
+    const latest = s.updates.length > 0 ? s.updates[0] : null;
+    const latestTime = latest ? latest.date + ' ' + (latest.time || '') : '—';
+    const daysSince = latest ? getDaysSince(latest.date) : 99;
+    const freshClass = !latest ? 'none' : daysSince === 0 ? 'today' : daysSince === 1 ? 'yesterday' : daysSince <= 2 ? 'days1' : daysSince <= 3 ? 'days2' : daysSince <= 5 ? 'days3' : daysSince <= 7 ? 'days4' : 'older';
+    const freshLabel = !latest ? '暂无更新' : daysSince === 0 ? '今日更新' : daysSince === 1 ? '昨日更新' : daysSince + '天前';
+    const chnMap = { gzxz: 'gov', gzw: 'gov', gjrcj: 'gov', gpxd: 'gov', rsb: 'gov', jyb: 'gov', czb: 'gov', szksy: 'gov', szrs: 'gov', ncss: 'gov', jobmohrss: 'gov', ciicsc: 'gov', gwkd: 'media', htw: 'media', zhihu: 'media', zhonggong: 'media', gdyj: 'media', bilibili: 'media', wxsearch: 'media' };
+    const chnLabel = chnMap[s.id] === 'gov' ? '官网' : '媒体';
+    return `<div class="source-card${s.status === 'alert' ? ' has-update' : ''}" onclick="showSourceDetail('${s.id}')" style="${daysSince >= 7 ? 'opacity:0.85' : ''}">
+      <div class="sc-top"><div class="sc-source"><span class="sc-name">${s.name}</span><span class="sc-chn ${chnMap[s.id]}">${chnLabel}</span></div><span class="sc-dot ${dotClass}"></span></div>
+      <div class="sc-update">${s.updateLabel}</div>
+      <div class="sc-time">${latest ? '最近 ' + latestTime : '已加入监控'}</div>
+      <span class="sc-fresh ${freshClass}">${freshLabel}</span>
     </div>`;
+  }).join('');
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-muted);font-size:0.82rem">✅ 所有信源运行正常</div>';
   }
-  if (type === 'writing') {
-    const barColor = t.progress >= 80 ? '#16A34A' : t.progress >= 50 ? '#F59E0B' : t.progress >= 30 ? '#2563EB' : '#DC2626';
-    const isUrgent = t.deadline === '今日截止';
-    const deadlineBadge = t.deadline === '今日截止' ? `<span class="tc-tag red" style="font-size:0.6rem">⏰ 今日截止</span>` : `<span class="tc-tag gray">${t.deadline}</span>`;
-    return `<div class="topic-card${isUrgent ? ' urgent' : ''}" onclick="showWritingDetail('${t.id}')">
-      <div class="tc-tags">${imaBadge}${newBadge}</div>
-      <div class="tc-title">${t.title}</div>
-      <div class="tc-progress"><div class="tc-progress-bar" style="width:${t.progress}%;background:${barColor}"></div></div>
-      <div class="tc-bottom"><span>${t.stage}</span><span>${t.progress}% · ${t.assignee}</span></div>
-    </div>`;
-  }
-  if (type === 'published') {
-    const linkBadge = t.wechatUrl && t.wechatUrl.trim() ? `<span class="tc-tag blue" style="font-size:0.6rem">🔗 已关联</span>` : `<span class="tc-tag gray">🔗 未关联</span>`;
-    return `<div class="topic-card" onclick="showPublishedDetail('${t.id}')">
-      <div class="tc-tags">${imaBadge}${linkBadge}<span class="tc-tag green">${t.type}</span></div>
-      <div class="tc-title">${t.title}</div>
-      <div class="tc-bottom"><span>${t.date}</span><span class="tc-right"><span class="tc-reads">👁 ${t.reads.toLocaleString()}  ·  👍 ${t.likes}</span></span></div>
-    </div>`;
-  }
+  document.getElementById('srcAlertCount').textContent = items.filter(s => s.status === 'alert' || s.status === 'offline').length;
 }
 
 // ===================================================================
@@ -5233,10 +5299,7 @@ function formatSuggestDate(dateStr) {
 // INIT
 // ===================================================================
 function renderAll() {
-  renderStats();
-  renderFocusBar();
-  renderSources();
-  renderTopicBoard();
+  renderDashboard();
   // Update terminated count from array
   DATA.stats.terminated.count = DATA.topics.terminated.length;
   // Update sub-panels if visible
