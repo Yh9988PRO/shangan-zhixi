@@ -5166,10 +5166,10 @@ function renderPubCard(t) {
 // ===================================================================
 // NAV ITEM CLICKS
 // ===================================================================
-document.querySelectorAll('.nav-item').forEach((item, i) => {
+document.querySelectorAll('.nav-item').forEach((item) => {
   item.addEventListener('click', function() {
-    const pages = ['dashboard', 'topic', 'writing', 'archive', 'stats', 'radar', 'tools', 'terminated', 'compliance'];
-    switchPanel(pages[i]);
+    const page = this.getAttribute('data-page');
+    if (page) switchPanel(page);
   });
 });
 
