@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0D1B2A">
+<meta name="description" content="上岸自习局 · 杨老师创作工作台 - 央国企求职内容创作工具">
+<link rel="manifest" href="manifest.json">
 <title>上岸自习局 · 杨老师创作工作台</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -4753,6 +4756,10 @@ function copyPrompt(type) {
 // NAVIGATION & PANEL SWITCHING
 // ===================================================================
 function switchPanel(panelId) {
+  // Update URL hash (without triggering hashchange)
+  if (window.location.hash !== '#' + panelId) {
+    history.pushState(null, '', '#' + panelId);
+  }
   try {
     const pageMap = { dashboard: '全揽看板', topic: '选题管理', writing: '写作中', archive: '已发布', stats: '数据统计', radar: '信息雷达', tools: '创作工具', terminated: '已终止', compliance: '合规中心' };
     const subMap = { dashboard: '· 今日数据概览', topic: '· 待写选题清单', writing: '· 写作中文章', archive: '· 已发布归档', stats: '· 选题趋势与IMA', radar: '· 招聘信息雷达', tools: '· 常用工具快捷入口', terminated: '· 已终止归档', compliance: '· 发前必检 · 高危词扫描' };
@@ -5179,6 +5186,21 @@ document.querySelectorAll('.nav-item').forEach((item) => {
     if (page) switchPanel(page);
   });
 });
+
+// Hash routing: listen for browser back/forward
+window.addEventListener('hashchange', function() {
+  const hash = window.location.hash.replace('#', '') || 'dashboard';
+  const validPages = ['dashboard', 'topic', 'writing', 'archive', 'stats', 'radar', 'tools', 'terminated', 'compliance'];
+  if (validPages.includes(hash)) switchPanel(hash);
+});
+
+// Init from hash on page load
+const initHash = window.location.hash.replace('#', '') || 'dashboard';
+const validPages = ['dashboard', 'topic', 'writing', 'archive', 'stats', 'radar', 'tools', 'terminated', 'compliance'];
+if (validPages.includes(initHash) && initHash !== 'dashboard') {
+  // Schedule after init completes
+  setTimeout(() => switchPanel(initHash), 100);
+}
 
 // ===================================================================
 // NOTIFICATION

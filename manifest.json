@@ -1,0 +1,21 @@
+{
+  "name": "上岸自习局 · 创作工作台",
+  "short_name": "上岸自习局",
+  "description": "杨老师创作工作台 - 央国企求职内容创作工具",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#F5F5F7",
+  "theme_color": "#0D1B2A",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
