@@ -4409,12 +4409,15 @@ function showSyncGuide() {
 // RADAR
 // ===================================================================
 function renderRadarPanel() {
-  const rd = DATA.radarData;
-  const total = countRadarItems(rd);
-  document.getElementById('radarDateLabel').textContent = rd.date + ' · 共 ' + total + ' 条信息';
-  renderRadarToolbar(rd);
-  applyRadarFilter();
-  renderRadarSidebar(rd);
+  try {
+    const rd = DATA.radarData;
+    if (!rd) { document.getElementById('panel-radar').innerHTML = '<div class="empty-state" style="padding:48px 20px"><div class="empty-title">暂无雷达数据</div><div class="empty-desc">上传最新的信息雷达文件即可更新</div></div>'; return; }
+    const total = countRadarItems(rd);
+    document.getElementById('radarDateLabel').textContent = rd.date + ' · 共 ' + total + ' 条信息';
+    renderRadarToolbar(rd);
+    applyRadarFilter();
+    renderRadarSidebar(rd);
+  } catch(e) { console.error('信息雷达渲染错误:', e); }
 }
 
 function countRadarItems(rd) {
@@ -4750,25 +4753,29 @@ function copyPrompt(type) {
 // NAVIGATION & PANEL SWITCHING
 // ===================================================================
 function switchPanel(panelId) {
-  const pageMap = { dashboard: '全揽看板', topic: '选题管理', writing: '写作中', archive: '已发布', stats: '数据统计', radar: '信息雷达', tools: '创作工具', terminated: '已终止', compliance: '合规中心' };
-  const subMap = { dashboard: '· 今日数据概览', topic: '· 待写选题清单', writing: '· 写作中文章', archive: '· 已发布归档', stats: '· 选题趋势与IMA', radar: '· 招聘信息雷达', tools: '· 常用工具快捷入口', terminated: '· 已终止归档', compliance: '· 发前必检 · 高危词扫描' };
-  document.getElementById('pageTitleText').textContent = pageMap[panelId] || '全揽看板';
-  document.getElementById('pageSubtitle').textContent = subMap[panelId] || '';
-  document.querySelectorAll('.page-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('panel-' + panelId).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  const navMap = { dashboard: 0, topic: 1, writing: 2, archive: 3, stats: 4, radar: 5, tools: 6, terminated: 7, compliance: 8 };
-  document.querySelectorAll('.nav-item')[navMap[panelId] !== undefined ? navMap[panelId] : 0].classList.add('active');
+  try {
+    const pageMap = { dashboard: '全揽看板', topic: '选题管理', writing: '写作中', archive: '已发布', stats: '数据统计', radar: '信息雷达', tools: '创作工具', terminated: '已终止', compliance: '合规中心' };
+    const subMap = { dashboard: '· 今日数据概览', topic: '· 待写选题清单', writing: '· 写作中文章', archive: '· 已发布归档', stats: '· 选题趋势与IMA', radar: '· 招聘信息雷达', tools: '· 常用工具快捷入口', terminated: '· 已终止归档', compliance: '· 发前必检 · 高危词扫描' };
+    document.getElementById('pageTitleText').textContent = pageMap[panelId] || '全揽看板';
+    document.getElementById('pageSubtitle').textContent = subMap[panelId] || '';
+    document.querySelectorAll('.page-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + panelId).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const navMap = { dashboard: 0, topic: 1, writing: 2, archive: 3, stats: 4, radar: 5, tools: 6, terminated: 7, compliance: 8 };
+    document.querySelectorAll('.nav-item')[navMap[panelId] !== undefined ? navMap[panelId] : 0].classList.add('active');
 
-  // Render sub-panels
-  if (panelId === 'topic') renderTopicListPanel();
-  if (panelId === 'writing') renderWritingListPanel();
-  if (panelId === 'archive') renderArchiveListPanel();
-  if (panelId === 'stats') renderStatsPanel();
-  if (panelId === 'radar') renderRadarPanel();
-  if (panelId === 'tools') renderToolsPanel();
-  if (panelId === 'terminated') showTerminatedList();
-  if (panelId === 'compliance') renderCompliancePanel();
+    // Render sub-panels
+    if (panelId === 'topic') renderTopicListPanel();
+    if (panelId === 'writing') renderWritingListPanel();
+    if (panelId === 'archive') renderArchiveListPanel();
+    if (panelId === 'stats') renderStatsPanel();
+    if (panelId === 'radar') renderRadarPanel();
+    if (panelId === 'tools') renderToolsPanel();
+    if (panelId === 'terminated') showTerminatedList();
+    if (panelId === 'compliance') renderCompliancePanel();
+  } catch (e) {
+    console.error('switchPanel error:', e);
+  }
 }
 
 function renderTopicListPanel() {
